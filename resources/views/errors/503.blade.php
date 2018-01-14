@@ -15,4 +15,9 @@ pass the HttpException $e object to our view:
 "return response()->view($view, ['exception' => $e], $status, $e->getHeaders());"
 So we can use $exception to display the message we pass to 'php artisan down --message "..."'
 --}}
-@section('message', $exception->getMessage())
+
+@if ($message = $exception->getMessage())
+    @section('message', $message)
+@else
+    @section('message', 'Be right back')
+@endif
