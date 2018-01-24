@@ -12,3 +12,4 @@ yarn-error.log
 .env
 composer
 .DS_Store
+_ide_helper.php
