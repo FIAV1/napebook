@@ -11,9 +11,8 @@
         <title>Napebook | Maial che social</title>
     </head>
     <body>
-        @yield('navbar')
+        @include('components.navbar')
 
-        <script src="/js/bootstrap.js"></script>
         <script src="/js/app.js"></script>
     </body>
 </html>

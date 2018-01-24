@@ -1,6 +1,3 @@
-@extends('master')
-
-@section('navbar')
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
     <a class="navbar-brand" href="/home">Napebook</a>
 
@@ -37,4 +34,3 @@
     </div>
     @endauth
 </nav>
-@endsection
