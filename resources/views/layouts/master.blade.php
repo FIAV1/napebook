@@ -20,7 +20,9 @@
 
 <body id="page_top">
 
-    @include('layouts.navbar')
+    @auth
+        @include('layouts.navbar')
+    @endauth
 
     @yield('content')
 

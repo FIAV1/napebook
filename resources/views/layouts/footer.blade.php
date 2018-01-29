@@ -1,6 +1,6 @@
-<footer>
+<footer id="footer">
     <div class="container">
-        <div class="row">
+        <div class="row my-4">
             <div class="col-12">
                 <p class="text-center">Copyright © Napebook {{ date('Y') }}</p>
             </div>
