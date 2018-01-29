@@ -20,7 +20,7 @@ class CreateFriendshipsTable extends Migration
             $table->integer('user_id2')->unsigned();
             $table->foreign('user_id2')->references('id')->on('users');
             $table->unique(['user_id1', 'user_id2']);
-            $table->integer('status')->default(2);
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }
