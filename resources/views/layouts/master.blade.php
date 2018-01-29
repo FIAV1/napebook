@@ -14,6 +14,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('css')
 
 </head>
 
@@ -21,10 +22,13 @@
 
     @include('layouts.navbar')
 
+    @yield('content')
+
     @include('layouts.footer')
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    @yield('scripts')
 
 </body>
 
