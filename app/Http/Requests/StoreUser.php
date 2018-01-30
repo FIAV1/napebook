@@ -1,32 +1,29 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Requests;
 
-use Illuminate\Http\Request;
-use App\User;
+use Illuminate\Foundation\Http\FormRequest;
 
-class RegistrationController extends Controller
+class StoreUser extends FormRequest
 {
     /**
-     * Create a new controller instance.
+     * Determine if the user is authorized to make this request.
      *
-     * @return void
+     * @return bool
      */
-    public function __construct()
+    public function authorize()
     {
-        $this->middleware('guest');
+        return true;
     }
 
     /**
-     * Store a new user into the database.
+     * Get the validation rules that apply to the request.
      *
-     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     * @return array
      */
-    public function store()
+    public function rules()
     {
-
-        //Validazione
-        $rules = [
+        return [
             'name' => 'required|alpha_num|between:1,50',
             'surname' => 'required|alpha_num|between:1,50',
             'registration_email' => 'required|email|unique:users,email',
@@ -34,8 +31,16 @@ class RegistrationController extends Controller
             'birthday' => 'required|date',
             'sex' => 'required|alpha|max:1'
         ];
+    }
 
-        $messages = [
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
             'name.required' => 'Il nome è obbligatorio',
             'name.alpha_num' => 'Il nome deve essere alfanumerico',
             'name.between' => 'Il nome deve avere massimo di 50 caratteri',
@@ -44,33 +49,12 @@ class RegistrationController extends Controller
             'surname.between' => 'Il cognome deve avere massimo di 50 caratteri',
             'registration_email.required' => 'È necessario fornire una email',
             'registration_email.unique' => 'Questa mail risulta già registrata',
+            'registration_email.email' => 'Inserire un indirizzo mail valido',
             'password.required' => 'La password è obbligatoria',
             'password.confirmed' => 'Le password inserite non corrispondono',
             'password.min' => 'Inserire una password di almeno 6 caratteri',
             'birthday' => 'Inserire una data valida',
             'sex' => 'Inserire un sesso valido'
         ];
-        $this->validate(request(), $rules, $messages);
-
-        request()->flashExcept('password');
-
-        //Creo lo user
-        $user = User::create([
-            'name' => request('name'),
-            'surname' => request('surname'),
-            'email' => request('registration_email'),
-            'password' => bcrypt(request('password')),
-            'birthday' => request('birthday'),
-            'sex' => request('sex'),
-            'active' => 0,
-            'email_confirmed' => 0,
-            'email_token' => 'diobubu'
-            //Generare mail token
-        ]);
-        //Mando mail di conferma
-
-        //Redirect '/'
-        return redirect()->route('index');
-
     }
 }

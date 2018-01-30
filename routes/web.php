@@ -13,7 +13,9 @@
 
 Route::get('/', 'IndexController@show')->name('index');
 
-Auth::routes();
+//Auth::routes();
+Route::get('/register', 'Auth\RegistrationController@show');
+Route::post('/register', 'Auth\RegistrationController@store')->name('register');
 
-Route::post('/register', 'RegistrationController@store');
+Route::get('/verify/{token}', 'VerificationController@verify')->name('verify');
 
