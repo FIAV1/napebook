@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\RegistrationEvent;
 use App\User;
 use App\Http\Requests\StoreUser;
 use App\Http\Controllers\Controller;
@@ -29,7 +30,7 @@ class RegistrationController extends Controller
     }
 
     /**
-     * Store a new user into the database.
+     * Store a new user into the database
      *
      * @param StoreUser $request
      * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
@@ -54,8 +55,8 @@ class RegistrationController extends Controller
             'email_token' => str_random(30)
         ]);
 
-        //Send the confirmation email
-        $user->sendVerificationEmail();
+        //Dispatch the RegistrationEvent in order to send the verification email to the user
+        event(new RegistrationEvent($user));
 
         //Flash a session message
         session()->flash('type', 'warning');

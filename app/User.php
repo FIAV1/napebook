@@ -36,13 +36,4 @@ class User extends Authenticatable
         return $this->email_token === null;
     }
 
-    /**
-     * Send to user a verification email
-     *
-     * @return void
-     */
-    public function sendVerificationEmail()
-    {
-        $this->notify(new VerifyEmail($this));
-    }
 }

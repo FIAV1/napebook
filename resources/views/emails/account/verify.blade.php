@@ -1,10 +1,10 @@
 @component('mail::message')
-# Ciao {{ $user->name }}!
+# Ciao {{ $name }}!
 
 Grazie per esserti registrato a Napebook. Clicca sul pulsante qui in basso per confermare il tuo account e cominciare a navigare.
 
 
-@component('mail::button', ['url' => $url])
+@component('mail::button', ['url' => route('verify', ['token' => $token])])
 Accedi
 @endcomponent
 
