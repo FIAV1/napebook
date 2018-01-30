@@ -6,14 +6,18 @@
 
 @section('content')
 <section id="login">
+
+	@if(Session::has('type'))
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<p class="alert alert-{{ Session::get('type') }}">{{ Session::get('message') }}</p>
+				</div>
+			</div>
+		</div>
+	@endif
+
 	<div class="container">
-        <div class="row">
-            <div class="col-12">
-                @if(Session::has('type'))
-                    <p class="alert alert-{{ Session::get('type') }}">{{ Session::get('message') }}</p>
-                @endif
-            </div>
-        </div>
 		<div class="row">
 			<div class="col-12 text-center">
 				<h1>Accedi a Napebook</h1>
