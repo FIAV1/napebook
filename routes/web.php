@@ -11,11 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('auth.index');
-});
+Route::get('/', 'IndexController@show')->name('index');
 
 Auth::routes();
 
-//Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/register', 'RegistrationController@store');
 

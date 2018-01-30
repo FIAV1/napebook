@@ -14,11 +14,11 @@
 
 					{{ csrf_field() }}
 
-					<input class="form-control form-control-lg {{ $errors->any() ? ' is-invalid' : '' }}" type="email" placeholder="Email" aria-label="Email" required>
+					<input class="form-control form-control-lg {{ $errors->has('login') ? ' is-invalid' : '' }}" type="email" placeholder="Email" aria-label="Email" required value="{{ old('email') }}">
 
-					<input class="form-control form-control-lg {{ $errors->any() ? ' is-invalid' : '' }}" type="password" placeholder="Password" aria-label="Password" required>
+					<input class="form-control form-control-lg {{ $errors->has('login') ? ' is-invalid' : '' }}" type="password" placeholder="Password" aria-label="Password" required>
 
-					@if ($errors->any())
+					@if ($errors->has('login'))
 						<div class="invalid-feedback text-center">
 							<strong>Credenziali non corrette</strong>
 						</div>
@@ -66,7 +66,7 @@
 
 									<div class="col-12 col-md-6 mb-sm">
 										<label class="sr-only" for="name">Nome</label>
-										<input type="text" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" aria-describedby="name" placeholder="Nome" required>
+										<input type="text" name="name" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" aria-describedby="name" placeholder="Nome" required value="{{ old('name') }}">
 										@if ($errors->has('name'))
 											<div class="invalid-feedback">
 												<strong>{{ $errors->first('name') }}</strong>
@@ -76,7 +76,7 @@
 
 									<div class="col-12 col-md-6">
 										<label class="sr-only" for="surname">Cognome</label>
-										<input type="text" class="form-control {{ $errors->has('surname') ? ' is-invalid' : '' }}" id="surname" aria-describedby="surname" placeholder="Cognome" required>
+										<input type="text" name="surname" class="form-control {{ $errors->has('surname') ? ' is-invalid' : '' }}" id="surname" aria-describedby="surname" placeholder="Cognome" required value="{{ old('surname') }}">
 										@if ($errors->has('surname'))
 											<div class="invalid-feedback">
 												<strong>{{ $errors->first('surname') }}</strong>
@@ -88,11 +88,11 @@
 
 								<div class="form-group row">
 									<div class="col-12">
-										<label class="sr-only" for="email">Email</label>
-										<input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" id="email" aria-describedby="email" placeholder="Indirizzo email" required>
-										@if ($errors->has('email'))
+										<label class="sr-only" for="registration_email">Email</label>
+										<input type="email" name="registration_email" class="form-control {{ $errors->has('registration_email') ? ' is-invalid' : '' }}" id="registration_email" aria-describedby="registration_email" placeholder="Indirizzo email" required value="{{ old('registration_email') }}">
+										@if ($errors->has('registration_email'))
 											<div class="invalid-feedback">
-												<strong>{{ $errors->first('email') }}</strong>
+												<strong>{{ $errors->first('registration_email') }}</strong>
 											</div>
 										@endif
 									</div>
@@ -101,7 +101,7 @@
 								<div class="form-group row">
 									<div class="col-12 col-md-6 mb-sm">
 										<label class="sr-only" for="password">Password</label>
-										<input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" aria-describedby="password" placeholder="Nuova password" required>
+										<input type="password" name="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" aria-describedby="password" placeholder="Nuova password" required >
 										@if ($errors->has('password'))
 											<div class="invalid-feedback">
 												<strong>{{ $errors->first('password') }}</strong>
@@ -111,19 +111,14 @@
 
 									<div class="col-12 col-md-6">
 										<label class="sr-only" for="">Conferma password</label>
-										<input type="password" class="form-control {{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" id="" aria-describedby="" placeholder="Conferma password" required>
-										@if ($errors->has('password_confirmation'))
-											<div class="invalid-feedback">
-												<strong>{{ $errors->first('password_confirmation') }}</strong>
-											</div>
-										@endif
+										<input type="password" name="password_confirmation" class="form-control {{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" id="" aria-describedby="" placeholder="Conferma password" required>
 									</div>
 								</div>
 
 								<div class="form-group row">
 									<div class="col-12">
 										<label class="sr-only" for="birthday">Data di nascita</label>
-										<input type="date" class="form-control {{ $errors->has('birthday') ? ' is-invalid' : '' }}" id="birthday" aria-describedby="birthday" required>
+										<input type="date" name="birthday" class="form-control {{ $errors->has('birthday') ? ' is-invalid' : '' }}" id="birthday" aria-describedby="birthday" required value="{{ old('birthday') }}">
 										@if ($errors->has('birthday'))
 											<div class="invalid-feedback">
 												<strong>{{ $errors->first('birthday') }}</strong>
@@ -135,11 +130,11 @@
 								<div class="form-group row">
 									<div class="col-12">
 										<div class="form-check form-check-inline">
-											<input class="form-check-input {{ $errors->has('sex') ? ' is-invalid' : '' }}" type="radio" name="sex" id="male" value="M" required>
+											<input class="form-check-input {{ $errors->has('sex') ? ' is-invalid' : '' }}" type="radio" name="sex" id="male" value="M" required @if( old('sex') == 'M') checked @endif>
 											<label class="form-check-label" for="male">Uomo</label>
 										</div>
 										<div class="form-check form-check-inline">
-											<input class="form-check-input {{ $errors->has('sex') ? ' is-invalid' : '' }}" type="radio" name="sex" id="female" value="F" required>
+											<input class="form-check-input {{ $errors->has('sex') ? ' is-invalid' : '' }}" type="radio" name="sex" id="female" value="F" required @if( old('sex') == 'F') checked @endif>
 											<label class="form-check-label" for="female">Donna</label>
 										</div>
 										@if ($errors->has('sex'))
