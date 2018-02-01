@@ -27,7 +27,7 @@ class StoreUser extends FormRequest
             'name' => 'required|alpha_num|between:1,50',
             'surname' => 'required|alpha_num|between:1,50',
             'registration_email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6|confirmed',
+            'registration_password' => 'required|string|min:6|confirmed',
             'birthday' => 'required|date',
             'sex' => 'required|alpha|max:1'
         ];
@@ -50,9 +50,9 @@ class StoreUser extends FormRequest
             'registration_email.required' => 'È necessario fornire una email',
             'registration_email.unique' => 'Questa mail risulta già registrata',
             'registration_email.email' => 'Inserire un indirizzo mail valido',
-            'password.required' => 'La password è obbligatoria',
-            'password.confirmed' => 'Le password inserite non corrispondono',
-            'password.min' => 'Inserire una password di almeno 6 caratteri',
+            'registration_password.required' => 'La password è obbligatoria',
+            'registration_password.confirmed' => 'Le password inserite non corrispondono',
+            'registration_password.min' => 'Inserire una password di almeno 6 caratteri',
             'birthday' => 'Inserire una data valida',
             'sex' => 'Inserire un sesso valido'
         ];

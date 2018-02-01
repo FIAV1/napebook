@@ -22,21 +22,25 @@
 		</div>
 	@endif
 
-	<div class="container">
+		<div class="container">
 		<div class="row">
 			<div class="col-12 text-center">
 				<h1>Accedi a Napebook</h1>
-				<form class="form-signin" method="POST" action="{{-- route('login') --}}">
+				<form class="form-signin" method="POST" action="{{ route('login') }}">
 
 					{{ csrf_field() }}
 
-					<input class="form-control form-control-lg {{ $errors->has('login') ? ' is-invalid' : '' }}" type="email" placeholder="Email" aria-label="Email" required value="{{ old('email') }}">
+					<input class="form-control form-control-lg {{ ($errors->getBag('login')->has('login_email') or $errors->getBag('login')->has('credentials')) ? ' is-invalid' : '' }}" type="email" name="login_email" placeholder="Email" aria-label="login_email" required value="{{ old('login_email') }}">
 
-					<input class="form-control form-control-lg {{ $errors->has('login') ? ' is-invalid' : '' }}" type="password" placeholder="Password" aria-label="Password" required>
+					<input class="form-control form-control-lg {{ ($errors->getBag('login')->has('login_password') or $errors->getBag('login')->has('credentials')) ? ' is-invalid' : '' }}" type="password" name="login_password" placeholder="Password" aria-label="login_password" required>
 
-					@if ($errors->has('login'))
+					@if ($errors->hasBag('login'))
 						<div class="invalid-feedback text-center">
-							<strong>Credenziali non corrette</strong>
+							<strong>
+								@foreach($errors->getBag('login')->all() as $error)
+									{{ $error }}
+								@endforeach
+							</strong>
 						</div>
 					@endif
 
@@ -80,7 +84,7 @@
 
 								<div class="form-group row">
 
-									<div class="col-12 col-md-6 mb-sm">
+									<div class="col-12 col-md-6 mb-md">
 										<label class="sr-only" for="name">Nome</label>
 										<input type="text" name="name" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" aria-describedby="name" placeholder="Nome" required value="{{ old('name') }}">
 										@if ($errors->has('name'))
@@ -115,19 +119,19 @@
 								</div>
 
 								<div class="form-group row">
-									<div class="col-12 col-md-6 mb-sm">
-										<label class="sr-only" for="password">Password</label>
-										<input type="password" name="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" aria-describedby="password" placeholder="Nuova password" required >
-										@if ($errors->has('password'))
+									<div class="col-12 col-md-6 mb-md">
+										<label class="sr-only" for="registration_password">Password</label>
+										<input type="password" name="registration_password" class="form-control {{ $errors->has('registration_password') ? ' is-invalid' : '' }}" id="registration_password" aria-describedby="registration_password" placeholder="Nuova password" required >
+										@if ($errors->has('registration_password'))
 											<div class="invalid-feedback">
-												<strong>{{ $errors->first('password') }}</strong>
+												<strong>{{ $errors->first('registration_password') }}</strong>
 											</div>
 										@endif
 									</div>
 
 									<div class="col-12 col-md-6">
 										<label class="sr-only" for="">Conferma password</label>
-										<input type="password" name="password_confirmation" class="form-control {{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" id="" aria-describedby="" placeholder="Conferma password" required>
+										<input type="password" name="registration_password_confirmation" class="form-control {{ $errors->has('registration_password_confirmation') ? ' is-invalid' : '' }}" id="registration_password_confirmation" aria-describedby="registration_password_confirmation" placeholder="Conferma password" required>
 									</div>
 								</div>
 
@@ -182,7 +186,7 @@
 
 @section('scripts')
 <script type="text/javascript">
-	@if ($errors->any())
+	@if ($errors->has(''))
 		$(document).ready(function(){
 			$("#registrationModal").modal('show');
 		});

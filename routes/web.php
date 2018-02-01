@@ -17,5 +17,11 @@ Route::get('/', 'IndexController@show')->name('index');
 Route::get('/register', 'Auth\RegistrationController@show');
 Route::post('/register', 'Auth\RegistrationController@store')->name('register');
 
+Route::get('/login', 'Auth\SessionController@show');
+Route::post('/login', 'Auth\SessionController@create')->name('login');
+Route::get('/logout', 'Auth\SessionController@destroy');
+
+Route::get('/home', 'HomeController@show')->name('home');
+
 Route::get('/verify', 'VerificationController@verify')->name('verify');
 

@@ -1,0 +1,12 @@
+.modal{
+
+  .close{
+    color: $gray-500;
+    text-shadow: none;
+
+    &:hover{
+      color: lighten($gray-500, 50%);
+      text-shadow: none;
+    }
+  }
+}

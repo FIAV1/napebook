@@ -49,7 +49,7 @@ class RegistrationController extends Controller
             'name' => $request->get('name'),
             'surname' => $request->get('surname'),
             'email' => $request->get('registration_email'),
-            'password' => bcrypt($request->get('password')),
+            'password' => bcrypt($request->get('registration_password')),
             'birthday' => $request->get('birthday'),
             'sex' => $request->get('sex'),
             'email_token' => str_random(30)
