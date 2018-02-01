@@ -11,8 +11,8 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
-					<div class="alert alert-{{ Session::get('type') }} alert-dismissible fade show" role="alert">
-						<p class="text-centered">{{ Session::get('message') }}</p>
+					<div class="alert alert-{{ Session::get('type') }} alert-dismissible fade show text-center" role="alert">
+						{{ Session::get('message') }}
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
