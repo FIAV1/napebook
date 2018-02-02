@@ -13,6 +13,7 @@ class StoreUser extends FormRequest
      * @var string
      */
     protected $errorBag = 'register';
+    
     /**
      * Determine if the user is authorized to make this request.
      *

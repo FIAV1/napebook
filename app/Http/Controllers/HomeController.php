@@ -25,4 +25,14 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    /**
+     * Create a post
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return back();
+    }
 }

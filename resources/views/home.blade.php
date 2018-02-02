@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-7 mx-md-auto">
-                    <form method="POST" action="">
+                    <form method="POST" action="/post">
                         {!! csrf_field() !!}
                         <div class="form-row">
                             <div class="form-group col-12">
