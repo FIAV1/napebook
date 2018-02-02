@@ -55,22 +55,17 @@ body {
     }
 
     input[type="password"] {
-        margin-bottom: 10px;
+        margin-bottom: 15px;
         margin-top: -1px;
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }
 }
 
-#registrationModal{
+#footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: $body-bg;
 
-    .modal-header{
-        background-color: $body-bg;
-    }
-
-    @media (max-width: $md) {
-        .mb-md{
-            margin-bottom: 16px;
-        }
-    }
 }

@@ -1,4 +1,4 @@
-<footer id="footer">
+<footer class="sticky-bottom" id="footer">
     <div class="container">
         <div class="row my-4">
             <div class="col-12">

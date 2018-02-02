@@ -1,0 +1,46 @@
+section#publish{
+    input[type="file"]{
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    label[for="post-image"]{
+        &:hover{
+            cursor: pointer;
+        }
+
+        &:focus{
+            box-shadow: none;
+            cursor: pointer;
+        }
+    }
+}
+
+section#posts{
+    .post-author-image{
+        max-width: 45px;
+        max-height: 45px;
+
+        border:2px solid $gray-100;
+        //box-shadow: 0 0 5px $gray-100;
+    }
+
+    .post-author{
+        a{
+            color: $white;
+
+            &:hover, &:focus{
+                color: $white;
+            }
+        }
+    }
+
+    .post-time{
+        position: relative;
+        right: 5px;
+    }
+}
