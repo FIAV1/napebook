@@ -19,7 +19,7 @@ Route::post('/register', 'Auth\RegistrationController@store')->name('register');
 
 Route::get('/login', 'Auth\SessionController@show');
 Route::post('/login', 'Auth\SessionController@create')->name('login');
-Route::get('/logout', 'Auth\SessionController@destroy');
+Route::get('/logout', 'Auth\SessionController@destroy')->name('logout');
 
 Route::get('/home', 'HomeController@show')->name('home');
 
