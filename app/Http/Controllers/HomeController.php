@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Post;
 
 class HomeController extends Controller
 {
@@ -17,13 +18,15 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the application timeline.
      *
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function index()
     {
-        return view('home');
+        $posts = Post::latest()->get();
+
+        return view('home', compact('posts'));
     }
 
     /**

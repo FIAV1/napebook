@@ -31,7 +31,8 @@ class StorePost extends FormRequest
     public function rules()
     {
         return [
-            'text' => 'required'
+            'post-text' => 'required',
+            'post-image' => 'mimes:jpg,jpeg,png'
         ];
     }
 
@@ -43,7 +44,8 @@ class StorePost extends FormRequest
     public function messages()
     {
         return [
-            'text.required' => 'Il post non può essere vuoto'
+            'post-text.required' => 'Il post non può essere vuoto',
+            'post-image' => 'Formati immagine accettati: jpeg/jpg, png'
         ];
     }
 }

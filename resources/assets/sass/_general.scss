@@ -5,3 +5,16 @@
         font-size: 14px;
     }
 }
+
+.social-button{
+    color: $gray-800;
+
+    &:hover{
+        text-decoration: none;
+        color: $white;
+    }
+    &:focus{
+        text-decoration: none;
+        color: $white;
+    }
+}

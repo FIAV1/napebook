@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User;
+use Storage;
 
 class Post extends Model
 {
-    protected $fillable = ['text', 'image'];
+    protected $fillable = ['text', 'image', 'user_id'];
 
     public function user()
     {

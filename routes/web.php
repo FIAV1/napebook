@@ -15,7 +15,7 @@
 Route::get('/', 'IndexController@show')->name('index');
 
 // Home
-Route::get('/home', 'HomeController@show')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 
 // Registration
 Route::get('/register', 'Auth\RegistrationController@show');
@@ -29,3 +29,6 @@ Route::get('/logout', 'Auth\SessionController@destroy')->name('logout');
 
 // Post
 Route::post('/post', 'PostController@store');
+Route::get('/post', 'HomeController@index');
+Route::get('/post/{id}', 'PostController@show')->name('post');
+Route::patch('/post/{id}/modify', 'PostController@update');

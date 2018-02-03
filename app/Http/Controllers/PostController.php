@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePost;
 use App\Post;
+use Storage;
 
 class PostController extends Controller
 {
@@ -36,15 +37,25 @@ class PostController extends Controller
      */
     public function store(StorePost $request)
     {
+        // Verify if a file is present and uploads it in case
+        $path = null;
 
-        $path = $request->file(request('image'))->store('post-images');
+        if ($request->hasFile('post-image')) {
+            if($request->file('post-image')->isValid()) {
+                $path = Storage::putFile(
+                    'post-images', $request->file('post-image')
+                );
+                $path = '/storage/'.$path;
+            }
+        }
 
-        Post::create(request([
-            'text' => request('title'),
+        // Store a new Post
+        $post = Post::create([
+            'text' => request('post-text'),
             'image' => $path,
             'user_id' => auth()->id()
-        ]));
-
+        ]);
+        
         return redirect()->route('home');
     }
 
@@ -56,7 +67,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::find($id);
+
+        return view('post.show', compact('post'));
     }
 
     /**
