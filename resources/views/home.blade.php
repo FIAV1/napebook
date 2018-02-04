@@ -6,37 +6,38 @@
             <div class="row">
                 <div class="col-12 col-md-7 mx-md-auto">
                     <h4>Crea un post<i class="fas fa-pencil-alt fa-xs ml-3"></i></h4>
-                    <form method="POST" action="/post" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('post-store') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-row">
                             <div class="form-group col-12">
                                 <label class="sr-only" for="post-text">Post textarea</label>
-                                <textarea name="post-text" class="form-control" id="post-text" rows="5" placeholder="Cosa stai pensando?" required></textarea>
-                            </div>
+                                <textarea name="post-text" class="form-control {{ $errors->getBag('post')->has('post-text') ? ' is-invalid' : '' }}" id="post-text" rows="5" placeholder="Cosa stai pensando?" required></textarea>
 
-                            @if ($errors->getBag('post')->has('post-text'))
+                                @if ($errors->getBag('post')->has('post-text'))
                                 <div class="invalid-feedback">
                                     <strong>{{ $errors->getBag('post')->first('post-text') }}</strong>
                                 </div>
-                            @endif
+                                @endif
+                            </div>
                         </div>
                         
 
-                        <div class="form-row">
+                        <div id="imageForm" class="form-row">
                             <div class="form-group col-auto">
                                 <label class="btn btn-light" for="post-image">Carica un'immagine<i class="fas fa-image ml-2"></i></label>
-                                <input type="file" name="post-image" class="form-control-file" id="post-image" accept=".jpg, .jpeg, .png">
+                                <input type="file" name="post-image" class="form-control {{ $errors->getBag('post')->has('post-image') ? ' is-invalid' : '' }}" id="post-image" accept=".jpg, .jpeg, .png">
+
+                                @if ($errors->getBag('post')->has('post-image'))
+                                <div class="invalid-feedback">
+                                    <strong>{{ $errors->getBag('post')->first('post-image') }}</strong>
+                                </div>
+                                @endif
                             </div>
                             <div class="col-auto ml-auto">
                                 <button type="submit" class="btn btn-primary">Pubblica<i class="fas fa-paper-plane ml-2"></i></button>
                             </div>
-
-                            @if ($errors->getBag('post')->has('post-image'))
-                                <div class="invalid-feedback">
-                                    <strong>{{ $errors->getBag('post')->first('post-image') }}</strong>
-                                </div>
-                            @endif
                         </div>
+                        
                     </form>
                 </div>
             </div>
@@ -47,4 +48,48 @@
         @include('post.post')
     @endforeach
 
+    @include('layouts.error')
+
+@endsection
+
+@section('scripts')
+<script>
+    (function($) {
+        "use strict"; // use strict make writing js more secure
+        
+        $("input[type='file']").change( function(){
+            // Variables representing dom objects
+            var $fileUpload = $("input[type='file']");
+            var $errorModal = $("#errorModal");
+            var $errorField = $("#errorField");
+            var $imageForm = $("#imageForm");
+            var $fileName = $("#fileName");
+            
+            // Validating file input, must be only one item
+            if (parseInt($fileUpload.get(0).files.length)>1){
+                $errorField.text("Puoi caricare al massimo un'immagine per post");
+                $errorModal.modal('show');
+            }
+
+            // Removing, if it exist, old/wrong uploaded file
+            if($fileName.length){
+                $fileName.remove();
+            }
+
+            // Checking if there's at least one file ready to be uploaded
+            if(parseInt($fileUpload.get(0).files.length)===1){
+                $imageForm.append('<div id="fileName" class="col-12"><p><strong class="mr-2">Immagine:</strong>'+$fileUpload.val().split('\\').pop()+'<a href="#" id="imgClear"><i class="fas fa-trash-alt ml-2"></i></a></p></div>');
+
+                // Attaching a button to remove the unwanted file
+                $("#imgClear").click(function() {
+                    var $fileUpload = $("input[type='file']");
+                    $fileName = $("#fileName");
+
+                    $fileUpload.val('');
+                    $fileName.remove();
+                });
+            }
+        });
+    })(jQuery);
+</script>
 @endsection

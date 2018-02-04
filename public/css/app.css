@@ -10058,7 +10058,8 @@ a.text-dark:focus {
   text-shadow: none;
 }
 
-section#publish input[type="file"] {
+section#publish input[type="file"],
+section#posts input[type="file"] {
   width: 0.1px;
   height: 0.1px;
   opacity: 0;
@@ -10067,11 +10068,13 @@ section#publish input[type="file"] {
   z-index: -1;
 }
 
-section#publish label[for="post-image"]:hover {
+section#publish label[for="post-image"]:hover,
+section#posts label[for="post-image"]:hover {
   cursor: pointer;
 }
 
-section#publish label[for="post-image"]:focus {
+section#publish label[for="post-image"]:focus,
+section#posts label[for="post-image"]:focus {
   -webkit-box-shadow: none;
           box-shadow: none;
   cursor: pointer;

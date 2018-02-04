@@ -1,0 +1,28 @@
+section#posts{
+    .post-author-image{
+        max-width: 45px;
+        max-height: 45px;
+
+        border:2px solid $gray-100;
+        //box-shadow: 0 0 5px $gray-100;
+    }
+
+    .post-author{
+        a{
+            color: $white;
+
+            &:hover, &:focus{
+                color: $white;
+            }
+        }
+    }
+
+    .post-time{
+        position: relative;
+        right: 5px;
+    }
+
+    .text-black{
+        color: $black;
+    }
+}

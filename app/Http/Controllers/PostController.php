@@ -37,7 +37,7 @@ class PostController extends Controller
      */
     public function store(StorePost $request)
     {
-        // Verify if a file is present and uploads it in case
+        // Verify if a file is present and upload it in case
         $path = null;
 
         if ($request->hasFile('post-image')) {
@@ -45,7 +45,7 @@ class PostController extends Controller
                 $path = Storage::putFile(
                     'post-images', $request->file('post-image')
                 );
-                $path = '/storage/'.$path;
+                $path = 'storage/'.$path;
             }
         }
 
@@ -67,7 +67,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
 
         return view('post.show', compact('post'));
     }
@@ -80,7 +80,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        return view('post.edit', compact('post'));
     }
 
     /**
@@ -90,9 +92,35 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StorePost $request, $id)
     {
-        //
+        // Find the post by the id
+        $post = Post::findOrFail($id);
+
+        // Verify if a file is present and upload it in case
+        $path = $post->image;
+
+        if ($request->hasFile('post-image')) {
+            if($request->file('post-image')->isValid()) {
+                $path = Storage::putFile(
+                    'post-images', $request->file('post-image')
+                );
+                $path = 'storage/'.$path;
+            }
+        }
+
+        // Removing file from filesystem and from db
+        if (request('remove')) {
+            Storage::delete($path);
+            $path = null;
+        }
+
+        // Update the Post
+        $post->text = request('post-text');
+        $post->image = $path;
+        $post->save();
+        
+        return view('post.show', compact('post'));
     }
 
     /**
@@ -103,6 +131,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->delete();
+        
+        return redirect('home');
     }
 }

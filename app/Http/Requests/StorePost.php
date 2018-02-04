@@ -32,7 +32,7 @@ class StorePost extends FormRequest
     {
         return [
             'post-text' => 'required',
-            'post-image' => 'mimes:jpg,jpeg,png'
+            'post-image' => 'image|max:2000'
         ];
     }
 
@@ -45,7 +45,8 @@ class StorePost extends FormRequest
     {
         return [
             'post-text.required' => 'Il post non può essere vuoto',
-            'post-image' => 'Formati immagine accettati: jpeg/jpg, png'
+            'post-image.image' => 'L\'immagine deve essere di un formato valido',
+            'post-image.max' => 'L\'immagine può essere massimo di 2MB'
         ];
     }
 }
