@@ -34,15 +34,15 @@
                         </div>
                         <div class="card-body">
                             @if ($post->image)
-                                <img id="postImage" class="card-img-top mb-4" src="/{{ $post->image }}" alt="post image">
+                                <img id="postOldImage" class="card-img-top mb-4" src="/{{ $post->image }}" alt="post image">
                             @endif
 
-                            <form id="updateForm" method="POST" action="{{ route('post-update', $post->id) }}">
+                            <form id="updateForm" method="POST" action="{{ route('post-update', $post->id) }}" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 {{ method_field('PUT') }}
 
-                                <div class="form-group row">
-                                    <div class="col-12">
+                                <div class="form-row">
+                                    <div class="form-group col-12">
                                         <label class="sr-only" for="post-text">Post text</label>
                                         <textarea class="form-control {{ $errors->getBag('post')->has('post-text') ? ' is-invalid' : '' }}" id="post-text" name="post-text" rows="5">{{ $post->text }}</textarea>
                                         @if ($errors->getBag('post')->has('post-text'))
@@ -52,11 +52,13 @@
                                         @endif
                                     </div>
                                 </div>
-                                <input id="imgRemoveInput" type="hidden" name="remove" value="">
+
+                                <input id="ImageRemoveInput" type="hidden" name="remove" value="">
+
                                 <div id="imageForm" class="form-row">
-                                    <div class="form-group col-6">
-                                        <label class="btn btn-light" for="post-image">Carica un'immagine<i class="fas fa-image ml-2"></i></label>
-                                        <input type="file" name="post-image" class="form-control {{ $errors->getBag('post')->has('post-image') ? ' is-invalid' : '' }}" id="post-image" accept=".jpg, .jpeg, .png">
+                                    <div class="form-group col-auto">
+                                        <label class="btn btn-dark" for="postImage">Carica un'immagine<i class="fas fa-image ml-2"></i></label>
+                                        <input type="file" id="postImage" name="post-image" class="form-control {{ $errors->getBag('post')->has('post-image') ? ' is-invalid' : '' }}" accept=".jpg, .jpeg, .png">
 
                                         @if ($errors->getBag('post')->has('post-image'))
                                         <div class="invalid-feedback">
@@ -66,7 +68,7 @@
                                     </div>
                                     @if($post->image)
                                     <div class="form-group col-6">
-                                        <button type="button" id="imgRemoveButton" class="btn btn-danger">Rimuovi l'immagine</button>
+                                        <button type="button" id="imageRemoveButton" class="btn btn-danger">Rimuovi l'immagine</button>
                                     </div>
                                     @endif
                                 </div>
@@ -82,24 +84,27 @@
 @section('scripts')
 <script>
     (function($) {
-        "use strict"; // use strict make writing js more secure
+        "use strict"; // use strict make writing js more safe
 
+        // Update form variables
         var $updateButton = $('#updateButton');
         var $updateForm = $('#updateForm');
-        var $imgRemoveButton = $('#imgRemoveButton');
-        var $imgRemoveInput = $('#imgRemoveInput');
-        var $postImage = $('#postImage')
+
+        // Image form variables
+        var $imageRemoveButton = $('#imageRemoveButton');
+        var $ImageRemoveInput = $('#ImageRemoveInput');
+        var $postOldImage = $('#postOldImage')
         
         // Attaching a button to remove the unwanted file
-        $imgRemoveButton.click(function() {
-            if($imgRemoveInput.val() === ""){
-                $imgRemoveInput.val("remove");
-                $postImage.hide();
-                $imgRemoveButton.text("Mantieni l'immagine");
+        $imageRemoveButton.click(function() {
+            if($ImageRemoveInput.val() === ""){
+                $ImageRemoveInput.val("remove");
+                $postOldImage.hide();
+                $imageRemoveButton.text("Mantieni l'immagine");
             } else {
-                $imgRemoveInput.val("");
-                $postImage.show();
-                $imgRemoveButton.text("Rimuovi l'immagine");
+                $ImageRemoveInput.val("");
+                $postOldImage.show();
+                $imageRemoveButton.text("Rimuovi l'immagine");
             }
         });
 
@@ -107,39 +112,6 @@
             $updateForm.submit();
         });
         
-        $("input[type='file']").change( function(){
-            // Variables representing dom objects
-            var $fileUpload = $("input[type='file']");
-            var $errorModal = $("#errorModal");
-            var $errorField = $("#errorField");
-            var $imageForm = $("#imageForm");
-            var $fileName = $("#fileName");
-            
-            // Validating file input, must be only one item
-            if (parseInt($fileUpload.get(0).files.length)>1){
-                $errorField.text("Puoi caricare al massimo un'immagine per post");
-                $errorModal.modal('show');
-            }
-
-            // Removing, if it exist, old/wrong uploaded file
-            if($fileName.length){
-                $fileName.remove();
-            }
-
-            // Checking if there's at least one file ready to be uploaded
-            if(parseInt($fileUpload.get(0).files.length)===1){
-                $imageForm.append('<div id="fileName" class="col-12"><p><strong class="mr-2">Immagine:</strong>'+$fileUpload.val().split('\\').pop()+'<a href="#" id="imgClear"><i class="fas fa-trash-alt ml-2"></i></a></p></div>');
-
-                // Attaching a button to remove the unwanted file
-                $("#imgClear").click(function() {
-                    var $fileUpload = $("input[type='file']");
-                    $fileName = $("#fileName");
-
-                    $fileUpload.val('');
-                    $fileName.remove();
-                });
-            }
-        });
     })(jQuery);
 </script>
 @endsection

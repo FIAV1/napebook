@@ -24,8 +24,8 @@
 
                         <div id="imageForm" class="form-row">
                             <div class="form-group col-auto">
-                                <label class="btn btn-light" for="post-image">Carica un'immagine<i class="fas fa-image ml-2"></i></label>
-                                <input type="file" name="post-image" class="form-control {{ $errors->getBag('post')->has('post-image') ? ' is-invalid' : '' }}" id="post-image" accept=".jpg, .jpeg, .png">
+                                <label class="btn btn-light" for="postImage">Carica un'immagine<i class="fas fa-image ml-2"></i></label>
+                                <input type="file" id="postImage" name="post-image" class="form-control {{ $errors->getBag('post')->has('post-image') ? ' is-invalid' : '' }}" accept=".jpg, .jpeg, .png">
 
                                 @if ($errors->getBag('post')->has('post-image'))
                                 <div class="invalid-feedback">
@@ -50,46 +50,4 @@
 
     @include('layouts.error')
 
-@endsection
-
-@section('scripts')
-<script>
-    (function($) {
-        "use strict"; // use strict make writing js more secure
-        
-        $("input[type='file']").change( function(){
-            // Variables representing dom objects
-            var $fileUpload = $("input[type='file']");
-            var $errorModal = $("#errorModal");
-            var $errorField = $("#errorField");
-            var $imageForm = $("#imageForm");
-            var $fileName = $("#fileName");
-            
-            // Validating file input, must be only one item
-            if (parseInt($fileUpload.get(0).files.length)>1){
-                $errorField.text("Puoi caricare al massimo un'immagine per post");
-                $errorModal.modal('show');
-            }
-
-            // Removing, if it exist, old/wrong uploaded file
-            if($fileName.length){
-                $fileName.remove();
-            }
-
-            // Checking if there's at least one file ready to be uploaded
-            if(parseInt($fileUpload.get(0).files.length)===1){
-                $imageForm.append('<div id="fileName" class="col-12"><p><strong class="mr-2">Immagine:</strong>'+$fileUpload.val().split('\\').pop()+'<a href="#" id="imgClear"><i class="fas fa-trash-alt ml-2"></i></a></p></div>');
-
-                // Attaching a button to remove the unwanted file
-                $("#imgClear").click(function() {
-                    var $fileUpload = $("input[type='file']");
-                    $fileName = $("#fileName");
-
-                    $fileUpload.val('');
-                    $fileName.remove();
-                });
-            }
-        });
-    })(jQuery);
-</script>
 @endsection
