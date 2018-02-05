@@ -21,21 +21,12 @@ class HomeController extends Controller
      * Show the application timeline.
      *
      * @return \Illuminate\Http\Response
+     * @TODO logica per stampa post utenti amici
      */
     public function index()
     {
         $posts = Post::latest()->get();
 
         return view('home', compact('posts'));
-    }
-
-    /**
-     * Create a post
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return back();
     }
 }

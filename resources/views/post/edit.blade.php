@@ -3,21 +3,15 @@
 @section('content')
     <section id="posts">
         <div class="container">
-            @if($post->user->id == auth()->id())
             <div class="row">
                 <div class="col-12 col-md-7 mx-md-auto mt-3">
                     <div class="d-flex justify-content-start">
                         <button id="updateButton" class="btn btn-secondary mr-3">Salva <i class="far fa-save ml-2"></i></button>
 
-                        <form method="GET" action="{{ route('post-show', $post->id) }}">
-                            {{ csrf_field() }}
-                            
-                            <button type="submit" class="btn btn-danger mr-3">Annulla <i class="fas fa-times ml-2"></i></button>
-                        </form>
+                        <a href="{{ url()->previous() }}" class="btn btn-danger mr-3">Annulla <i class="fas fa-times ml-2"></i></a>
                     </div>
                 </div>
             </div>
-            @endif
             <div class="row">
                 <div class="col-12 col-md-7 mx-md-auto mt-3">
 
@@ -34,8 +28,8 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            @if ($post->image)
-                                <img id="postOldImage" class="card-img-top mb-4" src="/{{ $post->image }}" alt="post image">
+                            @if ($post->image_url)
+                                <img id="postOldImage" class="card-img-top mb-4" src="{{ '/storage/'.$post->image_url }}" alt="post image">
                             @endif
 
                             <form id="updateForm" method="POST" action="{{ route('post-update', $post->id) }}" enctype="multipart/form-data">
@@ -67,7 +61,7 @@
                                         </div>
                                         @endif
                                     </div>
-                                    @if($post->image)
+                                    @if($post->image_url)
                                     <div class="form-group col-6">
                                         <button type="button" id="imageRemoveButton" class="btn btn-danger">Rimuovi l'immagine</button>
                                     </div>

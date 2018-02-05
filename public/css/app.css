@@ -10081,11 +10081,6 @@ section#posts .post-author a:focus {
   color: #fff;
 }
 
-section#posts .post-time {
-  position: relative;
-  right: 5px;
-}
-
 section#posts .text-black {
   color: #000;
 }
@@ -10102,5 +10097,14 @@ section#posts .social-button:hover {
 section#posts .social-button:focus {
   text-decoration: none;
   color: #fff;
+}
+
+section#posts #dropdownMenuLink {
+  color: #fff;
+}
+
+section#posts #dropdownMenuLink:hover,
+section#posts #dropdownMenuLink:focus {
+  color: #b3b2b2;
 }
 

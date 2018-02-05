@@ -1,7 +1,8 @@
 (function($) {
     "use strict"; // use strict make writing js more safe
     
-    var $postImage = $("#postImage")
+    var $postImage = $("#postImage");
+    var $deletePostButton = $("#deletePostButton");
 
     $postImage.change( function(){
         // Error variables
@@ -40,5 +41,9 @@
                 $ImageRemoveInput.val('');
             }
         }
+    });
+
+    $deletePostButton.click(function(){
+        $('#deletePostModal').modal('show')
     });
 })(jQuery);

@@ -9,25 +9,6 @@ use Storage;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -41,47 +22,36 @@ class PostController extends Controller
         $path = null;
 
         if ($request->hasFile('post-image')) {
-            if($request->file('post-image')->isValid()) {
-                $path = Storage::putFile(
-                    'post-images', $request->file('post-image')
-                );
-                $path = 'storage/'.$path;
+            if ($request->file('post-image')->isValid()) {
+                $path = Storage::putFile('post-images', $request->file('post-image'));
             }
         }
 
         // Store a new Post
-        $post = Post::create([
-            'text' => request('post-text'),
-            'image' => $path,
-            'user_id' => auth()->id()
-        ]);
+        auth()->user()->addPost(request('post-text'), $path);
         
-        return redirect()->route('home');
+        return back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        $post = Post::findOrFail($id);
-
         return view('post.show', compact('post'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        $post = Post::findOrFail($id);
-
         return view('post.edit', compact('post'));
     }
 
@@ -89,16 +59,13 @@ class PostController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(StorePost $request, $id)
+    public function update(StorePost $request, Post $post)
     {
-        // Find the post by the id
-        $post = Post::findOrFail($id);
-
         // Verify if a file is present and upload it in case
-        $path = $post->image;
+        $path = $post->image_url;
 
         if ($request->hasFile('post-image')) {
             if($request->file('post-image')->isValid()) {
@@ -106,19 +73,19 @@ class PostController extends Controller
                 $path = Storage::putFile(
                     'post-images', $request->file('post-image')
                 );
-                $path = 'storage/'.$path;
+            }
+        }
+        else{
+            // Removing file from filesystem and from db
+            if ($request->filled('remove')) {
+                Storage::delete($path);
+                $path = null;
             }
         }
 
-        // Removing file from filesystem and from db
-        if (request('remove')) {
-            Storage::delete($path);
-            $path = null;
-        }
-
         // Update the Post
-        $post->text = request('post-text');
-        $post->image = $path;
+        $post->text = $request->input('post-text');
+        $post->image_url = $path;
         $post->save();
         
         return view('post.show', compact('post'));
@@ -127,12 +94,12 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        $post = Post::findOrFail($id);
+        Storage::delete($post->image_url);
         $post->delete();
         
         return redirect('home');

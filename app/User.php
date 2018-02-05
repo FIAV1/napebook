@@ -37,8 +37,28 @@ class User extends Authenticatable
         return $this->email_token === null;
     }
 
-    public function post(){
+    /**
+     * A User can have many Posts
+     *
+     * @return Post
+     */
+    public function posts()
+    {
         return $this->hasMany(Post::class);
+    }
+
+    /**
+     * Store a new Post created by the authenticated user
+     *
+     * @param Text $text
+     * @param String $path
+     */
+    public function addPost($text, $imageUrl)
+    {
+        $this->posts()->create([
+            'text' => $text,
+            'image_url' => $imageUrl
+        ]);
     }
 
 }

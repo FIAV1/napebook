@@ -46,12 +46,12 @@ class RegistrationController extends Controller
          * @var User $user
          */
         $user = User::create([
-            'name' => $request->get('name'),
-            'surname' => $request->get('surname'),
-            'email' => $request->get('registration_email'),
-            'password' => bcrypt($request->get('registration_password')),
-            'birthday' => $request->get('birthday'),
-            'sex' => $request->get('sex'),
+            'name' => $request->input('name'),
+            'surname' => $request->input('surname'),
+            'email' => $request->input('registration_email'),
+            'password' => bcrypt($request->input('registration_password')),
+            'birthday' => $request->input('birthday'),
+            'sex' => $request->input('sex'),
             'email_token' => str_random(30)
         ]);
 

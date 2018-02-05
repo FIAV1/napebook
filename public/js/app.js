@@ -38230,6 +38230,7 @@ module.exports = function spread(callback) {
     "use strict"; // use strict make writing js more safe
 
     var $postImage = $("#postImage");
+    var $deletePostButton = $("#deletePostButton");
 
     $postImage.change(function () {
         // Error variables
@@ -38268,6 +38269,10 @@ module.exports = function spread(callback) {
                 $ImageRemoveInput.val('');
             }
         }
+    });
+
+    $deletePostButton.click(function () {
+        $('#deletePostModal').modal('show');
     });
 })(jQuery);
 

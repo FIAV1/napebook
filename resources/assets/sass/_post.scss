@@ -17,11 +17,6 @@ section#posts{
         }
     }
 
-    .post-time{
-        position: relative;
-        right: 5px;
-    }
-
     .text-black{
         color: $black;
     }
@@ -36,6 +31,14 @@ section#posts{
         &:focus{
             text-decoration: none;
             color: $white;
+        }
+    }
+
+    #dropdownMenuLink{
+        color: $white;
+
+        &:hover, &:focus{
+            color: darken($white, 30%);
         }
     }
 }
