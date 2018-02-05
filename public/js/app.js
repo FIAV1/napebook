@@ -11144,8 +11144,8 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
-__webpack_require__(37);
-module.exports = __webpack_require__(38);
+__webpack_require__(38);
+module.exports = __webpack_require__(39);
 
 
 /***/ }),
@@ -11162,7 +11162,7 @@ module.exports = __webpack_require__(38);
 __webpack_require__(11);
 
 // Utils to show and manage images ready to be uploaded
-__webpack_require__(44);
+__webpack_require__(37);
 
 /***/ }),
 /* 11 */
@@ -38226,23 +38226,6 @@ module.exports = function spread(callback) {
 /* 37 */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */
-/***/ (function(module, exports) {
-
 (function ($) {
     "use strict"; // use strict make writing js more safe
 
@@ -38287,6 +38270,18 @@ module.exports = function spread(callback) {
         }
     });
 })(jQuery);
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

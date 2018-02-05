@@ -44,9 +44,13 @@
         </div>
     </section>
 
+    <section id="posts">
+        <div class="container">
     @foreach ($posts as $post)
         @include('post.post')
     @endforeach
+        </div>
+    </section>
 
     @include('layouts.error')
 

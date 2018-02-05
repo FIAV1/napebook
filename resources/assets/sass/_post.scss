@@ -25,4 +25,17 @@ section#posts{
     .text-black{
         color: $black;
     }
+
+    .social-button{
+        color: $gray-900;
+    
+        &:hover{
+            text-decoration: none;
+            color: $white;
+        }
+        &:focus{
+            text-decoration: none;
+            color: $white;
+        }
+    }
 }

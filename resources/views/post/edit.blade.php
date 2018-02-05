@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-12 col-md-7 mx-md-auto mt-3">
                     <div class="d-flex justify-content-start">
-                        <button id="updateButton" class="btn btn-info mr-3">Salva <i class="far fa-save ml-2"></i></button>
+                        <button id="updateButton" class="btn btn-secondary mr-3">Salva <i class="far fa-save ml-2"></i></button>
 
                         <form method="GET" action="{{ route('post-show', $post->id) }}">
                             {{ csrf_field() }}
@@ -20,7 +20,8 @@
             @endif
             <div class="row">
                 <div class="col-12 col-md-7 mx-md-auto mt-3">
-                    <div class="card text-white bg-light mb-2">
+
+                    <div id="post" class="card text-white bg-light mb-2">
                         <div class="card-header">
                             <div class="d-flex justify-content-between">
                                 @if(auth()->user()->image)
@@ -75,6 +76,7 @@
                             </form>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

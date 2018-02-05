@@ -10030,20 +10030,6 @@ a.text-dark:focus {
   font-size: 14px;
 }
 
-.social-button {
-  color: #343a40;
-}
-
-.social-button:hover {
-  text-decoration: none;
-  color: #fff;
-}
-
-.social-button:focus {
-  text-decoration: none;
-  color: #fff;
-}
-
 .modal #registrationModal .modal-header {
   background-color: #2B3E50;
 }
@@ -10102,5 +10088,19 @@ section#posts .post-time {
 
 section#posts .text-black {
   color: #000;
+}
+
+section#posts .social-button {
+  color: #212529;
+}
+
+section#posts .social-button:hover {
+  text-decoration: none;
+  color: #fff;
+}
+
+section#posts .social-button:focus {
+  text-decoration: none;
+  color: #fff;
 }
 
