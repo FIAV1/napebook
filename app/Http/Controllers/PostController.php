@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests\StorePost;
 use App\Post;
 use Storage;
+use App\Http\Requests\StorePost;
 
 class PostController extends Controller
 {
@@ -13,7 +12,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StorePost  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StorePost $request)
@@ -58,7 +57,7 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StorePost  $request
      * @param  Post  $post
      * @return \Illuminate\Http\Response
      */
@@ -95,6 +94,7 @@ class PostController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  Post  $post
+     * @throws \Exception
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post)

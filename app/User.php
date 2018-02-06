@@ -2,10 +2,11 @@
 
 namespace App;
 
-use App\Notifications\VerifyEmail;
+use App\Post;
+use App\Mail\ResetPasswordEmail;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Post;
 
 class User extends Authenticatable
 {
@@ -28,11 +29,22 @@ class User extends Authenticatable
     ];
 
     /**
+     * Send the password reset notification.
+     *
+     * @param  string $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        \Mail::to($this->email)->send(new ResetPasswordEmail($this, $token));
+    }
+
+    /**
      * Check if the user is verified
      *
      * @return bool
      */
-    public function verified()
+    public function isVerified()
     {
         return $this->email_token === null;
     }
@@ -40,7 +52,7 @@ class User extends Authenticatable
     /**
      * A User can have many Posts
      *
-     * @return Post
+     * @return HasMany
      */
     public function posts()
     {
@@ -50,8 +62,8 @@ class User extends Authenticatable
     /**
      * Store a new Post created by the authenticated user
      *
-     * @param Text $text
-     * @param String $path
+     * @param string $text
+     * @param string $imageUrl
      */
     public function addPost($text, $imageUrl)
     {

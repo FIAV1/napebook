@@ -19,15 +19,16 @@ class VerificationController extends Controller
     /**
      * Handle an account confirmation request
      *
+     * @param string $token
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function verify()
+    public function verify($token)
     {
         /**
          * @TODO
          * try catch with token error page
          */
-        User::where('email_token', request()->get('token'))->firstOrFail()
+        User::where('email_token', $token)->firstOrFail()
             ->update(['email_token' => null, 'active' => true]);
 
         session()->flash('type', 'success');

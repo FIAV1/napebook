@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Events\RegistrationEvent;
 use App\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use App\Events\RegistrationEvent;
 use App\Http\Requests\StoreUser;
 use App\Http\Controllers\Controller;
 
@@ -49,10 +51,10 @@ class RegistrationController extends Controller
             'name' => $request->input('name'),
             'surname' => $request->input('surname'),
             'email' => $request->input('registration_email'),
-            'password' => bcrypt($request->input('registration_password')),
+            'password' => Hash::make($request->input('registration_password')),
             'birthday' => $request->input('birthday'),
             'sex' => $request->input('sex'),
-            'email_token' => str_random(30)
+            'email_token' => Str::random(30)
         ]);
 
         //Dispatch the RegistrationEvent in order to send the verification email to the user

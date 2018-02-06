@@ -8,11 +8,13 @@
 
 # Ciao {{ $name }}!
 
-Grazie per esserti registrato a Napebook. Clicca sul pulsante qui in basso per confermare il tuo account e cominciare a navigare.
+Ti mandiamo questa email perchè abbiamo ricevuto una richiesta di reset della password per il tuo account.
 
-@component('mail::button', ['url' => route('verify', $token)])
-    Accedi
+@component('mail::button', ['url' => route('password.reset', $token)])
+    Reset Password
 @endcomponent
+
+Se non riconosci questa azione puoi ignorare questa email.
 
 A presto,<br>
 Il team di {{ config('app.name') }}

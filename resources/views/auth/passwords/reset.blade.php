@@ -1,19 +1,22 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-md-center mt-5">
         <div class="col-md-8">
+
+            <h1 class="text-center my-3">Napebook</h1>
+
             <div class="card">
                 <div class="card-header">Reset Password</div>
                 <div class="card-body">
-                    <form role="form" method="POST" action="{{ url('/password/reset') }}">
+                    <form role="form" method="POST" action="{{ route('password.request') }}">
                         {!! csrf_field() !!}
 
                         <input type="hidden" name="token" value="{{ $token }}">
 
                         <div class="form-group row">
-                            <label class="col-lg-4 col-form-label text-lg-right">E-Mail Address</label>
+                            <label class="col-lg-4 col-form-label text-lg-right">Indirizzo email</label>
 
                             <div class="col-lg-6">
                                 <input
@@ -48,7 +51,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-lg-4 col-form-label text-lg-right">Confirm Password</label>
+                            <label class="col-lg-4 col-form-label text-lg-right">Conferma Password</label>
                             <div class="col-lg-6">
                                 <input
                                         type="password"

@@ -21,8 +21,8 @@
 			</div>
 		</div>
 	@endif
-
-		<div class="container">
+	
+	<div class="container">
 		<div class="row">
 			<div class="col-12 text-center">
 				<h1>Accedi a Napebook</h1>
@@ -59,6 +59,13 @@
 			<div class="col-12 text-center">
 				<span class="mr-3">Non hai un account?</span>
 				<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#registrationModal">Registrati</button>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-12 text-center">
+				<span class="mr-3">
+					<a class="text-light" href="{{ route('password.request') }}">Password dimenticata?</a>
+				</span>
 			</div>
 		</div>
 	</div>

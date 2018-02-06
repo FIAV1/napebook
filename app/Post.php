@@ -2,8 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use App\User;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Post extends Model
 {
@@ -12,7 +13,7 @@ class Post extends Model
     /**
      * A Post must have one User
      *
-     * @return User
+     * @return BelongsTo
      */
     public function user()
     {

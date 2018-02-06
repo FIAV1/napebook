@@ -2,27 +2,38 @@
 
 namespace App\Mail;
 
-use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class VerifyRegistrationEmail extends Mailable
+class ResetPasswordEmail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
+    /**
+     * The user who requested the reset
+     *
+     * @var \App\User $user
+     */
     public $user;
+
+    /**
+     * The token validation for the request to change the password
+     *
+     * @var string $token
+     */
+    public $token;
 
     /**
      * Create a new message instance.
      *
-     * @param User $user
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct($user, $token)
     {
         $this->user = $user;
+        $this->token = $token;
     }
 
     /**
@@ -32,10 +43,10 @@ class VerifyRegistrationEmail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Napebook | Conferma il tuo account')
-            ->markdown('emails.account.verify', [
+        return $this->subject('Napebook | Password Reset')
+            ->markdown('emails.account.reset_password',[
                 'name' => $this->user->name,
-                'token' => $this->user->email_token
+                'token' => $this->token
             ]);
     }
 }
