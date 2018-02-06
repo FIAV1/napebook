@@ -66,7 +66,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registration" aria-hidden="true">
-  	<div class="modal-dialog modal-lg" role="document">
+  	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     	<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="registration">Registrati</h5>
@@ -78,13 +78,13 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-12 col-md-10 offset-md-1">
-							<form class="form-horizontal" method="POST" action="{{ route('register') }}">
+							<form method="POST" action="{{ route('register') }}">
 
 								{!! csrf_field() !!}
 
 								<div class="form-group row">
 
-									<div class="col-12 col-md-6 mb-md">
+									<div class="col-12 col-md-6 mb-3 mb-md-0">
 										<label class="sr-only" for="name">Nome</label>
 										<input type="text" name="name" class="form-control {{ $errors->getBag('register')->has('name') ? ' is-invalid' : '' }}" id="name" aria-describedby="name" placeholder="Nome" required value="{{ old('name') }}">
 										@if ($errors->getBag('register')->has('name'))
@@ -119,7 +119,7 @@
 								</div>
 
 								<div class="form-group row">
-									<div class="col-12 col-md-6 mb-md">
+									<div class="col-12 col-md-6 mb-3 mb-md-0">
 										<label class="sr-only" for="registration_password">Password</label>
 										<input type="password" name="registration_password" class="form-control {{ $errors->getBag('register')->has('registration_password') ? ' is-invalid' : '' }}" id="registration_password" aria-describedby="registration_password" placeholder="Nuova password" required >
 										@if ($errors->getBag('register')->has('registration_password'))

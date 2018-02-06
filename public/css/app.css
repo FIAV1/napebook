@@ -1,33 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,400i,700,700i);/* Body
-//$body-bg: #f5f5f5;
-$body-bg: #A8DADC;
-
-// Borders
-$laravel-border-color: darken($body-bg, 10%);
-$list-group-border-color: $laravel-border-color;
-
-$card-border-color: $laravel-border-color;
-
-// Brands
-//$primary: #3097D1;
-//$info: #8eb4cb;
-//$success: #2ab27b;
-//$warning: #cbb956;
-//$danger: #bf5329;
-
-// Typography
-$font-family-sans-serif: "Ubuntu", sans-serif;
-$font-size-base: .875rem; // 14px
-$line-height-base: 1.6;
-$text-color: #636b6f;
-
-// Inputs
-$input-border-color: lighten($text-color, 40%);
-$input-placeholder-color: lighten($text-color, 30%);
-
-*/
-
-/*!
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,400i,700,700i);/*!
  * Bootstrap v4.0.0 (https://getbootstrap.com)
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
@@ -4274,6 +4245,14 @@ tbody.collapse.show {
 
 .custom-file-input:lang(en) ~ .custom-file-label::after {
   content: "Browse";
+}
+
+.custom-file-input:lang(es) ~ .custom-file-label::after {
+  content: "Elegir";
+}
+
+.custom-file-input:lang(it) ~ .custom-file-label::after {
+  content: "Scegli";
 }
 
 .custom-file-label {
@@ -10023,12 +10002,36 @@ a.text-dark:focus {
   }
 }
 
+#mainNav .input-group-text {
+  color: #495057;
+  background-color: #fff;
+}
+
+#mainNav .vertical-divider {
+  border-left: 1px solid #ced4da;
+  height: 25px;
+}
+
+#mainNav .dropdown-menu {
+  width: 200px;
+  left: -175px;
+  margin-top: 8px;
+}
+
+#mainNav .dropdown-menu .dropdown-item {
+  text-align: center;
+}
+
 .invalid-feedback {
   margin: 10px 0;
 }
 
 .invalid-feedback strong {
   font-size: 14px;
+}
+
+.modal #registrationModal .modal-header {
+  background-color: #2B3E50;
 }
 
 .modal .close {
@@ -10041,10 +10044,67 @@ a.text-dark:focus {
   text-shadow: none;
 }
 
-#footer {
+section#publish input[type="file"],
+section#posts input[type="file"] {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
   position: absolute;
-  bottom: 0;
-  width: 100%;
-  background-color: #2B3E50;
+  z-index: -1;
+}
+
+section#publish label[for="post-image"]:hover,
+section#posts label[for="post-image"]:hover {
+  cursor: pointer;
+}
+
+section#publish label[for="post-image"]:focus,
+section#posts label[for="post-image"]:focus {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  cursor: pointer;
+}
+
+section#posts .post-author-image {
+  max-width: 45px;
+  max-height: 45px;
+  border: 2px solid #EBEBEB;
+}
+
+section#posts .post-author a {
+  color: #fff;
+}
+
+section#posts .post-author a:hover,
+section#posts .post-author a:focus {
+  color: #fff;
+}
+
+section#posts .text-black {
+  color: #000;
+}
+
+section#posts .social-button {
+  color: #212529;
+}
+
+section#posts .social-button:hover {
+  text-decoration: none;
+  color: #fff;
+}
+
+section#posts .social-button:focus {
+  text-decoration: none;
+  color: #fff;
+}
+
+section#posts #dropdownMenuLink {
+  color: #fff;
+}
+
+section#posts #dropdownMenuLink:hover,
+section#posts #dropdownMenuLink:focus {
+  color: #b3b2b2;
 }
 

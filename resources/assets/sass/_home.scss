@@ -1,0 +1,21 @@
+section#publish, section#posts{
+    input[type="file"]{
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    label[for="post-image"]{
+        &:hover{
+            cursor: pointer;
+        }
+
+        &:focus{
+            box-shadow: none;
+            cursor: pointer;
+        }
+    }
+}

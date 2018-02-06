@@ -40,23 +40,23 @@ class SessionController extends Controller
      * @param AuthenticateUser $request
      * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
-    public function create(AuthenticateUser $request)
+    public function store(AuthenticateUser $request)
     {
 
         //If user is active
         if (Auth::attempt([
-            'email' => $request->get('login_email'),
-            'password' => $request->get('login_password'),
+            'email' => $request->input('login_email'),
+            'password' => $request->input('login_password'),
             'active' => true,
             ],
-            $request->get('remember'))
+            $request->input('remember'))
         ) {
 
             // The user is active, not suspended, and exists.
             return redirect()->intended(route('home'));
         }
 
-        if ($user = User::where('email', $request->get('login_email'))
+        if ($user = User::where('email', $request->input('login_email'))
             ->where('active', false)
             ->first()
         ) {

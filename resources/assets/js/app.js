@@ -6,3 +6,6 @@
  */
 
 require('./bootstrap');
+
+// Utils to show and manage images ready to be uploaded
+require('./image');

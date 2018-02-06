@@ -1,0 +1,21 @@
+#mainNav{
+    .input-group-text{
+        color: $gray-700;
+        background-color: $white;
+    }
+
+    .vertical-divider{
+        border-left: 1px solid $gray-400;
+        height: 25px;
+    }
+
+    .dropdown-menu{
+        width: 200px;
+        left: -175px;
+        margin-top: 8px;
+
+        .dropdown-item{
+            text-align: center;
+        }
+    }
+}
