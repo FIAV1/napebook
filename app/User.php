@@ -76,7 +76,6 @@ class User extends Authenticatable
         ]);
     }
 
-
     /**
      * Find all friends of the user
      *
@@ -108,7 +107,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Find all pendent friend request to the user
+     * Find all pendent friend request send to the user
      *
      *
      * @return User
