@@ -33,10 +33,6 @@ Route::get('/', 'IndexController@show')->name('index');
 // Home
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Profile
-Route::get('/profile/{user}/edit', 'ProfileController@edit');
-Route::get('/profile/{user}', 'ProfileController@show')->name('profile-show');
-
 //Like API
 Route::get('/post/likes', 'PostController@postLikes');
 Route::post('/like', 'PostController@like')->name('post-like');
@@ -61,6 +57,7 @@ Route::delete('/friendship', 'FriendshipController@destroy')->name('friendship-d
 
 // Profile
 Route::get('/profile/{user}', 'ProfileController@show')->name('profile-show');
+Route::get('/profile/{user}/edit', 'ProfileController@edit');
 Route::put('/profile/{user}/info', 'ProfileController@update')->name('profile-update')->middleware('can:editProfile,user');
 Route::put('/profile/{user}/image', 'ProfileController@updateImage')->name('profile-image-update')->middleware('can:editProfile,user');
 Route::get('/profile/{user}/friends', 'FriendController@index')->name('friends-index');

@@ -37,8 +37,8 @@
             <!-- Post image -->
             @if ($post->image_url)
                 <img class="card-img-top mb-4" src="{{ '/storage/'.$post->image_url }}" alt="post image">
-        @endif
-        <!-- Post text -->
+            @endif
+            <!-- Post text -->
             <p class="card-text text-justify">{{ $post->text }}</p>
 
             <div id="like-amount-{{ $post->id }}">

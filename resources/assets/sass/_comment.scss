@@ -1,0 +1,44 @@
+section#comments{
+  .comment-author-image{
+    max-width: 45px;
+    max-height: 45px;
+
+    border:2px solid $gray-100;
+    //box-shadow: 0 0 5px $gray-100;
+  }
+
+  .comment-author{
+    a{
+      color: $white;
+
+      &:hover, &:focus{
+        color: $white;
+      }
+    }
+  }
+
+  .text-black{
+    color: $black;
+  }
+
+  .social-button{
+    color: $gray-900;
+
+    &:hover{
+      text-decoration: none;
+      color: $white;
+    }
+    &:focus{
+      text-decoration: none;
+      color: $white;
+    }
+  }
+
+  #dropdownMenuLink{
+    color: $white;
+
+    &:hover, &:focus{
+      color: darken($white, 30%);
+    }
+  }
+}

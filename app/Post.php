@@ -5,6 +5,7 @@ namespace App;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Comment;
 
 class Post extends Model
 {
@@ -22,8 +23,8 @@ class Post extends Model
 
     /**
      * A Post can have many Likes
-     *  
-     * @return HasMany
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function likes()
     {
@@ -50,18 +51,43 @@ class Post extends Model
     {
         return (new static)->newQuery()
             ->join('users', 'posts.user_id', '=', 'users.id')
-            ->join('friendships', function ($join) { $join
-                ->on('users.id', '=', 'friendships.user_id')
-                ->orOn('users.id', '=', 'friendships.friend_id');
+            ->join('friendships', function ($join) {
+                $join
+                    ->on('users.id', '=', 'friendships.user_id')
+                    ->orOn('users.id', '=', 'friendships.friend_id');
             })
-            ->where(function($query) {
+            ->where(function ($query) {
                 $query->where('friendships.user_id', '=', auth()->user()->id)
                     ->orWhere('friendships.friend_id', '=', auth()->user()->id);
             })
             ->where('friendships.active', 1)
             ->select('posts.*')
             ->distinct()
-            ->orderBy('posts.created_at','desc')
+            ->orderBy('posts.created_at', 'desc')
             ->get();
+    }
+
+    /**
+     * A Post can have many Comments
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * A Comment can be add to a Post
+     *
+     * @param $text
+     *
+     * @return Comment
+     */
+    public function addComment($text)
+    {
+        return $this->comments()->create([
+            'text' => $text
+        ]);
     }
 }

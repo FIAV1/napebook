@@ -64,6 +64,16 @@ class User extends Authenticatable
     }
 
     /**
+     * A User can have many Comments
+     *
+     * @return Post
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
      * Store a new Post created by the authenticated user
      *
      * @param string $text
