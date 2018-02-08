@@ -6,6 +6,8 @@ use App\Post;
 use App\Mail\ResetPasswordEmail;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -27,6 +29,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token'
     ];
+
 
     /**
      * Send the password reset notification.
@@ -73,4 +76,106 @@ class User extends Authenticatable
         ]);
     }
 
+    /**
+     * Find all friends of the user,
+     *
+     * @param string $query
+     * @return User
+     */
+    public function scopeFriends($query)
+    {
+        return $query
+                ->join('friendships', function ($join) { $join
+                        ->on('users.id', '=', 'friendships.user_id')
+                        ->orOn('users.id', '=', 'friendships.friend_id');
+                })
+                ->where(function($query) { $query
+                        ->where('friendships.user_id', '=', $this->id)
+                        ->orWhere('friendships.friend_id', '=', $this->id);
+                })
+                ->where('users.id', '<>', $this->id );
+    }
+
+
+    /**
+     * Find all accepted friends of the user
+     *
+     *
+     * @return User
+     */
+    public function acceptedFriends()
+    {
+        return $this->friends()->where('active', 1)->get();
+    }
+
+
+    /**
+     * Find all pendent friends of the user
+     *
+     *
+     * @return User
+     */
+    public function pendingFriend()
+    {
+        return $this->friends()->where('active', 0)->get();
+    }
+
+
+    /**
+     * Search between the user's friends
+     *
+     * @param String $keyword
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function searchFriend($keyword)
+    {
+       return $this->friends()->where(function($query) use ($keyword){
+                                $query->where('users.name', 'LIKE', '%'.$keyword.'%')
+                                    ->orWhere('users.surname', 'LIKE', '%'.$keyword.'%');
+                             })
+                            ->get();
+    }
+
+
+    /**
+     * Store a friendship request
+     *
+     *
+     * @param Integer $friend_id
+     */
+    public function addFriendship($friend_id)
+    {
+        DB::table('friendships')->insert([
+                'user_id' => $this->id,
+                'friend_id' => $friend_id
+            ]);
+    }
+
+    /**
+     * Update a friendship request
+     *
+     *
+     * @param Integer $friendship_id
+     */
+    public function acceptFriendship($friendship_id)
+    {
+        DB::table('friendships')
+            ->where('id' , $friendship_id)
+            ->update([
+            'active' => true
+        ]);
+    }
+
+    /**
+     * Delete a friendship or a friendship request (accepted or not)
+     *
+     *
+     * @param Integer $friendship_id
+     */
+    public function deleteFriendship($friendship_id)
+    {
+        DB::table('friendships')
+            ->where('id', $friendship_id)
+            ->delete();
+    }
 }

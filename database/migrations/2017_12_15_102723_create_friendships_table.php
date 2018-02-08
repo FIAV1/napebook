@@ -15,12 +15,12 @@ class CreateFriendshipsTable extends Migration
     {
         Schema::create('friendships', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id1')->unsigned();
-            $table->foreign('user_id1')->references('id')->on('users');
-            $table->integer('user_id2')->unsigned();
-            $table->foreign('user_id2')->references('id')->on('users');
-            $table->unique(['user_id1', 'user_id2']);
-            $table->boolean('status')->default(false);
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('friend_id')->unsigned();
+            $table->foreign('friend_id')->references('id')->on('users');
+            $table->unique(['user_id', 'friend_id']);
+            $table->boolean('active')->default(false);
             $table->timestamps();
         });
     }

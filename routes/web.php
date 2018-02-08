@@ -44,4 +44,16 @@ Route::post('/post', 'PostController@store')->name('post-store');
 Route::get('/post/{post}/edit', 'PostController@edit')->name('post-edit')->middleware('can:edit,post');
 Route::put('/post/{post}', 'PostController@update')->name('post-update')->middleware('can:update,post');
 
+
 Route::delete('/post/{post}', 'PostController@destroy')->name('post-destroy')->middleware('can:destroy,post');
+
+//Friendship
+Route::get('/friends', 'FriendshipController@show')->name('friendship');
+Route::get('/friends/pendent', 'FriendshipController@pendent');
+Route::get('/friend/search/{query}', 'FriendshipController@search');
+Route::post('/friends/{id}', 'FriendshipController@store');
+Route::patch('/friend/{id}', 'FriendshipController@update');
+Route::delete('/friends/{id}/cancel', 'FriendshipController@destroy');
+Route::delete('/friends/{id}/remove', 'FriendshipController@destroy');
+Route::delete('/friends/{id}/deny', 'FriendshipController@destroy');
+
