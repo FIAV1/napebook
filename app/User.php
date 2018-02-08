@@ -76,26 +76,25 @@ class User extends Authenticatable
         ]);
     }
 
+
     /**
-     * Find all friends of the user,
+     * Find all friends of the user
      *
      * @param string $query
      * @return User
      */
     public function scopeFriends($query)
     {
-        return $query
-                ->join('friendships', function ($join) { $join
-                        ->on('users.id', '=', 'friendships.user_id')
-                        ->orOn('users.id', '=', 'friendships.friend_id');
-                })
-                ->where(function($query) { $query
-                        ->where('friendships.user_id', '=', $this->id)
-                        ->orWhere('friendships.friend_id', '=', $this->id);
-                })
-                ->where('users.id', '<>', $this->id );
+        return $query->join('friendships', function ($join) { $join
+            ->on('users.id', '=', 'friendships.user_id')
+            ->orOn('users.id', '=', 'friendships.friend_id');
+        })
+            ->where(function($query) { $query
+                ->where('friendships.user_id', '=', $this->id)
+                ->orWhere('friendships.friend_id', '=', $this->id);
+            })
+            ->where('users.id', '<>', $this->id );
     }
-
 
     /**
      * Find all accepted friends of the user
@@ -105,21 +104,36 @@ class User extends Authenticatable
      */
     public function acceptedFriends()
     {
-        return $this->friends()->where('active', 1)->get();
+        return $this->friends()->where('friendships.active', 1)->get();
     }
 
-
     /**
-     * Find all pendent friends of the user
+     * Find all pendent friend request to the user
      *
      *
      * @return User
      */
-    public function pendingFriend()
+    public function pendingFriends()
     {
-        return $this->friends()->where('active', 0)->get();
+        return $this->join('friendships', 'users.id', '=', 'friendships.user_id')
+            ->where('friendships.friend_id', $this->id)
+            ->where('friendships.active', 0)
+            ->get();
     }
 
+    /**
+     * Find all friend request send by the user
+     *
+     *
+     * @return User
+     */
+    public function requestFriends()
+    {
+        return $this->join('friendships', 'users.id', '=', 'friendships.friend_id')
+            ->where('friendships.user_id', $this->id)
+            ->where('friendships.active', 0)
+            ->get();
+    }
 
     /**
      * Search between the user's friends
@@ -129,13 +143,14 @@ class User extends Authenticatable
      */
     public function searchFriend($keyword)
     {
-       return $this->friends()->where(function($query) use ($keyword){
-                                $query->where('users.name', 'LIKE', '%'.$keyword.'%')
-                                    ->orWhere('users.surname', 'LIKE', '%'.$keyword.'%');
-                             })
-                            ->get();
+       return $this->friends()
+           ->where(function($query) use ($keyword){
+               $query->where('users.name', 'LIKE', '%'.$keyword.'%')
+                   ->orWhere('users.surname', 'LIKE', '%'.$keyword.'%');
+           })
+           ->where('friendships.active', 1)
+           ->get();
     }
-
 
     /**
      * Store a friendship request

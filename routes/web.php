@@ -50,10 +50,10 @@ Route::delete('/post/{post}', 'PostController@destroy')->name('post-destroy')->m
 //Friendship
 Route::get('/friends', 'FriendshipController@show')->name('friendship');
 Route::get('/friends/pendent', 'FriendshipController@pendent');
+Route::get('/friends/request', 'FriendshipController@request');
 Route::get('/friend/search/{query}', 'FriendshipController@search');
 Route::post('/friends/{id}', 'FriendshipController@store');
 Route::patch('/friend/{id}', 'FriendshipController@update');
 Route::delete('/friends/{id}/cancel', 'FriendshipController@destroy');
 Route::delete('/friends/{id}/remove', 'FriendshipController@destroy');
 Route::delete('/friends/{id}/deny', 'FriendshipController@destroy');
-
