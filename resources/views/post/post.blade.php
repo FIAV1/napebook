@@ -18,7 +18,7 @@
                         <div class="dropdown show">
                             <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item text-right" href="{{ route('post-edit', $post) }}">Modifica <i class="fa fa-edit ml-2"></i></a>
+                                <a class="dropdown-item text-right" href="#" data-toggle="modal" data-target="#editModal">Modifica <i class="fa fa-edit ml-2"></i></a>
                                 <a class="dropdown-item text-right" href="#" id="deletePostButton">Elimina <i class="fas fa-trash ml-2"></i></a>
                             </div>
                         </div>
@@ -35,12 +35,10 @@
                 </p>
             </div>
             <div class="card-footer">
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-around">
                     <span><a class="social-button" href="#"><i class="fas fa-thumbs-up mr-2"></i>Mi piace</a></span>
                     <span><a class="social-button" href="#"><i class="fas fa-comment mr-2"></i>Commenta</a></span>
-                    @if ($state == 'compress')
-                    <span><a class="social-button" href="{{ url()->previous() }}"><i class="fas fa-compress mr-2"></i>Comprimi</a></span>
-                    @elseif ($state == 'expand')
+                    @if ($state == 'expand')
                     <span><a class="social-button" href="{{ route('post-show', $post->id) }}"><i class="fas fa-expand mr-2"></i>Espandi</a></span>
                     @endif
                 </div>
@@ -81,3 +79,5 @@
         </div>
     </div>
 </div>
+
+@include('post.edit')

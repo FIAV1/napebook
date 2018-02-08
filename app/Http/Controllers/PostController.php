@@ -45,17 +45,6 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Post $post)
-    {
-        return view('post.edit', compact('post'));
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  StorePost  $request
@@ -88,7 +77,7 @@ class PostController extends Controller
         $post->image_url = $path;
         $post->save();
         
-        return view('post.show', compact('post'));
+        return back();
     }
 
     /**

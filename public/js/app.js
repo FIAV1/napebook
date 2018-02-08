@@ -11051,7 +11051,9 @@ module.exports = __webpack_require__(39);
 __webpack_require__(11);
 
 // Utils to show and manage images ready to be uploaded
-__webpack_require__(37);
+__webpack_require__(46);
+
+__webpack_require__(45);
 
 /***/ }),
 /* 11 */
@@ -38112,24 +38114,64 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 37 */
+/* 37 */,
+/* 38 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 40 */,
+/* 41 */,
+/* 42 */,
+/* 43 */,
+/* 44 */,
+/* 45 */
 /***/ (function(module, exports) {
 
 (function ($) {
     "use strict"; // use strict make writing js more safe
 
-    var $postImage = $("#postImage");
     var $deletePostButton = $("#deletePostButton");
 
-    $postImage.change(function () {
+    $deletePostButton.click(function () {
+        $('#deletePostModal').modal('show');
+    });
+})(jQuery);
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports) {
+
+(function ($) {
+    "use strict"; // use strict make writing js more safe
+
+    var $postImage = $("#postImage, #postImageEdit");
+
+    $postImage.change(function (event) {
+        // Section variable
+        if (event.target.id === 'postImage') {
+            var $section = $('#publish');
+            $postImage = $("#postImage");
+        } else {
+            var $section = $('#editModal');
+            $postImage = $("#postImageEdit");
+        }
+
         // Error variables
         var $errorModal = $("#errorModal");
         var $errorField = $("#errorField");
 
         // Form Variables
-        var $imageForm = $("#imageForm");
-        var $postImageName = $("#postImageName");
-        var $ImageRemoveInput = $('#ImageRemoveInput');
+        var $imageForm = $section.find("#imageForm");
+        var $postImageName = $section.find("#postImageName");
+        var $ImageRemoveInput = $section.find('#ImageRemoveInput');
 
         // Validating input file, must be only one item
         if (parseInt($postImage.get(0).files.length) > 1) {
@@ -38148,7 +38190,7 @@ module.exports = function spread(callback) {
 
             // Attaching a button to remove the unwanted file
             $("#imageClearButton").click(function () {
-                $postImageName = $("#postImageName");
+                $postImageName = $section.find("#postImageName");
 
                 $postImage.val('');
                 $postImageName.remove();
@@ -38159,23 +38201,7 @@ module.exports = function spread(callback) {
             }
         }
     });
-
-    $deletePostButton.click(function () {
-        $('#deletePostModal').modal('show');
-    });
 })(jQuery);
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 39 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
