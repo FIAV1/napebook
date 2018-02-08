@@ -1,11 +1,15 @@
 @extends('layouts.master')
 
+@section('css')
+	<link href="{{ asset('css/index.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 <div class="container">
-    <div class="row justify-content-md-center mt-5">
+    <div class="row justify-content-center">
         <div class="col-md-8">
 
-            <h1 class="text-center my-3">Napebook</h1>
+            <h1 class="text-center mb-3">Napebook</h1>
 
             <div class="card">
                 <div class="card-header">Reset Password</div>
@@ -16,10 +20,11 @@
                         <input type="hidden" name="token" value="{{ $token }}">
 
                         <div class="form-group row">
-                            <label class="col-lg-4 col-form-label text-lg-right">Indirizzo email</label>
+                            <label for="mail-reset" class="col-lg-4 col-form-label text-lg-right">Indirizzo email</label>
 
                             <div class="col-lg-6">
                                 <input
+                                        id="email-reset"
                                         type="email"
                                         class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
                                         name="email"
@@ -34,10 +39,11 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-lg-4 col-form-label text-lg-right">Password</label>
+                            <label for="password" class="col-lg-4 col-form-label text-lg-right">Password</label>
 
                             <div class="col-lg-6">
                                 <input
+                                        for="password"
                                         type="password"
                                         class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
                                         name="password"
@@ -51,9 +57,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-lg-4 col-form-label text-lg-right">Conferma Password</label>
+                            <label for="password-confirmation" class="col-lg-4 col-form-label text-lg-right">Conferma Password</label>
                             <div class="col-lg-6">
                                 <input
+                                        id="password-confirmation"
                                         type="password"
                                         class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}"
                                         name="password_confirmation">
