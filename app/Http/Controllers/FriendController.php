@@ -15,7 +15,7 @@ class FriendController extends Controller
     {
         $friends = auth()->user()->acceptedFriends();
 
-        return view('friendship.show',$friends);
+        return view('friendship.show', $friends);
     }
 
     /**
@@ -28,7 +28,7 @@ class FriendController extends Controller
     {
         $friends = auth()->user()->pendingFriends();
 
-        return view('friendship.show',$friends);
+        return view('friendship.show', $friends);
     }
 
     /**
@@ -41,7 +41,7 @@ class FriendController extends Controller
     {
         $friends = auth()->user()->requestFriends();
 
-        return view('friendship.show',$friends);
+        return view('friendship.show', $friends);
     }
 
     /**
@@ -54,6 +54,6 @@ class FriendController extends Controller
     {
         $friends = auth()->user()->pendingFriend(request('keyword'));
 
-        return view('friendship.search',$friends);
+        return view('friendship.search', $friends);
     }
 }

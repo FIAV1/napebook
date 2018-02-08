@@ -6,14 +6,13 @@ namespace App\Http\Controllers;
 class FriendshipController extends Controller
 {
     /**
-     * Store a unaccepted friendship .
+     * Store a unaccepted friendship
      *
      *
      * @return \Illuminate\Http\Response
      */
     public function store()
     {
-
         //Store a new friendship request
         auth()->user()->addFriendship(request('friend_id'));
 
@@ -21,7 +20,7 @@ class FriendshipController extends Controller
     }
 
     /**
-     * Update and accept a friendship .
+     * Update and accept a friendship
      *
      *
      * @return \Illuminate\Http\Response
@@ -36,7 +35,7 @@ class FriendshipController extends Controller
     }
 
     /**
-     *Delete a friendship or a friendship request (accepted or not)     *
+     *Delete a friendship or a friendship request (accepted or not)
      *
      *
      * @return \Illuminate\Http\Response

@@ -30,7 +30,6 @@ class User extends Authenticatable
         'password', 'remember_token'
     ];
 
-
     /**
      * Send the password reset notification.
      *
@@ -121,7 +120,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Find all friend request send by the user
+     * Find all friend request sent by the user
      *
      *
      * @return User
@@ -174,10 +173,10 @@ class User extends Authenticatable
     public function acceptFriendship($friendship_id)
     {
         DB::table('friendships')
-            ->where('id' , $friendship_id)
+            ->where('id', $friendship_id)
             ->update([
             'active' => true
-        ]);
+            ]);
     }
 
     /**
