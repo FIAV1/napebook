@@ -191,4 +191,9 @@ class User extends Authenticatable
             ->where('id', $friendship_id)
             ->delete();
     }
+    
+    public function getPosts(){
+        return $this->posts()->latest()->get();
+    }
+
 }

@@ -10108,3 +10108,7 @@ section#posts #dropdownMenuLink:focus {
   color: #b3b2b2;
 }
 
+section#profile .card-small {
+  max-width: 400px;
+}
+

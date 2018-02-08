@@ -53,3 +53,6 @@ Route::get('/friends/search/{query}', 'FriendshipController@search');
 Route::post('/friendship', 'FriendshipController@store');
 Route::patch('/friendship', 'FriendshipController@update');
 Route::delete('/friendship', 'FriendshipController@destroy');
+
+// Profile
+Route::get('/profile/{user}', 'ProfileController@show')->name('profile-show');

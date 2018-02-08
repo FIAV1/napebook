@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-12 col-md-7 mx-md-auto mt-3">
 
-                    <div id="post" class="card text-white bg-light mb-2">
+                    <div id="post" class="card text-white bg-dark mb-2">
                         <div class="card-header">
                             <div class="d-flex justify-content-between">
                                 @if(auth()->user()->image)
@@ -52,7 +52,7 @@
 
                                 <div id="imageForm" class="form-row">
                                     <div class="form-group col-auto">
-                                        <label class="btn btn-dark" for="postImage">Carica un'immagine<i class="fas fa-image ml-2"></i></label>
+                                        <label class="btn btn-light" for="postImage">Carica un'immagine<i class="fas fa-image ml-2"></i></label>
                                         <input type="file" id="postImage" name="post-image" class="form-control {{ $errors->getBag('post')->has('post-image') ? ' is-invalid' : '' }}" accept=".jpg, .jpeg, .png">
 
                                         @if ($errors->getBag('post')->has('post-image'))
