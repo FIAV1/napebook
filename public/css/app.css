@@ -10022,12 +10022,39 @@ a.text-dark:focus {
   text-align: center;
 }
 
+input[type="file"] {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+input[type="file"]:focus + label {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+input[type="file"] + label {
+  cursor: pointer;
+}
+
+input[type="file"] + label * {
+  pointer-events: none;
+}
+
 .invalid-feedback {
   margin: 10px 0;
 }
 
 .invalid-feedback strong {
   font-size: 14px;
+}
+
+hr {
+  border-top: 2px solid #4E5D6C;
+  border-radius: 20px;
 }
 
 .modal #registrationModal .modal-header {
@@ -10042,28 +10069,6 @@ a.text-dark:focus {
 .modal .close:hover {
   color: white;
   text-shadow: none;
-}
-
-section#publish input[type="file"],
-section#posts input[type="file"] {
-  width: 0.1px;
-  height: 0.1px;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: -1;
-}
-
-section#publish label[for="post-image"]:hover,
-section#posts label[for="post-image"]:hover {
-  cursor: pointer;
-}
-
-section#publish label[for="post-image"]:focus,
-section#posts label[for="post-image"]:focus {
-  -webkit-box-shadow: none;
-          box-shadow: none;
-  cursor: pointer;
 }
 
 section#posts .post-author-image {
@@ -10109,6 +10114,11 @@ section#posts #dropdownMenuLink:focus {
 }
 
 section#profile .card-small {
-  max-width: 400px;
+  max-width: 600px;
+}
+
+section#profile .btn-nav {
+  width: 150px;
+  text-align: center;
 }
 
