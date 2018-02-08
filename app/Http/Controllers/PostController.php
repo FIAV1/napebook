@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\FriendshipRequest;
 use App\Post;
 use Storage;
 use App\Http\Requests\StorePost;
@@ -27,7 +28,7 @@ class PostController extends Controller
         }
 
         // Store a new Post
-        auth()->user()->addPost(request('post-text'), $path);
+        auth()->user()->addPost($request->input('post-text'), $path);
         
         return back();
     }

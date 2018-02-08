@@ -9,3 +9,8 @@ require('./bootstrap');
 
 // Utils to show and manage images ready to be uploaded
 require('./image');
+
+Echo.private(`App.User.` + userId)
+    .notification((notification) => {
+        console.log(notification.type)
+    });
