@@ -115,8 +115,8 @@ class User extends Authenticatable
      */
     public function pendingFriends()
     {
-        return $this->join('friendships', 'users.id', '=', 'friendships.user_id')
-            ->where('friendships.friend_id', $this->id)
+        return $this->join('friendships', 'users.id', '=', 'friendships.friend_id')
+            ->where('friendships.user_id', $this->id)
             ->where('friendships.active', 0)
             ->get();
     }
@@ -129,8 +129,8 @@ class User extends Authenticatable
      */
     public function requestFriends()
     {
-        return $this->join('friendships', 'users.id', '=', 'friendships.friend_id')
-            ->where('friendships.user_id', $this->id)
+        return $this->join('friendships', 'users.id', '=', 'friendships.user_id')
+            ->where('friendships.friend_id', $this->id)
             ->where('friendships.active', 0)
             ->get();
     }
