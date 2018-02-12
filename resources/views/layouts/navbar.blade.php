@@ -27,12 +27,26 @@
                     <a href="{{ route('home') }}" class="nav-link pl-md-0">Home</a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="#" class="nav-link"><i class="fas fa-user-plus"></i></a>
+                <li class="dropdown">
+                    <a class="nav-link" id="friendship-notifications" role="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <i class="fas fa-users"></i>
+                        <span id="friendship-notifications-count" class="badge badge-light">0</span>
+                    </a>
+
+                    <ul class="dropdown-menu" id="friendship-notificationsMenu" aria-labelledby="friendship-notifications">
+                        <li class="dropdown-header">Niente da mostrare</li>
+                    </ul>
                 </li>
 
-                <li class="nav-item">
-                    <a href="#" class="nav-link"><i class="fas fa-globe"></i></a>
+                <li class="dropdown">
+                    <a class="nav-link" id="general-notifications" role="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <i class="fas fa-bell"></i>
+                        <span id="general-notifications-count" class="badge badge-light">0</span>
+                    </a>
+
+                    <ul class="dropdown-menu" id="general-notificationsMenu" aria-labelledby="general-notifications">
+                        <li class="dropdown-header">Niente da mostrare</li>
+                    </ul>
                 </li>
 
                 <li class="nav-item dropdown">

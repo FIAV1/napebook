@@ -17,6 +17,19 @@
     
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <script>
+        window.Laravel = <?php echo json_encode([
+            'csrfToken' => csrf_token(),
+        ]); ?>
+    </script>
+
+    @auth
+        <script>
+            window.Laravel.userId = <?php echo auth()->user()->id; ?>
+        </script>
+    @endauth
+
     @yield('css')
 
 </head>

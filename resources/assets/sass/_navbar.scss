@@ -10,12 +10,12 @@
     }
 
     .dropdown-menu{
-        width: 200px;
         left: -175px;
         margin-top: 8px;
 
         .dropdown-item{
             text-align: center;
+            white-space: normal;
         }
     }
 }

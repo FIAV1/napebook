@@ -32,6 +32,7 @@ Route::get('/', 'IndexController@show')->name('index');
 
 // Home
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::get('/api/posts/home/load', 'HomeController@loadHomePosts');
 Route::get('/api/posts/profile/load', 'ProfileController@loadProfilePosts');
 
@@ -64,6 +65,7 @@ Route::put('/profile/{user}/info', 'ProfileController@update')->name('profile-up
 Route::put('/profile/{user}/image', 'ProfileController@updateImage')->name('profile-image-update')->middleware('can:editProfile,user');
 Route::get('/profile/{user}/friends', 'FriendController@index')->name('friends-index');
 
+<<<<<<< HEAD
 //Users Search
 Route::get('/search', 'SearchController@index')->name('users-search');
 
@@ -72,3 +74,10 @@ Route::post('/comments', 'CommentController@store');
 Route::get('/comments/{comment}/edit', 'CommentController@edit');
 Route::put('/comments/{comment}', 'CommentController@update');
 Route::delete('/comments/{comment}', 'CommentController@destroy');
+=======
+//API
+Route::get('/api/notifications/friendship', 'ApiController@friendshipNotifications');
+Route::get('/api/notifications/friendship/count', 'ApiController@friendshipNotificationsCount');
+Route::get('/api/notifications/general', 'ApiController@generalNotifications');
+Route::get('/api/notifications/general/count', 'ApiController@generalNotificationsCount');
+>>>>>>> Implementate le notifiche su una base di test. Andranno integrate quando tutto il complesso sarà pronto.

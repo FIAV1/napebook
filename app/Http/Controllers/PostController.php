@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Like;
-use App\Notifications\FriendshipRequest;
 use App\Post;
 use Illuminate\Http\Request;
 use Storage;

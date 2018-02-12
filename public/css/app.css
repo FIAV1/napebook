@@ -10005,13 +10005,13 @@ a.text-dark:focus {
 }
 
 #mainNav .dropdown-menu {
-  width: 200px;
   left: -175px;
   margin-top: 8px;
 }
 
 #mainNav .dropdown-menu .dropdown-item {
   text-align: center;
+  white-space: normal;
 }
 
 .text-black {

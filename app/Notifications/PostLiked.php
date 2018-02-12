@@ -2,13 +2,14 @@
 
 namespace App\Notifications;
 
+use App\Post;
 use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class FriendshipRequest extends Notification implements ShouldQueue
+class PostLiked extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -16,16 +17,22 @@ class FriendshipRequest extends Notification implements ShouldQueue
      * @var User $sender
      */
     protected $sender;
+    /**
+     * @var Post $post
+     */
+    protected $post;
 
     /**
      * Create a new notification instance.
      *
      * @param User $sender
-     * @return void
+     * @param Post $post
      */
-    public function __construct(User $sender)
+    public function __construct(User $sender, Post $post)
     {
         $this->sender = $sender;
+        $this->post = $post;
+
     }
 
     /**
@@ -51,34 +58,11 @@ class FriendshipRequest extends Notification implements ShouldQueue
     public function toDatabase($notifiable)
     {
         return [
+            'post_id' => $this->post->id,
             'sender_id' => $this->sender->id,
             'sender_name' => $this->sender->name .' '. $this->sender->surname,
         ];
     }
-
-    /**
-     * Get the array representation of the notification.
-     * The toArray method is also used by the broadcast channel
-     * to determine which data to broadcast to your JavaScript client.
-     * If you would like to have two different array representations
-     * for the database and broadcast channels,
-     * you should define a toDatabase method instead of a toArray method.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    /*public function toArray($notifiable)
-    {
-
-        return [
-            'id' => $this->id,
-            'read_at' => null,
-            'data' => [
-                'requestor_id' => $this->requestor->id,
-                'requestor_name' => $this->requestor->name,
-            ],
-        ];
-    }*/
 
     /**
      * Get the broadcastable representation of the notification.
@@ -92,6 +76,7 @@ class FriendshipRequest extends Notification implements ShouldQueue
             'id' => $this->id,
             'read_at' => null,
             'data' => [
+                'post_id' => $this->post->id,
                 'sender_id' => $this->sender->id,
                 'sender_name' => $this->sender->name .' '. $this->sender->surname,
             ]

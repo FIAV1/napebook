@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class FriendshipRequest extends Notification implements ShouldQueue
+class FriendshipAccepted extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -56,29 +56,6 @@ class FriendshipRequest extends Notification implements ShouldQueue
         ];
     }
 
-    /**
-     * Get the array representation of the notification.
-     * The toArray method is also used by the broadcast channel
-     * to determine which data to broadcast to your JavaScript client.
-     * If you would like to have two different array representations
-     * for the database and broadcast channels,
-     * you should define a toDatabase method instead of a toArray method.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    /*public function toArray($notifiable)
-    {
-
-        return [
-            'id' => $this->id,
-            'read_at' => null,
-            'data' => [
-                'requestor_id' => $this->requestor->id,
-                'requestor_name' => $this->requestor->name,
-            ],
-        ];
-    }*/
 
     /**
      * Get the broadcastable representation of the notification.
