@@ -86,8 +86,7 @@ class Post extends Model
      */
     public function addComment($text)
     {
-        return $this->comments()->create([
-            'text' => $text
-        ]);
+        $user_id= auth()->id();
+        return $this->comments()->create(compact('user_id','text'));
     }
 }

@@ -10262,6 +10262,10 @@ section#comments .comment-author a:focus {
   color: #fff;
 }
 
+section#comments .card-footer {
+  background: none;
+}
+
 section#comments .text-black {
   color: #000;
 }

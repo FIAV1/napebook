@@ -40,7 +40,7 @@ Route::delete('/like', 'PostController@unlike')->name('post-unlike');
 
 // Post
 Route::get('/post/{post}', 'PostController@show')->name('post-show');
-Route::get('/post/{post}/edit', 'PostController@edit')->name('post-edit');
+Route::get('/post/{post}/edit', 'PostController@edit')->name('post-edit')->middleware('can:editPost,post');
 Route::post('/post', 'PostController@store')->name('post-store');
 Route::put('/post/{post}', 'PostController@update')->name('post-update')->middleware('can:updatePost,post');
 Route::delete('/post/{post}', 'PostController@destroy')->name('post-destroy')->middleware('can:destroyPost,post');
@@ -64,3 +64,4 @@ Route::get('/profile/{user}/friends', 'FriendController@index')->name('friends-i
 
 //Users Search
 Route::get('/search', 'SearchController@index')->name('users-search');
+

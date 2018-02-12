@@ -13,7 +13,9 @@
                         <span class="comment-time"><small><i class="far fa-clock mr-2"></i>{{ $comment->updated_at->diffForHumans(null, true) }}</small></span>
                     </div>
                     <div class="d-flex flex-column ml-3 text-justify">
-                        {{ $comment->text }}
+                        <p class="card-text text-justify">
+                            {{ $comment->text }}
+                        </p>
                     </div>
 
                     @can('edit',$comment)

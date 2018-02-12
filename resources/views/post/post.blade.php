@@ -48,6 +48,7 @@
                     <a class="social-button post-likes" data-postid="{{ $post->id }}" data-toggle="modal" data-target="#likeUsersModal">Piace a {{ $num }} persone</a>
                 @endif
             </div>
+
         </div>
 
         <!-- Post interaction buttons -->
