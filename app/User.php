@@ -75,6 +75,10 @@ class User extends Authenticatable
         ]);
     }
 
+    public function getPosts(){
+        return $this->posts()->latest()->get();
+    }
+
     /**
      * Find all friends of the user
      *
@@ -191,9 +195,31 @@ class User extends Authenticatable
             ->where('id', $friendship_id)
             ->delete();
     }
-    
-    public function getPosts(){
-        return $this->posts()->latest()->get();
-    }
 
+    /**
+     * Find user's friend posts
+     *
+     *
+     * @return Post
+     */
+
+    public function friendsPosts()
+    {
+        return $this
+            ->join('friendships', function ($join) { $join
+            ->on('users.id', '=', 'friendships.user_id')
+            ->orOn('users.id', '=', 'friendships.friend_id');
+        })
+            ->join('posts', 'posts.user_id', '=', 'users.id')
+            ->where(function($query) { $query
+                ->where('friendships.user_id', '=', $this->id)
+                ->orWhere('friendships.friend_id', '=', $this->id);
+            })
+            ->where('friendships.active', 1)
+            ->select( 'users.*', 'posts.*')
+            ->distinct()
+            ->orderBy('posts.created_at','desc')
+            ->get();
+
+    }
 }

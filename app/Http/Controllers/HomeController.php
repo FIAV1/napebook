@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->get();
+        $posts = auth()->user()->friendsPosts();
 
         return view('home', compact('posts'));
     }
