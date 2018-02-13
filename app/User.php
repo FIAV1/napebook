@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Post;
+use App\Like;
 use App\Mail\ResetPasswordEmail;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
@@ -196,4 +197,12 @@ class User extends Authenticatable
         return $this->posts()->latest()->get();
     }
 
+    public function hasLike($postId)
+    {
+        if ( Like::where('user_id', $this->id)->where('post_id', $postId)->first()) {
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -10076,7 +10076,33 @@ section#posts .social-button:focus,
 #post-show .social-button:hover,
 #post-show .social-button:focus {
   text-decoration: none;
+<<<<<<< HEAD
   color: #f5f5f5;
+=======
+  color: #fff;
+  cursor: pointer;
+}
+
+section#posts .social-button:focus {
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+section#posts .has-like {
+  color: #5bc0de;
+}
+
+section#posts .has-like:hover {
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+section#posts .has-like:focus {
+  text-decoration: none;
+  color: #fff;
+>>>>>>> Prima implementazione rudimentale del Like
   cursor: pointer;
 }
 

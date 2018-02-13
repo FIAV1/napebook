@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Like;
 use App\Notifications\FriendshipRequest;
 use App\Post;
 use Storage;
@@ -50,6 +51,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        //$likesAmount = $post->getLikesAmount();
+
         return view('post.show', compact('post'));
     }
 
@@ -113,5 +116,23 @@ class PostController extends Controller
         $post->delete();
         
         return redirect('home');
+    }
+
+    public function like(Post $post)
+    {
+        $like = $post->likes()->where('user_id', auth()->user()->id)->first();
+
+        if ($like) {
+
+            $like->delete();
+        }
+        else {
+
+            $like = new Like();
+            $like->user()->associate(auth()->user());
+            $post->likes()->save($like);
+        }
+
+        return json_encode($post->getLikesAmount());
     }
 }

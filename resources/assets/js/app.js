@@ -14,9 +14,14 @@ require('./postDelete');
 // Image Upload
 require('./imageUpload');
 
-
 // Profile
 require('./profileEdit');
 require('./profileUpdate');
 
-//require('./notification');
+//Like
+require('./like');
+
+Echo.private(`App.User.` + userId)
+    .notification((notification) => {
+        console.log(notification.type)
+    });

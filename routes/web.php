@@ -41,8 +41,9 @@ Route::get('/profile/{user}', 'ProfileController@show')->name('profile-show');
 Route::get('/post/{post}', 'PostController@show')->name('post-show');
 Route::get('/post/{post}/edit', 'PostController@edit')->name('post-edit');
 Route::post('/post', 'PostController@store')->name('post-store');
-Route::put('/post/{post}', 'PostController@update')->name('post-update')->middleware('can:updatePost,post');
-Route::delete('/post/{post}', 'PostController@destroy')->name('post-destroy')->middleware('can:destroyPost,post');
+Route::put('/post/{post}', 'PostController@update')->name('post-update')->middleware('can:update,post');
+Route::delete('/post/{post}', 'PostController@destroy')->name('post-destroy')->middleware('can:destroy,post');
+Route::get('/post/{post}/like', 'PostController@like')->name('post-like');
 
 // Friends
 Route::get('/friends', 'FriendController@show')->name('friends');

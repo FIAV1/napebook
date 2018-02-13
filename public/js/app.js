@@ -11144,8 +11144,13 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
+<<<<<<< HEAD
 __webpack_require__(44);
 module.exports = __webpack_require__(45);
+=======
+__webpack_require__(41);
+module.exports = __webpack_require__(42);
+>>>>>>> Prima implementazione rudimentale del Like
 
 
 /***/ }),
@@ -11161,6 +11166,7 @@ module.exports = __webpack_require__(45);
 
 __webpack_require__(11);
 
+<<<<<<< HEAD
 // Post
 __webpack_require__(39);
 __webpack_require__(40);
@@ -11173,6 +11179,17 @@ __webpack_require__(42);
 __webpack_require__(43);
 
 //require('./notification');
+=======
+// Custom JavaScript
+__webpack_require__(48);
+__webpack_require__(49);
+__webpack_require__(50);
+__webpack_require__(40);
+
+Echo.private('App.User.' + userId).notification(function (notification) {
+    console.log(notification.type);
+});
+>>>>>>> Prima implementazione rudimentale del Like
 
 /***/ }),
 /* 11 */
@@ -43225,7 +43242,121 @@ return /******/ (function(modules) { // webpackBootstrap
 ;
 
 /***/ }),
-/* 39 */
+/* 39 */,
+/* 40 */
+/***/ (function(module, exports) {
+
+(function ($) {
+
+    "use strict";
+
+    var $like = $('.like');
+
+    $like.click(function () {
+
+        var $button = $(this);
+        var $id = $button.data('id');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+
+            type: 'GET',
+            url: '/post/' + $id + '/like',
+
+            success: function success($data) {
+
+                if ($button.hasClass('has-like')) {
+                    $button.removeClass('has-like');
+                } else {
+                    $button.addClass('has-like');
+                }
+
+                if (parseInt($data) === 1) {
+
+                    var $text = '<a href="#" data-toggle="modal" data-target="#likeUsersModal" id="likeUsersButton">Piace a ' + $data + ' persona</a>';
+
+                    $('#like-amount-' + $id).html($text);
+                } else if (parseInt($data) > 1) {
+
+                    var $text = '<a href="#" data-toggle="modal" data-target="#likeUsersModal" id="likeUsersButton">Piace a ' + $data + ' persone</a>';
+
+                    $('#like-amount-' + $id).html($text);
+                } else {
+                    $('#like-amount-' + $id).html('');
+                }
+            },
+            error: function error() {
+
+                console.log('Errore');
+            }
+        });
+    });
+
+    //cancella il like
+    $(document).on('click', '.colorDislike', function () {
+        //$(".btn-send").click(function (e) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+
+        //e.preventDefault();
+
+        var formData = {
+            id_mitt: $('#id_mitt').val(),
+            id_post: $(this).val()
+        };
+        var postID = $(this).val();
+        var type = "DELETE"; //per creare una nuova risorsa
+
+
+        $.ajax({
+
+            type: type,
+            url: url,
+            data: formData,
+            dataType: 'json',
+            success: function success(data) {
+
+                var string = '<button type="button" class="buttonLike colorLike" value="' + postID + '"><i class="fa fa-thumbs-up"></i>  Mi piace</button>';
+
+                $("#mipiace" + postID).empty();
+                $("#mipiace" + postID).append(string);
+
+                var updateNLike = ' ' + data[1] + ' ';
+                $("#nLike" + postID).empty();
+                $("#nLike" + postID).append(updateNLike);
+            },
+            error: function error(data) {}
+        });
+    });
+})(jQuery);
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 43 */,
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -43375,7 +43506,46 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
+<<<<<<< HEAD
 /* 42 */
+=======
+/* 49 */
+/***/ (function(module, exports) {
+
+(function ($) {
+    "use strict"; // use strict make writing js more safe
+
+    // Update form variables
+
+    var $updateButton = $('#updateButton');
+    var $updateForm = $('#updateForm');
+
+    // Image form variables
+    var $imageRemoveButton = $('#imageRemoveButton');
+    var $ImageRemoveInput = $('#ImageRemoveInput');
+    var $postOldImage = $('#postOldImage');
+
+    // Attaching a button to remove the unwanted file
+    $imageRemoveButton.click(function () {
+        if ($ImageRemoveInput.val() === "") {
+            $ImageRemoveInput.val("remove");
+            $postOldImage.hide();
+            $imageRemoveButton.text("Mantieni l'immagine");
+        } else {
+            $ImageRemoveInput.val("");
+            $postOldImage.show();
+            $imageRemoveButton.text("Rimuovi l'immagine");
+        }
+    });
+
+    $updateButton.click(function () {
+        $updateForm.submit();
+    });
+})(jQuery);
+
+/***/ }),
+/* 50 */
+>>>>>>> Prima implementazione rudimentale del Like
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -43512,6 +43682,7 @@ return /******/ (function(modules) { // webpackBootstrap
     });
 })(jQuery);
 
+<<<<<<< HEAD
 /***/ }),
 /* 44 */
 /***/ (function(module, exports) {
@@ -43524,5 +43695,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 // removed by extract-text-webpack-plugin
 
+=======
+>>>>>>> Prima implementazione rudimentale del Like
 /***/ })
 /******/ ]);

@@ -6,10 +6,24 @@ section#posts, #post-show{
 
     .social-button{
         color: $gray-900;
-    
-        &:hover, &:focus{
+
+        &:hover, &:focus {
             text-decoration: none;
             color: $body-color;
+        }
+    }
+
+    .has-like{
+        color: $info;
+
+        &:hover{
+            text-decoration: none;
+            color: $white;
+            cursor: pointer;
+        }
+        &:focus{
+            text-decoration: none;
+            color: $white;
             cursor: pointer;
         }
     }
