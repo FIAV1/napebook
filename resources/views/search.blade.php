@@ -4,9 +4,16 @@
     <section id="publish" class="my-5">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-md-7 mx-md-auto">
-                    <h4>La ricerca ha trovato<i class="fas fa-pencil-alt fa-xs ml-3"></i></h4>
-                </div>
+                @if($users->isNotEmpty())
+                    <div class="col-12 col-md-7 mx-md-auto">
+                        <h4>Risultati<i class="fas fa-search fa-xs ml-3"></i></h4>
+                    </div>
+                @endif
+                @if($users->isEmpty())
+                    <div class="col-12 col-md-7 mx-md-auto">
+                        <h4>Nessun utente trovato...<i class="fas fa-search fa-xs ml-3"></i></h4>
+                    </div>
+                @endif
             </div>
             @foreach($users as $user)
                 <div class="row">
