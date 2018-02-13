@@ -10,7 +10,7 @@
                     @endif
                     <div class="d-flex flex-column justify-content-start">
                         <span class="post-author"><a href="{{ route( 'profile-show', $post->user ) }}">{{ $post->user->name }}  {{ $post->user->surname }}</a></span>
-                        <span class="post-time"><small><i class="far fa-clock mr-2"></i>{{ $post->updated_at->diffForHumans(null, true) }}</small></span>
+                        <span class="post-time"><small><i class="far fa-clock mr-2"></i>{{ $post->updated_at->diffForHumans(null, true)}}</small></span>
                     </div>
 
                     @can('edit',$post)
@@ -79,5 +79,3 @@
         </div>
     </div>
 </div>
-
-@include('post.edit')

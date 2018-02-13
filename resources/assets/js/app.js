@@ -10,5 +10,7 @@ require('./bootstrap');
 // Custom JavaScript
 
 require('./imageUpload');
-require('./deletePost');
-require('./notification');
+require('./postEdit');
+require('./profileEdit');
+
+//require('./notification');

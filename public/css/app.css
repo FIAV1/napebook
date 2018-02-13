@@ -10113,12 +10113,18 @@ section#posts #dropdownMenuLink:focus {
   color: #b3b2b2;
 }
 
-section#profile .card-small {
+section#show-profile .card {
   max-width: 600px;
 }
 
-section#profile .btn-nav {
+section#show-profile .btn-nav {
   width: 150px;
   text-align: center;
+}
+
+section#show-profile #edit-profile-image {
+  position: absolute;
+  top: 40px;
+  right: 40px;
 }
 

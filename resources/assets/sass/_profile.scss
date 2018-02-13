@@ -1,10 +1,16 @@
-section#profile{
-    .card-small{
+section#show-profile{
+    .card{
         max-width: 600px;
     }
     
     .btn-nav{
         width: 150px;
         text-align: center;
+    }
+
+    #edit-profile-image{
+        position: absolute;
+        top: 40px;
+        right: 40px;
     }
 }
