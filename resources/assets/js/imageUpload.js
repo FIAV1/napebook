@@ -1,18 +1,25 @@
 (function($) {
     "use strict"; // use strict make writing js more safe
-    
-    var $postImage = $("#postImage");
-    var $deletePostButton = $("#deletePostButton");
+    var $postImage = $("#postImage, #postImageEdit");
 
-    $postImage.change( function(){
+    $postImage.change( function(event){
+        // Section variable
+        if(event.target.id === 'postImage'){
+            var $section = $('#publish');
+            $postImage = $("#postImage");
+        } else {
+            var $section = $('#editModal');
+            $postImage = $("#postImageEdit");
+        }
+
         // Error variables
         var $errorModal = $("#errorModal");
         var $errorField = $("#errorField");
 
         // Form Variables
-        var $imageForm = $("#imageForm");
-        var $postImageName = $("#postImageName");
-        var $ImageRemoveInput = $('#ImageRemoveInput');
+        var $imageForm = $section.find("#imageForm");
+        var $postImageName = $section.find("#postImageName");
+        var $ImageRemoveInput = $section.find('#ImageRemoveInput');
         
         // Validating input file, must be only one item
         if (parseInt($postImage.get(0).files.length)>1){
@@ -31,7 +38,7 @@
 
             // Attaching a button to remove the unwanted file
             $("#imageClearButton").click(function() {
-                $postImageName = $("#postImageName");
+                $postImageName = $section.find("#postImageName");
 
                 $postImage.val('');
                 $postImageName.remove();
@@ -43,7 +50,4 @@
         }
     });
 
-    $deletePostButton.click(function(){
-        $('#deletePostModal').modal('show')
-    });
 })(jQuery);

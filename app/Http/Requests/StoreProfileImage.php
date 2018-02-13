@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePost extends FormRequest
+class StoreProfileImage extends FormRequest
 {
     /**
      * The key to be used for the view error bag.
      *
      * @var string
      */
-    protected $errorBag = 'post';
+    protected $errorBag = 'profileImage';
     
     /**
      * Determine if the user is authorized to make this request.
@@ -31,8 +31,7 @@ class StorePost extends FormRequest
     public function rules()
     {
         return [
-            'post-text' => 'required',
-            'post-image' => 'image|max:10000'
+            'user-image' => 'image|max:10000'
         ];
     }
 
@@ -44,9 +43,8 @@ class StorePost extends FormRequest
     public function messages()
     {
         return [
-            'post-text.required' => 'Il post non può essere vuoto',
-            'post-image.image' => 'L\'immagine deve essere di un formato valido',
-            'post-image.max' => 'L\'immagine può essere massimo di 10MB'
+            'user-image.image' => 'L\'immagine deve essere di un formato valido',
+            'user-image.max' => 'L\'immagine può essere massimo di 10MB'
         ];
     }
 }
