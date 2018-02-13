@@ -7,11 +7,11 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="form-inline ml-md-4 mt-3 mt-md-0">
+            <form class="form-inline ml-md-4 mt-3 mt-md-0" method="GET" action="{{ route('users-search') }}">
                 <div class="input-group">
-                    <input class="form-control" type="search" placeholder="Ricerca..." aria-label="Ricerca">
+                    <input class="form-control" type="search" name="query" placeholder="Ricerca..." aria-label="Ricerca" required>
                     <div class="input-group-append">
-                    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
+                    <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
             </form>

@@ -222,4 +222,23 @@ class User extends Authenticatable
             ->get();
 
     }
+
+    /**
+     * Search users in Napebook, friends or not.
+     *
+     * @param String $keyword
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function search($keyword)
+    {
+        return $this
+            ->where(function($query) use ($keyword){
+                $query->where('users.name', 'LIKE', '%'.$keyword.'%')
+                    ->orWhere('users.surname', 'LIKE', '%'.$keyword.'%');
+            })
+            ->where('active', 1)
+            ->orderBy('name')
+            ->orderBy('surname')
+            ->get();
+    }
 }

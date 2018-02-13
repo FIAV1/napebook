@@ -20,7 +20,6 @@ class HomeController extends Controller
      * Show the application timeline.
      *
      * @return \Illuminate\Http\Response
-     * @TODO logica per stampa post utenti amici
      */
     public function index()
     {
