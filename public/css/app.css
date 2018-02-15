@@ -76,7 +76,7 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #EBEBEB;
+  color: #f5f5f5;
   text-align: left;
   background-color: #2B3E50;
 }
@@ -3592,7 +3592,7 @@ tbody.collapse.show {
   padding: 0.5rem 0;
   margin: 0.125rem 0 0;
   font-size: 1rem;
-  color: #EBEBEB;
+  color: #f5f5f5;
   text-align: left;
   list-style: none;
   background-color: #4E5D6C;
@@ -3699,7 +3699,7 @@ tbody.collapse.show {
   padding: 0.25rem 1.5rem;
   clear: both;
   font-weight: 400;
-  color: #EBEBEB;
+  color: #f5f5f5;
   text-align: inherit;
   white-space: nowrap;
   background-color: transparent;
@@ -3708,16 +3708,16 @@ tbody.collapse.show {
 
 .dropdown-item:hover,
 .dropdown-item:focus {
-  color: #EBEBEB;
+  color: #f5f5f5;
   text-decoration: none;
   background-color: rgba(255, 255, 255, 0.075);
 }
 
 .dropdown-item.active,
 .dropdown-item:active {
-  color: #fff;
+  color: #f5f5f5;
   text-decoration: none;
-  background-color: #DF691A;
+  background-color: rgba(255, 255, 255, 0.075);
 }
 
 .dropdown-item.disabled,
@@ -4247,14 +4247,6 @@ tbody.collapse.show {
   content: "Browse";
 }
 
-.custom-file-input:lang(es) ~ .custom-file-label::after {
-  content: "Elegir";
-}
-
-.custom-file-input:lang(it) ~ .custom-file-label::after {
-  content: "Scegli";
-}
-
 .custom-file-label {
   position: absolute;
   top: 0;
@@ -4339,7 +4331,7 @@ tbody.collapse.show {
 
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
-  color: #EBEBEB;
+  color: #f5f5f5;
   background-color: #2B3E50;
   border-color: #4E5D6C;
 }
@@ -5207,7 +5199,7 @@ tbody.collapse.show {
   display: inline-block;
   padding-right: 0.5rem;
   padding-left: 0.5rem;
-  color: #EBEBEB;
+  color: #f5f5f5;
   content: "/";
 }
 
@@ -5220,7 +5212,7 @@ tbody.collapse.show {
 }
 
 .breadcrumb-item.active {
-  color: #EBEBEB;
+  color: #f5f5f5;
 }
 
 .pagination {
@@ -5701,7 +5693,7 @@ tbody.collapse.show {
 }
 
 .list-group-item-action:active {
-  color: #EBEBEB;
+  color: #f5f5f5;
   background-color: #4E5D6C;
 }
 
@@ -6415,7 +6407,7 @@ button.close {
 
 .popover-body {
   padding: 0.5rem 0.75rem;
-  color: #EBEBEB;
+  color: #f5f5f5;
 }
 
 .carousel {
@@ -10022,6 +10014,10 @@ a.text-dark:focus {
   text-align: center;
 }
 
+.text-black {
+  color: #000;
+}
+
 input[type="file"] {
   width: 0.1px;
   height: 0.1px;
@@ -10044,17 +10040,11 @@ input[type="file"] + label * {
   pointer-events: none;
 }
 
-.invalid-feedback {
-  margin: 10px 0;
-}
-
-.invalid-feedback strong {
-  font-size: 14px;
-}
-
-hr {
-  border-top: 2px solid #4E5D6C;
-  border-radius: 20px;
+.dropdown .post-edit-button:hover,
+.dropdown .post-edit-button:focus,
+.dropdown .post-delete-button:hover,
+.dropdown .post-delete-button:focus {
+  cursor: pointer;
 }
 
 .modal #registrationModal .modal-header {
@@ -10071,46 +10061,36 @@ hr {
   text-shadow: none;
 }
 
-section#posts .post-author-image {
-  max-width: 45px;
-  max-height: 45px;
-  border: 2px solid #EBEBEB;
+section#posts .post-author,
+#post-show .post-author {
+  color: #f5f5f5;
 }
 
-section#posts .post-author a {
-  color: #fff;
-}
-
-section#posts .post-author a:hover,
-section#posts .post-author a:focus {
-  color: #fff;
-}
-
-section#posts .text-black {
-  color: #000;
-}
-
-section#posts .social-button {
+section#posts .social-button,
+#post-show .social-button {
   color: #212529;
 }
 
-section#posts .social-button:hover {
+section#posts .social-button:hover,
+section#posts .social-button:focus,
+#post-show .social-button:hover,
+#post-show .social-button:focus {
   text-decoration: none;
-  color: #fff;
+  color: #f5f5f5;
+  cursor: pointer;
 }
 
-section#posts .social-button:focus {
-  text-decoration: none;
-  color: #fff;
+section#posts #post-manage,
+#post-show #post-manage {
+  color: #f5f5f5;
 }
 
-section#posts #dropdownMenuLink {
-  color: #fff;
-}
-
-section#posts #dropdownMenuLink:hover,
-section#posts #dropdownMenuLink:focus {
-  color: #b3b2b2;
+section#posts #post-manage:hover,
+section#posts #post-manage:focus,
+#post-show #post-manage:hover,
+#post-show #post-manage:focus {
+  color: #c2c2c2;
+  cursor: pointer;
 }
 
 section#show-profile .card {

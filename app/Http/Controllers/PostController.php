@@ -53,6 +53,17 @@ class PostController extends Controller
         return view('post.show', compact('post'));
     }
 
+        /**
+     * Display the specified resource.
+     *
+     * @param  Post  $post
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Post $post)
+    {
+        return response()->json(['post' => $post, 'user' => $post->user]);
+    }
+
     /**
      * Update the specified resource in storage.
      *

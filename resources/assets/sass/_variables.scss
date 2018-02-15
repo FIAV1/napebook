@@ -17,22 +17,11 @@ $lg: 992px;
 $xl: 1200px;
 
 //
-// Input utility
-//
-
-// Customize input file button
-$custom-file-text: (
-  en: "Browse",
-  es: "Elegir",
-  it: "Scegli"
-);
-
-//
 // Color system
 //
 
 $white:    #fff !default;
-$gray-100: #EBEBEB !default;
+$gray-100: #f5f5f5 !default;
 $gray-200: #4E5D6C !default;
 $gray-300: #dee2e6 !default;
 $gray-400: #ced4da !default;
@@ -100,6 +89,8 @@ $dropdown-divider-bg:               rgba($black,.15) !default;
 $dropdown-link-color:               $body-color !default;
 $dropdown-link-hover-color:         $dropdown-link-color !default;
 $dropdown-link-hover-bg:            $table-hover-bg !default;
+$dropdown-link-active-color:        $dropdown-link-color !default;
+$dropdown-link-active-bg:           $dropdown-link-hover-bg !default;
 
 // Navs
 
@@ -135,6 +126,7 @@ $pagination-disabled-border-color:  $pagination-border-color !default;
 $modal-content-bg:                  $gray-200 !default;
 
 $modal-header-border-color:         rgba(0,0,0,.2) !default;
+$modal-header-bg:                   $table-hover-bg !default;
 
 // Cards
 

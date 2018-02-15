@@ -11144,8 +11144,8 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
-__webpack_require__(42);
-module.exports = __webpack_require__(43);
+__webpack_require__(44);
+module.exports = __webpack_require__(45);
 
 
 /***/ }),
@@ -11161,11 +11161,15 @@ module.exports = __webpack_require__(43);
 
 __webpack_require__(11);
 
-// Custom JavaScript
-
-__webpack_require__(39);
-__webpack_require__(49);
+// Post
+__webpack_require__(40);
 __webpack_require__(41);
+
+// Image Upload
+__webpack_require__(42);
+
+// Profile
+__webpack_require__(43);
 
 //require('./notification');
 
@@ -43220,38 +43224,133 @@ return /******/ (function(modules) { // webpackBootstrap
 ;
 
 /***/ }),
-/* 39 */
+/* 39 */,
+/* 40 */
+/***/ (function(module, exports) {
+
+(function ($) {
+    "use strict";
+
+    var $button = $('.post-edit-button');
+    var $modal = $('#post-edit');
+
+    $button.click(function () {
+
+        var $id = $(this).data('id');
+
+        var $userImage = $modal.find('#post-author-image');
+        var $userName = $modal.find('#post-author');
+        var $postTimestamp = $modal.find('#post-time');
+        var $postImage = $modal.find('#post-image');
+        var $postImageManage = $modal.find('#post-image-manage');
+        var $postText = $modal.find('#post-text');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            dataType: 'json',
+            type: 'GET',
+            url: '/post/' + $id + '/edit',
+            success: function success($data) {
+                console.log($data.post.updated_at);
+
+                var $post = $data.post;
+                var $user = $data.user;
+
+                $userImage.attr('src', '/storage/' + $user.image_url);
+                $userName.text($user.name + ' ' + $user.surname);
+                $postTimestamp.text(moment($post.created_at, 'YYYYMMDD, h:mm:ss a').fromNow());
+                if ($post.image_url) {
+                    $postImage.append('<img class="img-fluid rounded" src="/storage/' + $post.image_url + '" alt="post image">');
+                    $postImageManage.addClass('form-group col-auto ml-auto');
+                    $postImageManage.append('<button type="button" id="post-image-remove-button" class="btn btn-danger">Rimuovi l\'immagine<i class="fas fa-eye-slash ml-2"></i></button>');
+                }
+                $postText.val($post.text);
+
+                var $postUpdateButton = $('#post-update-button');
+                var $postUpdateForm = $('#post-update-form');
+                var $postImageRemoveButton = $('#post-image-remove-button');
+                var $postImageRemoveInput = $('#post-image-remove-input');
+
+                $postImageRemoveButton.click(function () {
+                    if ($postImageRemoveInput.val() === '') {
+                        $postImageRemoveInput.val('remove');
+                        $postImage.hide();
+                        $postImageRemoveButton.html('Mantieni l\'immagine<i class="fas fa-eye ml-2"></i>');
+                    } else {
+                        $postImageRemoveInput.val('');
+                        $postImage.show();
+                        $postImageRemoveButton.html('Rimuovi l\'immagine<i class="fas fa-eye-slash ml-2"></i>');
+                    }
+                });
+
+                $postUpdateButton.click(function () {
+                    $modal.modal('hide');
+                    $modal.on('hidden.bs.modal', function () {
+                        $postUpdateForm.attr('action', '/post/' + $id);
+                        $postUpdateForm.submit();
+                    });
+                });
+
+                $modal.modal('show');
+            },
+            error: function error($data) {
+                var $errors = $data.responseJSON;
+                console.log($errors);
+            }
+        });
+
+        $modal.on('hidden.bs.modal', function () {
+            $userImage.removeAttr('src');
+            $userName.text('');
+            $postTimestamp.text('');
+            $postImage.html('');
+            $postImageManage.removeClass('form-group col-auto ml-auto');
+            $postImageManage.html('');
+            $postText.text('');
+        });
+    });
+})(jQuery);
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports) {
+
+(function ($) {
+    "use strict";
+
+    var $postDeleteButton = $('.post-delete-button');
+    var $modal = $('#post-delete');
+    var $form = $('#post-delete-form');
+
+    $postDeleteButton.click(function () {
+        var $id = $(this).data('id');
+
+        $form.attr('action', '/post/' + $id);
+
+        $modal.modal('show');
+    });
+})(jQuery);
+
+/***/ }),
+/* 42 */
 /***/ (function(module, exports) {
 
 (function ($) {
     "use strict"; // use strict make writing js more safe
 
-    var $postImage = $("#postImage, #postImageEdit");
+    var $postImageUpload = $("#post-image-create, #post-image-update");
 
-    $postImage.change(function (event) {
-        // Section variable
-        if (event.target.id === 'postImage') {
-            var $section = $('#publish');
-            $postImage = $("#postImage");
-        } else {
-            var $section = $('#editModal');
-            $postImage = $("#postImageEdit");
-        }
+    $postImageUpload.change(function () {
+        var $postImage = $(this);
+        var $form = $('#' + $(this).data('id'));
 
-        // Error variables
-        var $errorModal = $("#errorModal");
-        var $errorField = $("#errorField");
-
-        // Form Variables
-        var $imageForm = $section.find("#imageForm");
-        var $postImageName = $section.find("#postImageName");
-        var $ImageRemoveInput = $section.find('#ImageRemoveInput');
-
-        // Validating input file, must be only one item
-        if (parseInt($postImage.get(0).files.length) > 1) {
-            $errorField.text("Puoi caricare al massimo un'immagine per post");
-            $errorModal.modal('show');
-        }
+        var $postImageName = $form.find('#post-image-name');
+        var $postImageRemoveButton = $form.find('#post-image-remove-button');
 
         // Removing, if it exist, old/wrong uploaded file
         if ($postImageName.length) {
@@ -43259,27 +43358,24 @@ return /******/ (function(modules) { // webpackBootstrap
         }
 
         // Checking if there's at least one file ready to be uploaded
-        if (parseInt($postImage.get(0).files.length) === 1) {
-            $imageForm.append('<div id="postImageName" class="col-12"><p><strong class="mr-2">Immagine:</strong>' + $postImage.val().split('\\').pop() + '<a href="#" id="imageClearButton"><i class="fas fa-trash-alt ml-2"></i></a></p></div>');
+        $form.append('<div id="post-image-name" class="col-12"><p><strong class="mr-2">Immagine:</strong>' + $postImage.val().split('\\').pop() + '<a href="#" id="post-image-clear-button"><i class="fas fa-trash-alt ml-2"></i></a></p></div>');
 
-            // Attaching a button to remove the unwanted file
-            $("#imageClearButton").click(function () {
-                $postImageName = $section.find("#postImageName");
+        // Attaching an event to remove the unwanted file
+        $("#post-image-clear-button").click(function () {
+            $postImageName = $form.find("#post-image-name");
 
-                $postImage.val('');
-                $postImageName.remove();
-            });
+            $postImage.val('');
+            $postImageName.remove();
+        });
 
-            if ($ImageRemoveInput) {
-                $ImageRemoveInput.val('');
-            }
+        if ($postImageRemoveButton) {
+            $postImageRemoveButton.val('');
         }
     });
 })(jQuery);
 
 /***/ }),
-/* 40 */,
-/* 41 */
+/* 43 */
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -43368,56 +43464,16 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */
-/***/ (function(module, exports) {
-
-(function ($) {
-    "use strict"; // use strict make writing js more safe
-
-    // Update form variables
-
-    var $updateButton = $('#updateButton');
-    var $updateForm = $('#updateForm');
-
-    // Image form variables
-    var $imageRemoveButton = $('#imageRemoveButton');
-    var $ImageRemoveInput = $('#ImageRemoveInput');
-    var $postOldImage = $('#postOldImage');
-
-    // Attaching a button to remove the unwanted file
-    $imageRemoveButton.click(function () {
-        if ($ImageRemoveInput.val() === "") {
-            $ImageRemoveInput.val("remove");
-            $postOldImage.hide();
-            $imageRemoveButton.text("Mantieni l'immagine");
-        } else {
-            $ImageRemoveInput.val("");
-            $postOldImage.show();
-            $imageRemoveButton.text("Rimuovi l'immagine");
-        }
-    });
-
-    $updateButton.click(function () {
-        $updateForm.submit();
-    });
-})(jQuery);
 
 /***/ })
 /******/ ]);

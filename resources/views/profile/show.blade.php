@@ -10,20 +10,34 @@
         </div>
     </section>
 
-    @can('storePost', $user)
-        @include('post.create')
-    @endcan
-
     <section id="posts">
         <div class="container">
-        @foreach ($posts as $post)
-            @include('post.post', ['state' => 'expand'])
-        @endforeach
+            <!-- Publish a Post -->
+            @can('storePost', $user)
+            <div class="row">
+                <div class="col-12 col-md-7 mx-md-auto">
+                @include('post.create')
+                </div>
+            </div>
+            @endcan
+
+            <!-- Post listing -->
+            <div class="row">
+                <div class="col-12 col-md-7 mx-md-auto">
+                @foreach ($posts as $post)
+                    @include('post.post')
+                @endforeach
+                </div>
+            </div>
         </div>
     </section>
     
     @can('editProfile', $user)
         @include('profile.edit')
     @endcan
+
+    
+    @include('post.edit')
+    @include('post.delete')
 
 @endsection

@@ -1,81 +1,74 @@
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="edit modal" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+<!-- Post Edit -->
+<div class="modal fade" id="post-edit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-body bg-light">
+
+            <div class="modal-header">
+                <div class="container-fluid">
+                    <div class="row justify-content-start">
+
+                        <!-- User image, name and post timestamp -->
+                        <div class="col-2 col-md-2 col-lg-1 px-0">
+                            <img id="post-author-image" alt="user image" class="img-fluid img-thumbnail rounded-circle">
+                        </div>
+                        
+                        <div class="col-auto d-flex flex-column justify-content-center">
+                            <a id="post-author"></a>
+                            <small><i class="far fa-clock mr-2"></i><span id="post-time"></span></small>
+                        </div>
+
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+
+            <div class="modal-body">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-12 col-md-12 mt-3">
+                        <!-- Post image -->
+                        <div id="post-image" class="col-12 mb-3"></div>
+                    </div>
 
-                            <div id="post" class="card text-white bg-dark mb-2">
-                                <div class="card-header">
-                                    <div class="d-flex justify-content-between">
-                                        @if(auth()->user()->image)
-                                            <img src="{{ auth()->user()->image }}" alt="user image" class="img-fluid rounded-circle post-author-image">
-                                        @else
-                                            <img src="{{ URL::asset('/img/user.svg') }}" alt="user image" class="img-fluid rounded-circle post-author-image">
-                                        @endif
-                                        <div class="align-self-center"><span class="post-author"><a href="#">{{ $post->user->name }} {{ $post->user->surname }}</a></span></div>
-                                        <div class="align-self-center"><span class="post-time">{{ $post->updated_at->diffForHumans() }}</span></div>
+                    <div class="row">
+                        <div class="col-12">
+                            <form id="post-update-form" method="POST" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                {{ method_field('PUT') }}
+
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label class="sr-only" for="post-text">Post text</label>
+                                        <textarea id="post-text" class="form-control" name="post-text" rows="5" required></textarea>
                                     </div>
                                 </div>
-                                <div class="card-body">
-                                    @if ($post->image_url)
-                                        <img id="postOldImage" class="card-img-top mb-4" src="{{ '/storage/'.$post->image_url }}" alt="post image">
-                                    @endif
 
-                                    <form id="updateForm" method="POST" action="{{ route('post-update', $post->id) }}" enctype="multipart/form-data">
-                                        {{ csrf_field() }}
-                                        {{ method_field('PUT') }}
-
-                                        <div class="form-row">
-                                            <div class="form-group col-12">
-                                                <label class="sr-only" for="post-text">Post text</label>
-                                                <textarea class="form-control {{ $errors->getBag('post')->has('post-text') ? ' is-invalid' : '' }}" id="post-text" name="post-text" rows="5">{{ $post->text }}</textarea>
-                                                @if ($errors->getBag('post')->has('post-text'))
-                                                <div class="invalid-feedback">
-                                                    <strong>{{ $errors->getBag('post')->first('post-text') }}</strong>
-                                                </div>
-                                                @endif
-                                            </div>
-                                        </div>
-
-                                        <input id="ImageRemoveInput" type="hidden" name="remove" value="">
-
-                                        <div id="imageForm" class="form-row">
-                                            <div class="form-group col-auto">
-                                                <label class="btn btn-light" for="postImageEdit">Carica un'immagine<i class="fas fa-image ml-2"></i></label>
-                                                <input type="file" id="postImageEdit" name="post-image" class="form-control {{ $errors->getBag('post')->has('post-image') ? ' is-invalid' : '' }}" accept=".jpg, .jpeg, .png">
-
-                                                @if ($errors->getBag('post')->has('post-image'))
-                                                <div class="invalid-feedback">
-                                                    <strong>{{ $errors->getBag('post')->first('post-image') }}</strong>
-                                                </div>
-                                                @endif
-                                            </div>
-                                            @if($post->image_url)
-                                            <div class="form-group col-6">
-                                                <button type="button" id="imageRemoveButton" class="btn btn-danger">Rimuovi l'immagine</button>
-                                            </div>
-                                            @endif
-                                        </div>
-                                    </form>
+                                <div class="form-row">
+                                    <div class="form-group col-auto">
+                                        <label class="btn btn-light" for="post-image-update">Carica un'immagine<i class="fas fa-image ml-2"></i></label>
+                                        <input type="file" id="post-image-update" name="post-image" class="form-control" data-id="post-update-form" accept=".jpg, .jpeg, .png">
+                                    </div>
+                                    <div id="post-image-manage"></div>
                                 </div>
-                            </div>
 
+                                <input id="post-image-remove-input" type="hidden" name="remove" value="">
+                            </form>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-12 col-md-12 mt-3">
+                        <div class="col-12 mt-3">
                             <div class="d-flex justify-content-end">
-                                <button id="updateButton" class="btn btn-dark mr-3">Salva <i class="far fa-save ml-2"></i></button>
+                                <button id="post-update-button" class="btn btn-success mr-3">Salva <i class="far fa-save ml-2"></i></button>
 
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Annulla <i class="fas fa-times ml-2"></i></button>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+<!-- Post Edit End -->

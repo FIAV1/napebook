@@ -33,22 +33,23 @@ Route::get('/', 'IndexController@show')->name('index');
 // Home
 Route::get('/home', 'HomeController@index')->name('home');
 
-//Profile
+// Profile
 Route::get('/profile/{user}', 'ProfileController@show')->name('profile-show');
 
 // Post
 Route::get('/post/{post}', 'PostController@show')->name('post-show');
+Route::get('/post/{post}/edit', 'PostController@edit')->name('post-edit');
 Route::post('/post', 'PostController@store')->name('post-store');
 Route::put('/post/{post}', 'PostController@update')->name('post-update')->middleware('can:update,post');
 Route::delete('/post/{post}', 'PostController@destroy')->name('post-destroy')->middleware('can:destroy,post');
 
-//Friends
+// Friends
 Route::get('/friends', 'FriendController@show')->name('friends');
 Route::get('/friends/pendent', 'FriendController@pendent')->name('friends-pendent');
 Route::get('/friends/request', 'FriendController@request')->name('friends-request');
 Route::get('/friends/search/{query}', 'FriendController@search')->name('friends-search');
 
-//Friendship
+// Friendship
 Route::post('/friendship', 'FriendshipController@store')->name('friendship-store');
 Route::patch('/friendship', 'FriendshipController@update')->name('friendship-update');
 Route::delete('/friendship', 'FriendshipController@destroy')->name('friendship-delete');
