@@ -1,0 +1,9 @@
+#team-anchor{
+
+  cursor: pointer;
+
+  &:hover, &:focus {
+    text-decoration: none;
+    color: $light;
+  }
+}

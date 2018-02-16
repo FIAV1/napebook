@@ -6,6 +6,7 @@ section#posts, #post-show{
 
     .social-button{
         color: $gray-900;
+        cursor: pointer;
 
         &:hover, &:focus {
             text-decoration: none;
@@ -19,12 +20,10 @@ section#posts, #post-show{
         &:hover{
             text-decoration: none;
             color: $white;
-            cursor: pointer;
         }
         &:focus{
             text-decoration: none;
             color: $white;
-            cursor: pointer;
         }
     }
 

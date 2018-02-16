@@ -56,11 +56,22 @@
                 $bio.text($data.bio);
     
                 $modal.modal('hide');
-    
+
                 $( "#mainNav" ).after(
-                    '<div class="alert alert-success alert-dismissible fade show text-center container mt-5" role="alert"><div class="row"><div class="col-12">'+
+                    '<section class="session-message">' +
+                    '<div class="container">' +
+                    '<div class="row">' +
+                    '<div class="col-12">' +
+                    '<div class="alert alert-success alert-dismissible fade show text-center my-4" role="alert">' +
                     'Informazioni del profilo aggiornate.'+
-                    '</div></div><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                    '<span aria-hidden="true">&times;</span>' +
+                    '</button>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</section>'
                 );
     
             },
@@ -71,9 +82,20 @@
                 $modal.modal('hide');
     
                 $( "#mainNav" ).after(
-                    '<div class="alert alert-warning alert-dismissible fade show text-center container mt-5" role="alert"><div class="row"><div class="col-12">'+
-                    "Errore durante l'aggiornamento del profilo."+
-                    '</div></div><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+                    '<section class="session-message">' +
+                    '<div class="container">' +
+                    '<div class="row">' +
+                    '<div class="col-12">' +
+                    '<div class="alert alert-warning alert-dismissible fade show text-center my-4" role="alert">' +
+                    'Errore durante l\'aggiornamento del profilo.'+
+                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                    '<span aria-hidden="true">&times;</span>' +
+                    '</button>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</section>'
                 );
             }
         });

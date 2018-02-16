@@ -55,7 +55,7 @@ class PostPolicy
      */
     public function like(User $user, Post $post)
     {
-        return $user->isFriendOf($post->user_id);
+        return ($user->isFriendOf($post->user_id) or $user->id === $post->user_id);
     }
 
 }

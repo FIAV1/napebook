@@ -10057,11 +10057,6 @@ input[type="file"] + label * {
   text-shadow: none;
 }
 
-<<<<<<< HEAD
-section#posts .post-author,
-#post-show .post-author {
-  color: #f5f5f5;
-=======
 .modal .modal-header {
   background-color: #2B3E50;
 }
@@ -10079,19 +10074,25 @@ section#posts .post-author,
   color: #ffffff;
 }
 
-section#posts .post-author a {
-  color: #fff;
+#team-anchor {
+  cursor: pointer;
 }
 
-section#posts .post-author a:hover,
-section#posts .post-author a:focus {
-  color: #fff;
->>>>>>> Implementata la funzionalità del like:
+#team-anchor:hover,
+#team-anchor:focus {
+  text-decoration: none;
+  color: #8d9dad;
+}
+
+section#posts .post-author,
+#post-show .post-author {
+  color: #f5f5f5;
 }
 
 section#posts .social-button,
 #post-show .social-button {
   color: #212529;
+  cursor: pointer;
 }
 
 section#posts .social-button:hover,
@@ -10099,34 +10100,24 @@ section#posts .social-button:focus,
 #post-show .social-button:hover,
 #post-show .social-button:focus {
   text-decoration: none;
-<<<<<<< HEAD
   color: #f5f5f5;
-=======
-  color: #fff;
-  cursor: pointer;
 }
 
-section#posts .social-button:focus {
-  text-decoration: none;
-  color: #fff;
-  cursor: pointer;
-}
-
-section#posts .has-like {
+section#posts .has-like,
+#post-show .has-like {
   color: #5bc0de;
 }
 
-section#posts .has-like:hover {
+section#posts .has-like:hover,
+#post-show .has-like:hover {
   text-decoration: none;
   color: #fff;
-  cursor: pointer;
 }
 
-section#posts .has-like:focus {
+section#posts .has-like:focus,
+#post-show .has-like:focus {
   text-decoration: none;
   color: #fff;
->>>>>>> Prima implementazione rudimentale del Like
-  cursor: pointer;
 }
 
 section#posts #post-manage,
@@ -10160,18 +10151,18 @@ section#profile-show #profile-image-edit {
 .author-image-xs {
   max-width: 25px;
   max-height: 25px;
-  border: 1px solid #EBEBEB;
+  border: 1px solid #f5f5f5;
 }
 
 .author-image-sm {
   max-width: 45px;
   max-height: 45px;
-  border: 2px solid #EBEBEB;
+  border: 2px solid #f5f5f5;
 }
 
 .author-image-md {
   max-width: 85px;
   max-height: 85px;
-  border: 2px solid #EBEBEB;
+  border: 2px solid #f5f5f5;
 }
 

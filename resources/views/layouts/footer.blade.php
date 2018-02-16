@@ -1,7 +1,7 @@
 <footer id="footer">
     <div class="container">
         <div class="row my-4">
-            <div class="col-4"><a data-toggle="modal" data-target="#teamModal">Team</a></div>
+            <div class="col-4"><a id="team-anchor" data-toggle="modal" data-target="#teamModal">Team</a></div>
             <div class="col-4"><p class="text-center">Copyright © Napebook {{ date('Y') }}</p></div>
             <div class="col-4"><p class="text-right">Made with <i class="fas fa-heart"></i> </p></div>
         </div>

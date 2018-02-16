@@ -11144,18 +11144,8 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
-<<<<<<< HEAD
-<<<<<<< HEAD
-__webpack_require__(44);
-module.exports = __webpack_require__(45);
-=======
-__webpack_require__(41);
-module.exports = __webpack_require__(42);
->>>>>>> Prima implementazione rudimentale del Like
-=======
-__webpack_require__(44);
-module.exports = __webpack_require__(45);
->>>>>>> Implementata la funzionalità del like:
+__webpack_require__(46);
+module.exports = __webpack_require__(47);
 
 
 /***/ }),
@@ -11171,7 +11161,6 @@ module.exports = __webpack_require__(45);
 
 __webpack_require__(11);
 
-<<<<<<< HEAD
 // Post
 __webpack_require__(39);
 __webpack_require__(40);
@@ -11183,22 +11172,9 @@ __webpack_require__(41);
 __webpack_require__(42);
 __webpack_require__(43);
 
-//require('./notification');
-=======
-// Custom JavaScript
-__webpack_require__(39);
-__webpack_require__(40);
-<<<<<<< HEAD
-
-Echo.private('App.User.' + userId).notification(function (notification) {
-    console.log(notification.type);
-});
->>>>>>> Prima implementazione rudimentale del Like
-=======
-__webpack_require__(41);
-__webpack_require__(42);
-__webpack_require__(43);
->>>>>>> Implementata la funzionalità del like:
+//Like
+__webpack_require__(44);
+__webpack_require__(45);
 
 /***/ }),
 /* 11 */
@@ -43401,54 +43377,7 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
-<<<<<<< HEAD
-<<<<<<< HEAD
 /* 42 */
-=======
-/* 49 */
-=======
-/* 40 */
->>>>>>> Implementata la funzionalità del like:
-/***/ (function(module, exports) {
-
-(function ($) {
-    "use strict"; // use strict make writing js more safe
-
-    // Update form variables
-
-    var $updateButton = $('#updateButton');
-    var $updateForm = $('#updateForm');
-
-    // Image form variables
-    var $imageRemoveButton = $('#imageRemoveButton');
-    var $ImageRemoveInput = $('#ImageRemoveInput');
-    var $postOldImage = $('#postOldImage');
-
-    // Attaching a button to remove the unwanted file
-    $imageRemoveButton.click(function () {
-        if ($ImageRemoveInput.val() === "") {
-            $ImageRemoveInput.val("remove");
-            $postOldImage.hide();
-            $imageRemoveButton.text("Mantieni l'immagine");
-        } else {
-            $ImageRemoveInput.val("");
-            $postOldImage.show();
-            $imageRemoveButton.text("Rimuovi l'immagine");
-        }
-    });
-
-    $updateButton.click(function () {
-        $updateForm.submit();
-    });
-})(jQuery);
-
-/***/ }),
-<<<<<<< HEAD
-/* 50 */
->>>>>>> Prima implementazione rudimentale del Like
-=======
-/* 41 */
->>>>>>> Implementata la funzionalità del like:
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -43564,7 +43493,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
                 $modal.modal('hide');
 
-                $("#mainNav").after('<div class="alert alert-success alert-dismissible fade show text-center container mt-5" role="alert"><div class="row"><div class="col-12">' + 'Informazioni del profilo aggiornate.' + '</div></div><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                $("#mainNav").after('<section class="session-message">' + '<div class="container">' + '<div class="row">' + '<div class="col-12">' + '<div class="alert alert-success alert-dismissible fade show text-center my-4" role="alert">' + 'Informazioni del profilo aggiornate.' + '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' + '<span aria-hidden="true">&times;</span>' + '</button>' + '</div>' + '</div>' + '</div>' + '</div>' + '</section>');
             },
             error: function error($data) {
                 var $errors = $data.responseJSON;
@@ -43572,7 +43501,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
                 $modal.modal('hide');
 
-                $("#mainNav").after('<div class="alert alert-warning alert-dismissible fade show text-center container mt-5" role="alert"><div class="row"><div class="col-12">' + "Errore durante l'aggiornamento del profilo." + '</div></div><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                $("#mainNav").after('<section class="session-message">' + '<div class="container">' + '<div class="row">' + '<div class="col-12">' + '<div class="alert alert-warning alert-dismissible fade show text-center my-4" role="alert">' + 'Errore durante l\'aggiornamento del profilo.' + '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' + '<span aria-hidden="true">&times;</span>' + '</button>' + '</div>' + '</div>' + '</div>' + '</div>' + '</section>');
             }
         });
     });
@@ -43585,11 +43514,8 @@ return /******/ (function(modules) { // webpackBootstrap
     });
 })(jQuery);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -43616,7 +43542,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
 
@@ -43662,7 +43588,7 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -43681,7 +43607,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
 
@@ -43715,23 +43641,17 @@ return /******/ (function(modules) { // webpackBootstrap
     }
 })(jQuery);
 
->>>>>>> Implementata la funzionalità del like:
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 45 */
+/* 47 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
-<<<<<<< HEAD
-=======
->>>>>>> Prima implementazione rudimentale del Like
-=======
->>>>>>> Implementata la funzionalità del like:
 /***/ })
 /******/ ]);

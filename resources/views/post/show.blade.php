@@ -25,4 +25,6 @@
         @include('post.delete')
     @endcan
 
+    @include('post.like_modal')
+
 @endsection
