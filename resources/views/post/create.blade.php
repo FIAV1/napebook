@@ -6,8 +6,8 @@
 
         <div class="form-row">
             <div class="form-group col-12">
-                <label class="sr-only" for="post-text">Post textarea</label>
-                <textarea id="post-text" class="form-control" name="post-text" rows="5" placeholder="A cosa stai pensando {{ auth()->user()->name }}?" required></textarea>
+                <label class="sr-only" for="post-text-create">Post textarea</label>
+                <textarea id="post-text-create" class="form-control" name="post-text" rows="5" placeholder="A cosa stai pensando {{ auth()->user()->name }}?" required></textarea>
             </div>
         </div>
         

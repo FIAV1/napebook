@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreProfile;
-use App\Http\Requests\StoreProfileImage;
+use App\Http\Requests\UpdateUser;
+use App\Http\Requests\UpdateUserImage;
 use App\User;
 use App\Post;
 use Storage;
@@ -36,17 +36,27 @@ class ProfileController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(User $user)
+    {
+        return response()->json($user);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreProfile $request, User $user)
+    public function update(UpdateUser $request, User $user)
     {
         $user->name = $request->input('name');
         $user->surname = $request->input('surname');
-        $user->email = $request->input('email');
         $user->phone = $request->input('phone');
         $user->birthday = $request->input('birthday');
         $user->sex = $request->input('sex');
@@ -57,7 +67,7 @@ class ProfileController extends Controller
         return json_encode($user);
     }
 
-    public function updateImage(StoreProfileImage $request, User $user)
+    public function updateImage(UpdateUserImage $request, User $user)
     {
         // Verify if a file is present and upload it in case
         $path = $user->image_url;

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProfile extends FormRequest
+class UpdateUser extends FormRequest
 {
     /**
      * The key to be used for the view error bag.
@@ -33,8 +33,7 @@ class StoreProfile extends FormRequest
         return [
             'name' => 'required|alpha_num|between:1,50',
             'surname' => 'required|alpha_num|between:1,50',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'string|min:6|confirmed',
+            'password' => 'sometimes|string|min:6|confirmed',
             'birthday' => 'date',
             'phone' => 'numeric',
             'sex' => 'required|alpha|max:1',
@@ -56,10 +55,6 @@ class StoreProfile extends FormRequest
             'surname.required' => 'Il cognome è obbligatorio',
             'surname.alpha_num' => 'Il cognome deve essere alfanumerico',
             'surname.between' => 'Il cognome deve avere massimo di 50 caratteri',
-            'email.required' => 'È necessario fornire una email',
-            'email.unique' => 'Questa mail risulta già registrata',
-            'email.email' => 'Inserire un indirizzo mail valido',
-            'password.required' => 'La password è obbligatoria',
             'password.confirmed' => 'Le password inserite non corrispondono',
             'password.min' => 'Inserire una password di almeno 6 caratteri',
             'birthday' => 'Inserire una data valida',

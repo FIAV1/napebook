@@ -4,7 +4,7 @@
 
     @include('layouts.message')
     
-    <section class="mt-5" id="show-profile">
+    <section id="profile-show">
         <div class="container">
         @include('profile.profile')
         </div>

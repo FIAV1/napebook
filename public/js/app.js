@@ -11162,13 +11162,14 @@ module.exports = __webpack_require__(45);
 __webpack_require__(11);
 
 // Post
+__webpack_require__(39);
 __webpack_require__(40);
-__webpack_require__(41);
 
 // Image Upload
-__webpack_require__(42);
+__webpack_require__(41);
 
 // Profile
+__webpack_require__(42);
 __webpack_require__(43);
 
 //require('./notification');
@@ -43224,8 +43225,7 @@ return /******/ (function(modules) { // webpackBootstrap
 ;
 
 /***/ }),
-/* 39 */,
-/* 40 */
+/* 39 */
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -43317,7 +43317,7 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -43337,7 +43337,7 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -43375,72 +43375,121 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+(function ($) {
+    "use strict";
+
+    var $button = $('#profile-edit-button');
+
+    $button.click(function () {
+
+        var $id = $(this).data('id');
+        var $modal = $('#profile-edit');
+
+        var $name = $modal.find('#name-edit');
+        var $surname = $modal.find('#surname-edit');
+        var $phone = $modal.find('#phone-edit');
+        var $birthday = $modal.find('#birthday-edit');
+        var $male = $modal.find('#male');
+        var $female = $modal.find('#female');
+        var $bio = $modal.find('#bio-edit');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            dataType: 'json',
+            type: 'GET',
+            url: '/profile/' + $id + '/edit',
+            success: function success($data) {
+                $name.val($data.name);
+                $surname.val($data.surname);
+                $phone.val($data.phone);
+                $birthday.val($data.birthday);
+                if ($data.sex === 'M') {
+                    $male.prop('checked', true);
+                } else {
+                    $female.prop('checked', true);
+                }
+                $bio.val($data.bio);
+
+                $modal.modal('show');
+            },
+            error: function error($data) {
+                var $errors = $data.responseJSON;
+                console.log($errors);
+            }
+        });
+    });
+})(jQuery);
+
+/***/ }),
 /* 43 */
 /***/ (function(module, exports) {
 
 (function ($) {
     "use strict";
 
-    function getValues($div) {
-        var $values = {
-            name: $div.find("#name"),
-            surname: $div.find("#surname"),
-            email: $div.find('#email'),
-            phone: $div.find('#phone'),
-            birthday: $div.find('#birthday'),
-            sex1: $div.find('input[name=sex]:checked'),
-            sex2: $div.find('#sex'),
-            bio: $div.find('#bio')
-        };
+    var $button = $('#profile-update-button');
 
-        return $values;
-    }
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    var $updateProfile = $('#update-profile');
-
-    $updateProfile.click(function ($e) {
-        $e.preventDefault();
+    $button.click(function () {
 
         var $id = $(this).data('id');
+        var $modal = $('#profile-edit');
 
-        var $editProfile = $('#edit-profile');
-        var $showProfile = $('#show-profile');
+        var $name = $modal.find('#name-edit');
+        var $surname = $modal.find('#surname-edit');
+        var $phone = $modal.find('#phone-edit');
+        var $birthday = $modal.find('#birthday-edit');
+        var $password = $modal.find('#password-edit');
+        var $passwordConfirmation = $modal.find('#password-edit_confirmation');
+        var $sex = $modal.find('input[name=sex]');
+        var $bio = $modal.find('#bio-edit');
 
-        var $values = getValues($editProfile);
+        var $data = {
+            'name': $name.val(),
+            'surname': $surname.val(),
+            'phone': $phone.val(),
+            'birthday': $birthday.val(),
+            'sex': $sex.val(),
+            'bio': $bio.val()
+        };
+
+        if ($password.val() != '') {
+            $data['password'] = $password.val();
+            $data['password_confirmation'] = $passwordConfirmation.val();
+        }
 
         $.ajax({
             dataType: 'json',
             type: 'PUT',
             url: '/profile/' + $id + '/info',
-            data: {
-                'name': $values.name.val(),
-                'surname': $values.surname.val(),
-                'email': $values.email.val(),
-                'phone': $values.phone.val(),
-                'birthday': $values.birthday.val(),
-                'sex': $values.sex1.val(),
-                'bio': $values.bio.val()
-            },
+            data: $data,
             success: function success($data) {
-                $values = getValues($showProfile);
+                var $info = $('#profile-info');
+
+                var $name = $info.find('#name');
+                var $surname = $info.find('#surname');
+                var $phone = $info.find('#phone');
+                var $birthday = $info.find('#birthday');
+                var $sex = $info.find('#sex');
+                var $bio = $info.find('#bio');
 
                 //console.log($data);
 
-                $values.name.text($data.name);
-                $values.surname.text($data.surname);
-                $values.email.text($data.email);
-                $values.phone.text($data.text);
-                $values.birthday.text($data.birthday);
-                $data.sex === 'M' ? $values.sex2.text('Uomo') : $values.sex2.text('Donna');
-                $values.bio.text($data.bio);
+                $name.text($data.name);
+                $surname.text($data.surname);
+                $phone.text($data.phone);
+                $birthday.text($data.birthday);
+                $data.sex === 'M' ? $sex.text('Uomo') : $sex.text('Donna');
+                $bio.text($data.bio);
 
-                $editProfile.modal('hide');
+                $modal.modal('hide');
 
                 $("#mainNav").after('<div class="alert alert-success alert-dismissible fade show text-center container mt-5" role="alert"><div class="row"><div class="col-12">' + 'Informazioni del profilo aggiornate.' + '</div></div><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             },
@@ -43448,18 +43497,18 @@ return /******/ (function(modules) { // webpackBootstrap
                 var $errors = $data.responseJSON;
                 console.log($errors);
 
-                $editProfile.modal('hide');
+                $modal.modal('hide');
 
                 $("#mainNav").after('<div class="alert alert-warning alert-dismissible fade show text-center container mt-5" role="alert"><div class="row"><div class="col-12">' + "Errore durante l'aggiornamento del profilo." + '</div></div><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             }
         });
     });
 
-    var $updateProfileImage = $('#update-profile-image');
-    var $editProfileImage = $('#edit-profile-image');
+    var $imageUpdate = $('#profile-image-update');
+    var $imageEdit = $('#profile-image-edit');
 
-    $updateProfileImage.change(function () {
-        $editProfileImage.trigger('submit');
+    $imageUpdate.change(function () {
+        $imageEdit.trigger('submit');
     });
 })(jQuery);
 

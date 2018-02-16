@@ -34,14 +34,15 @@ Route::get('/', 'IndexController@show')->name('index');
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Profile
+Route::get('/profile/{user}/edit', 'ProfileController@edit');
 Route::get('/profile/{user}', 'ProfileController@show')->name('profile-show');
 
 // Post
 Route::get('/post/{post}', 'PostController@show')->name('post-show');
 Route::get('/post/{post}/edit', 'PostController@edit')->name('post-edit');
 Route::post('/post', 'PostController@store')->name('post-store');
-Route::put('/post/{post}', 'PostController@update')->name('post-update')->middleware('can:update,post');
-Route::delete('/post/{post}', 'PostController@destroy')->name('post-destroy')->middleware('can:destroy,post');
+Route::put('/post/{post}', 'PostController@update')->name('post-update')->middleware('can:updatePost,post');
+Route::delete('/post/{post}', 'PostController@destroy')->name('post-destroy')->middleware('can:destroyPost,post');
 
 // Friends
 Route::get('/friends', 'FriendController@show')->name('friends');

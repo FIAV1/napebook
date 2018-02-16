@@ -17,5 +17,6 @@ require('./imageUpload');
 
 // Profile
 require('./profileEdit');
+require('./profileUpdate');
 
 //require('./notification');

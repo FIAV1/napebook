@@ -10093,16 +10093,16 @@ section#posts #post-manage:focus,
   cursor: pointer;
 }
 
-section#show-profile .card {
+section#profile-show .card {
   max-width: 600px;
 }
 
-section#show-profile .btn-nav {
+section#profile-show .btn-nav {
   width: 150px;
   text-align: center;
 }
 
-section#show-profile #edit-profile-image {
+section#profile-show #profile-image-edit {
   position: absolute;
   top: 40px;
   right: 40px;

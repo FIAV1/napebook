@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProfileImage extends FormRequest
+class UpdateUserImage extends FormRequest
 {
     /**
      * The key to be used for the view error bag.

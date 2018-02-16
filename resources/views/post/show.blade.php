@@ -17,7 +17,12 @@
         </div>
     </section>
 
-    @include('post.edit')
-    @include('post.delete')
+    @can('editPost', $post)
+        @include('post.edit')
+    @endcan
+
+    @can('destroyPost', $post)
+        @include('post.delete')
+    @endcan
 
 @endsection

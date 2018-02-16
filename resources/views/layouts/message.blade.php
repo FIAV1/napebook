@@ -1,5 +1,5 @@
 @if (session('message'))
-<section id="session-message" class="my-2">
+<section id="session-message" class="my-4">
     <div class="container">
         <div class="row">
             <div class="col-12">

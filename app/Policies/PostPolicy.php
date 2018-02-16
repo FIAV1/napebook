@@ -17,7 +17,7 @@ class PostPolicy
      * @param  \App\Post  $post
      * @return mixed
      */
-    public function edit(User $user, Post $post)
+    public function editPost(User $user, Post $post)
     {
         return $user->id === $post->user_id;
     }
@@ -29,7 +29,7 @@ class PostPolicy
      * @param  \App\Post  $post
      * @return mixed
      */
-    public function update(User $user, Post $post)
+    public function updatePost(User $user, Post $post)
     {
         return $user->id === $post->user_id;
     }
@@ -41,7 +41,7 @@ class PostPolicy
      * @param  \App\Post  $post
      * @return mixed
      */
-    public function destroy(User $user, Post $post)
+    public function destroyPost(User $user, Post $post)
     {
         return $user->id === $post->user_id;
     }

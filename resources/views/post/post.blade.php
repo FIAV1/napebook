@@ -17,7 +17,7 @@
                     </div>
 
                     <!-- Post edit -->
-                    @can('edit',$post)
+                    @can('editPost',$post)
                     <div class="col-auto align-self-center ml-auto">
                         <div class="dropdown show">
                             <a role="button" id="post-manage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
