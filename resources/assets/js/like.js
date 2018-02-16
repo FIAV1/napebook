@@ -2,12 +2,25 @@
 
     "use strict";
 
-    var $like = $('.like');
+    $(document).on('click', '.hasnt-like', function(){
 
-    $like.click(function(){
+        var $trigger = $(this);
+        var $postId = $trigger.data('postid');
 
-        var $button = $(this);
-        var $id = $button.data('id');
+        performRequest('POST', $postId, $trigger);
+
+    });
+
+    $(document).on('click', '.has-like', function(){
+
+        var $trigger = $(this);
+        var $postId = $trigger.data('postid');
+
+        performRequest('DELETE', $postId, $trigger);
+
+    });
+
+    function performRequest($method, $postId, $trigger){
 
         $.ajaxSetup({
             headers: {
@@ -17,33 +30,39 @@
 
         $.ajax({
 
-            type: 'GET',
-            url: '/post/'+$id+'/like',
+            type: $method,
+            url: '/like',
+            data: { post_id: $postId },
+            dataType: 'json',
 
-            success: function($data) {
+            success: function($response) {
 
-               if ( $button.hasClass('has-like') ) {
-                   $button.removeClass('has-like');
-               }
-               else{
-                   $button.addClass('has-like');
-               }
+                if ( $trigger.hasClass('has-like') ) {
 
-               if ( parseInt($data) === 1) {
+                    $trigger.removeClass('has-like');
+                    $trigger.addClass('hasnt-like');
+                }
+                else{
 
-                   var $text ='<a href="#" data-toggle="modal" data-target="#likeUsersModal" id="likeUsersButton">Piace a '+$data+' persona</a>';
+                    $trigger.removeClass('hasnt-like');
+                    $trigger.addClass('has-like');
+                }
 
-                   $('#like-amount-'+$id).html($text);
-               }
-               else if ( parseInt($data) > 1) {
+                if (parseInt($response) === 1) {
 
-                   var $text ='<a href="#" data-toggle="modal" data-target="#likeUsersModal" id="likeUsersButton">Piace a '+$data+' persone</a>';
+                    var text ='<a class="social-button post-likes" data-postid="'+$postId+'" data-toggle="modal" data-target="#likeUsersModal">Piace a '+$response+' persona</a>';
 
-                   $('#like-amount-'+$id).html($text);
-               }
-               else{
-                   $('#like-amount-'+$id).html('');
-               }
+                    $('#like-amount-'+$postId).html(text);
+                }
+                else if (parseInt($response) > 1) {
+
+                    var text ='<a class="social-button post-likes" data-postid="'+$postId+'" data-toggle="modal" data-target="#likeUsersModal">Piace a '+$response+' persone</a>';
+
+                    $('#like-amount-'+$postId).html(text);
+                }
+                else{
+                    $('#like-amount-'+$postId).empty();
+                }
 
             },
             error: function() {
@@ -51,52 +70,6 @@
                 console.log('Errore');
             }
         });
-    });
-
-
-
-//cancella il like
-    $(document).on('click','.colorDislike',function(){
-        //$(".btn-send").click(function (e) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            }
-        })
-
-        //e.preventDefault();
-
-        var formData = {
-            id_mitt: $('#id_mitt').val(),
-            id_post: $(this).val(),
-        }
-        var postID= $(this).val();
-        var type = "DELETE"; //per creare una nuova risorsa
-
-
-        $.ajax({
-
-            type: type,
-            url: url,
-            data: formData,
-            dataType: 'json',
-            success: function (data) {
-
-                var string='<button type="button" class="buttonLike colorLike" value="' + postID + '"><i class="fa fa-thumbs-up"></i>  Mi piace</button>';
-
-                $("#mipiace"+postID).empty();
-                $("#mipiace"+postID).append(string);
-
-                var updateNLike=' ' + data[1] + ' ';
-                $("#nLike"+postID).empty();
-                $("#nLike"+postID).append(updateNLike);
-
-
-            },
-            error: function (data) {
-            }
-        });
-    });
-
+    }
 
 })(jQuery);

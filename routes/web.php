@@ -37,13 +37,17 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/profile/{user}/edit', 'ProfileController@edit');
 Route::get('/profile/{user}', 'ProfileController@show')->name('profile-show');
 
+//Like API
+Route::get('/post/likes', 'PostController@postLikes');
+Route::post('/like', 'PostController@like')->name('post-like');
+Route::delete('/like', 'PostController@unlike')->name('post-unlike');
+
 // Post
 Route::get('/post/{post}', 'PostController@show')->name('post-show');
 Route::get('/post/{post}/edit', 'PostController@edit')->name('post-edit');
 Route::post('/post', 'PostController@store')->name('post-store');
 Route::put('/post/{post}', 'PostController@update')->name('post-update')->middleware('can:update,post');
 Route::delete('/post/{post}', 'PostController@destroy')->name('post-destroy')->middleware('can:destroy,post');
-Route::get('/post/{post}/like', 'PostController@like')->name('post-like');
 
 // Friends
 Route::get('/friends', 'FriendController@show')->name('friends');

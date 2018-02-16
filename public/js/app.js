@@ -11145,12 +11145,17 @@ module.exports = Cancel;
 
 __webpack_require__(10);
 <<<<<<< HEAD
+<<<<<<< HEAD
 __webpack_require__(44);
 module.exports = __webpack_require__(45);
 =======
 __webpack_require__(41);
 module.exports = __webpack_require__(42);
 >>>>>>> Prima implementazione rudimentale del Like
+=======
+__webpack_require__(44);
+module.exports = __webpack_require__(45);
+>>>>>>> Implementata la funzionalità del like:
 
 
 /***/ }),
@@ -11181,15 +11186,19 @@ __webpack_require__(43);
 //require('./notification');
 =======
 // Custom JavaScript
-__webpack_require__(48);
-__webpack_require__(49);
-__webpack_require__(50);
+__webpack_require__(39);
 __webpack_require__(40);
+<<<<<<< HEAD
 
 Echo.private('App.User.' + userId).notification(function (notification) {
     console.log(notification.type);
 });
 >>>>>>> Prima implementazione rudimentale del Like
+=======
+__webpack_require__(41);
+__webpack_require__(42);
+__webpack_require__(43);
+>>>>>>> Implementata la funzionalità del like:
 
 /***/ }),
 /* 11 */
@@ -43242,121 +43251,7 @@ return /******/ (function(modules) { // webpackBootstrap
 ;
 
 /***/ }),
-/* 39 */,
-/* 40 */
-/***/ (function(module, exports) {
-
-(function ($) {
-
-    "use strict";
-
-    var $like = $('.like');
-
-    $like.click(function () {
-
-        var $button = $(this);
-        var $id = $button.data('id');
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-
-            type: 'GET',
-            url: '/post/' + $id + '/like',
-
-            success: function success($data) {
-
-                if ($button.hasClass('has-like')) {
-                    $button.removeClass('has-like');
-                } else {
-                    $button.addClass('has-like');
-                }
-
-                if (parseInt($data) === 1) {
-
-                    var $text = '<a href="#" data-toggle="modal" data-target="#likeUsersModal" id="likeUsersButton">Piace a ' + $data + ' persona</a>';
-
-                    $('#like-amount-' + $id).html($text);
-                } else if (parseInt($data) > 1) {
-
-                    var $text = '<a href="#" data-toggle="modal" data-target="#likeUsersModal" id="likeUsersButton">Piace a ' + $data + ' persone</a>';
-
-                    $('#like-amount-' + $id).html($text);
-                } else {
-                    $('#like-amount-' + $id).html('');
-                }
-            },
-            error: function error() {
-
-                console.log('Errore');
-            }
-        });
-    });
-
-    //cancella il like
-    $(document).on('click', '.colorDislike', function () {
-        //$(".btn-send").click(function (e) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            }
-        });
-
-        //e.preventDefault();
-
-        var formData = {
-            id_mitt: $('#id_mitt').val(),
-            id_post: $(this).val()
-        };
-        var postID = $(this).val();
-        var type = "DELETE"; //per creare una nuova risorsa
-
-
-        $.ajax({
-
-            type: type,
-            url: url,
-            data: formData,
-            dataType: 'json',
-            success: function success(data) {
-
-                var string = '<button type="button" class="buttonLike colorLike" value="' + postID + '"><i class="fa fa-thumbs-up"></i>  Mi piace</button>';
-
-                $("#mipiace" + postID).empty();
-                $("#mipiace" + postID).append(string);
-
-                var updateNLike = ' ' + data[1] + ' ';
-                $("#nLike" + postID).empty();
-                $("#nLike" + postID).append(updateNLike);
-            },
-            error: function error(data) {}
-        });
-    });
-})(jQuery);
-
-/***/ }),
-/* 41 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 42 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */
+/* 39 */
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -43507,9 +43402,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ }),
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* 42 */
 =======
 /* 49 */
+=======
+/* 40 */
+>>>>>>> Implementata la funzionalità del like:
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -43544,8 +43443,12 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
+<<<<<<< HEAD
 /* 50 */
 >>>>>>> Prima implementazione rudimentale del Like
+=======
+/* 41 */
+>>>>>>> Implementata la funzionalità del like:
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -43683,6 +43586,136 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+(function ($) {
+
+    "use strict";
+
+    $(document).on('click', '.hasnt-like', function () {
+
+        var $trigger = $(this);
+        var $postId = $trigger.data('postid');
+
+        performRequest('POST', $postId, $trigger);
+    });
+
+    $(document).on('click', '.has-like', function () {
+
+        var $trigger = $(this);
+        var $postId = $trigger.data('postid');
+
+        performRequest('DELETE', $postId, $trigger);
+    });
+
+    function performRequest($method, $postId, $trigger) {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+
+            type: $method,
+            url: '/like',
+            data: { post_id: $postId },
+            dataType: 'json',
+
+            success: function success($response) {
+
+                if ($trigger.hasClass('has-like')) {
+
+                    $trigger.removeClass('has-like');
+                    $trigger.addClass('hasnt-like');
+                } else {
+
+                    $trigger.removeClass('hasnt-like');
+                    $trigger.addClass('has-like');
+                }
+
+                if (parseInt($response) === 1) {
+
+                    var text = '<a class="social-button post-likes" data-postid="' + $postId + '" data-toggle="modal" data-target="#likeUsersModal">Piace a ' + $response + ' persona</a>';
+
+                    $('#like-amount-' + $postId).html(text);
+                } else if (parseInt($response) > 1) {
+
+                    var text = '<a class="social-button post-likes" data-postid="' + $postId + '" data-toggle="modal" data-target="#likeUsersModal">Piace a ' + $response + ' persone</a>';
+
+                    $('#like-amount-' + $postId).html(text);
+                } else {
+                    $('#like-amount-' + $postId).empty();
+                }
+            },
+            error: function error() {
+
+                console.log('Errore');
+            }
+        });
+    }
+})(jQuery);
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports) {
+
+(function ($) {
+
+    "use strict";
+
+    $(document).on('click', '.post-likes', function () {
+
+        var $trigger = $(this);
+        var $postId = $trigger.data('postid');
+
+        performRequest('GET', $postId, $trigger);
+    });
+
+    function performRequest($method, $postId, $trigger) {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+
+            type: $method,
+            url: '/post/likes',
+            data: { post_id: $postId },
+            dataType: 'json',
+
+            success: function success($response) {
+
+                var $modalBody = $('#likeUsersModal').find('.modal-body');
+
+                $modalBody.html('<ul class="list-group list-group-flush">');
+
+                $.each($response, function ($i, $user) {
+
+                    var $text = '<li class="list-group-item d-flex align-items-center">' + '<img src="/img/nico.svg" alt="user image" class="img-fluid rounded-circle author-image-md">' + '<div class="container">' + '<div class="row">' + '<div class="col-12 text-center">' + '<a href=\"/profile/' + $user.id + '\">' + $user.name + ' ' + $user.surname + '</a>' + '</div>' + '</div>' + '</div>' + '</li>';
+
+                    $modalBody.append($text);
+                });
+
+                $modalBody.append('</ul>');
+            },
+            error: function error() {
+
+                console.log('Errore');
+            }
+        });
+    }
+})(jQuery);
+
+>>>>>>> Implementata la funzionalità del like:
 /***/ }),
 /* 44 */
 /***/ (function(module, exports) {
@@ -43695,7 +43728,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 // removed by extract-text-webpack-plugin
 
+<<<<<<< HEAD
 =======
 >>>>>>> Prima implementazione rudimentale del Like
+=======
+>>>>>>> Implementata la funzionalità del like:
 /***/ })
 /******/ ]);

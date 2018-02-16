@@ -26,4 +26,6 @@
 
     @include('post.edit')
     @include('post.delete')
+    @include('post.like_modal')
+
 @endsection

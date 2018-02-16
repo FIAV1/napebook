@@ -45,4 +45,17 @@ class PostPolicy
     {
         return $user->id === $post->user_id;
     }
+
+    /**
+     * Determine whether the user can likes the post.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Post  $post
+     * @return mixed
+     */
+    public function like(User $user, Post $post)
+    {
+        return $user->isFriendOf($post->user_id);
+    }
+
 }

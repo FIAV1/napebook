@@ -2,12 +2,9 @@
 
 namespace App;
 
-use App\Post;
-use App\Like;
 use App\Mail\ResetPasswordEmail;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -27,9 +24,18 @@ class User extends Authenticatable
      *
      * @var array
      */
+    /*
     protected $hidden = [
         'password', 'remember_token'
     ];
+    */
+
+    /**
+     * The attributes that should be visible in arrays.
+     *
+     * @var array
+     */
+    protected $visible = ['id', 'name', 'surname', 'image_url'];
 
     /**
      * Send the password reset notification.
@@ -192,8 +198,30 @@ class User extends Authenticatable
             ->where('id', $friendship_id)
             ->delete();
     }
+
+    public function isFriendOf($user_id)
+    {
+        $friendship = DB::table('friendships')
+            ->where(function($query) use ($user_id){
+                $query->where('friendships.user_id', $this->id)
+                    ->where('friendships.friend_id', $user_id);
+            })
+            ->orWhere(function($query) use ($user_id){
+                $query->where('friendships.user_id', $user_id)
+                    ->where('friendships.friend_id', $this->id);
+            })
+            ->where('friendships.active', 1)
+            ->first();
+
+        if ($friendship) {
+            return true;
+        }
+
+        return false;
+    }
     
     public function getPosts(){
+
         return $this->posts()->latest()->get();
     }
 

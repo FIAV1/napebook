@@ -10047,10 +10047,6 @@ input[type="file"] + label * {
   cursor: pointer;
 }
 
-.modal #registrationModal .modal-header {
-  background-color: #2B3E50;
-}
-
 .modal .close {
   color: #adb5bd;
   text-shadow: none;
@@ -10061,9 +10057,36 @@ input[type="file"] + label * {
   text-shadow: none;
 }
 
+<<<<<<< HEAD
 section#posts .post-author,
 #post-show .post-author {
   color: #f5f5f5;
+=======
+.modal .modal-header {
+  background-color: #2B3E50;
+}
+
+#likeUsersModal .modal-dialog {
+  overflow-y: initial !important;
+}
+
+#likeUsersModal .modal-body {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+#likeUsersModal a {
+  color: #ffffff;
+}
+
+section#posts .post-author a {
+  color: #fff;
+}
+
+section#posts .post-author a:hover,
+section#posts .post-author a:focus {
+  color: #fff;
+>>>>>>> Implementata la funzionalità del like:
 }
 
 section#posts .social-button,
@@ -10132,5 +10155,23 @@ section#profile-show #profile-image-edit {
   position: absolute;
   top: 40px;
   right: 40px;
+}
+
+.author-image-xs {
+  max-width: 25px;
+  max-height: 25px;
+  border: 1px solid #EBEBEB;
+}
+
+.author-image-sm {
+  max-width: 45px;
+  max-height: 45px;
+  border: 2px solid #EBEBEB;
+}
+
+.author-image-md {
+  max-width: 85px;
+  max-height: 85px;
+  border: 2px solid #EBEBEB;
 }
 

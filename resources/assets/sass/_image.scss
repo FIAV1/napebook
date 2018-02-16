@@ -1,0 +1,26 @@
+.author-image-xs{
+
+  max-width: 25px;
+  max-height: 25px;
+
+  border:1px solid $gray-100;
+  //box-shadow: 0 0 5px $gray-100;
+}
+
+.author-image-sm{
+
+  max-width: 45px;
+  max-height: 45px;
+
+  border:2px solid $gray-100;
+  //box-shadow: 0 0 5px $gray-100;
+}
+
+.author-image-md{
+
+  max-width: 85px;
+  max-height: 85px;
+
+  border:2px solid $gray-100;
+  //box-shadow: 0 0 5px $gray-100;
+}

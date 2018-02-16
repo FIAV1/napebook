@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Like;
 use App\Notifications\FriendshipRequest;
 use App\Post;
+use Illuminate\Http\Request;
 use Storage;
 use App\Http\Requests\StorePost;
 
@@ -118,21 +119,51 @@ class PostController extends Controller
         return redirect('home');
     }
 
-    public function like(Post $post)
+    public function like(Request $request)
     {
+        $post = Post::find($request->input('post_id'));
+
+        // The current user can likes the post
+        $this->authorize('like', $post);
+
+        if ($post) {
+
+            $like = new Like();
+            $like->user()->associate(auth()->user());
+            $post->likes()->save($like);
+
+            return json_encode($post->getLikesAmount());
+        }
+    }
+
+    public function unlike(Request $request)
+    {
+        $post = Post::find($request->input('post_id'));
+
+        // The current user can likes the post
+        $this->authorize('like', $post);
+
         $like = $post->likes()->where('user_id', auth()->user()->id)->first();
 
         if ($like) {
 
             $like->delete();
         }
-        else {
-
-            $like = new Like();
-            $like->user()->associate(auth()->user());
-            $post->likes()->save($like);
-        }
 
         return json_encode($post->getLikesAmount());
+    }
+
+    public function postLikes(Request $request)
+    {
+        $post = Post::find($request->input('post_id'));
+
+        $users = collect();
+
+        foreach ($post->likes as $like) {
+
+            $users->push($like->user);
+        }
+
+        return json_encode($users);
     }
 }

@@ -1,20 +1,32 @@
-.modal{
-  
-  	#registrationModal{
-    
-		.modal-header{
-			background-color: $body-bg;
-		}
-    
-  	}
-  
-  	.close{
+.modal {
+
+	.close {
 		color: $gray-500;
 		text-shadow: none;
-    
-		&:hover{
+
+		&:hover {
 			color: lighten($gray-500, 50%);
 			text-shadow: none;
 		}
-  	}
+	}
+
+	.modal-header{
+		background-color: $body-bg;
+	}
+}
+
+#likeUsersModal{
+
+	.modal-dialog{
+		overflow-y: initial !important
+	}
+
+	.modal-body{
+		max-height: 500px;
+		overflow-y: auto;
+	}
+
+	a{
+		color: #ffffff;
+	}
 }

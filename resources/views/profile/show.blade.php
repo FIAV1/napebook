@@ -35,9 +35,9 @@
     @can('editProfile', $user)
         @include('profile.edit')
     @endcan
-
     
     @include('post.edit')
     @include('post.delete')
+    @include('post.like_modal')
 
 @endsection
