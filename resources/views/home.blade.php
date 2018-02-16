@@ -6,6 +6,7 @@
 
     <section id="posts">
         <div class="container">
+
             <!-- Publish a Post -->
             <div class="row">
                 <div class="col-12 col-md-7 mx-md-auto">
@@ -26,4 +27,5 @@
 
     @include('post.edit')
     @include('post.delete')
+
 @endsection

@@ -23,7 +23,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = auth()->user()->friendsPosts();
+        /**
+         * @var Post $posts
+         */
+        $posts = auth()->user()->homePosts();
+
+        if ($posts->isEmpty()) {
+
+            $posts = auth()->user()->getPosts();
+        }
 
         return view('home', compact('posts'));
     }

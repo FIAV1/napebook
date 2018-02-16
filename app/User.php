@@ -203,7 +203,7 @@ class User extends Authenticatable
      * @return Post
      */
 
-    public function friendsPosts()
+    public function homePosts()
     {
         return $this
             ->join('friendships', function ($join) { $join
@@ -220,7 +220,6 @@ class User extends Authenticatable
             ->distinct()
             ->orderBy('posts.created_at','desc')
             ->get();
-
     }
 
     /**
