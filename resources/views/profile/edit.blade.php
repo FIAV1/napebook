@@ -63,7 +63,7 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-12 d-flex">
-                            <button type="button" id="profile-update-button" class="btn btn-secondary mr-auto" data-id="{{ $user->id }}">Salva <i class="fas fa-save ml-2"></i></button>
+                            <button type="submit" id="profile-update-button" class="btn btn-secondary mr-auto" data-id="{{ $user->id }}">Salva <i class="fas fa-save ml-2"></i></button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Annulla <i class="fas fa-times ml-2"></i></button>
                         </div>
                     </div>

@@ -21,3 +21,9 @@ require('./profileUpdate');
 //Like
 require('./like');
 require('./postLikes');
+
+// Friends
+require('./friendsRequest');
+require('./friendsPendent');
+
+//require('./notification');

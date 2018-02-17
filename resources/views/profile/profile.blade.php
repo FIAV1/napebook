@@ -72,7 +72,7 @@
         <a href="{{ route('profile-show', $user) }}" class="btn btn-success btn-nav"><i class="fas fa-home mr-2"></i>Timeline</a>
     </div>
     <div class="col-6 text-center">
-        <a href="#" class="btn btn-success btn-nav"><i class="fas fa-users mr-2"></i>Amici</a>
+        <a href="{{ route('friends-index', $user) }}" class="btn btn-success btn-nav"><i class="fas fa-users mr-2"></i>Amici</a>
     </div>
 </div>
 <!-- Nav Buttons End -->

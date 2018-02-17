@@ -28,22 +28,22 @@ class FriendshipController extends Controller
     public function update()
     {
         //Accept the friendship request
-        auth()->user()->acceptFriendship(request('friendship_id'));
+        auth()->user()->acceptFriendship(request('friend_id'));
 
         return back();
 
     }
 
     /**
-     *Delete a friendship or a friendship request (accepted or not)
+     * Delete a friendship or a friendship request (accepted or not)
      *
      *
      * @return \Illuminate\Http\Response
      */
     public function destroy()
     {
-        //Accept the friendship request
-        auth()->user()->deleteFriendship(request('friendship_id'));
+        //Deny the friendship request
+        auth()->user()->deleteFriendship(request('friend_id'));
 
         return back();
 

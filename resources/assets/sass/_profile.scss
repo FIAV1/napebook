@@ -13,4 +13,9 @@ section#profile-show{
         top: 40px;
         right: 40px;
     }
+
+    hr{
+        border: 1px solid $gray-100;
+        border-radius: 10px;
+    }
 }

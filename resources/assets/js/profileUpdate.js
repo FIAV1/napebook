@@ -20,16 +20,28 @@
         var $data = {
             'name': $name.val(),
             'surname': $surname.val(),
-            'phone': $phone.val(),
             'birthday': $birthday.val(),
             'sex': $sex.val(),
-            'bio': $bio.val()
         };
 
         if($password.val() != ''){
             $data['password'] = $password.val();
             $data['password_confirmation'] = $passwordConfirmation.val();
         }
+
+        if($phone.val() != ''){
+            $data['phone'] = $phone.val();
+        }
+
+        if($bio.val() != ''){
+            $data['bio'] = $bio.val();
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         $.ajax({
             dataType: 'json',
@@ -50,10 +62,10 @@
     
                 $name.text($data.name);
                 $surname.text($data.surname);
-                $phone.text($data.phone);
+                $data.phone !== null ? $phone.text($data.phone) : $phone.text('Nessun numero di telefono presente.');
                 $birthday.text($data.birthday);
                 $data.sex === 'M' ? $sex.text('Uomo') : $sex.text('Donna');
-                $bio.text($data.bio);
+                $data.bio !== null ? $bio.text($data.bio) : $bio.text('Nessuna bio presente.');
     
                 $modal.modal('hide');
 

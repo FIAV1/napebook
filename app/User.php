@@ -123,6 +123,7 @@ class User extends Authenticatable
         return $this->join('friendships', 'users.id', '=', 'friendships.friend_id')
             ->where('friendships.user_id', $this->id)
             ->where('friendships.active', 0)
+            ->select('users.*')
             ->get();
     }
 
@@ -137,6 +138,7 @@ class User extends Authenticatable
         return $this->join('friendships', 'users.id', '=', 'friendships.user_id')
             ->where('friendships.friend_id', $this->id)
             ->where('friendships.active', 0)
+            ->select('users.*')
             ->get();
     }
 
@@ -177,10 +179,11 @@ class User extends Authenticatable
      *
      * @param Integer $friendship_id
      */
-    public function acceptFriendship($friendship_id)
+    public function acceptFriendship($friend_id)
     {
         DB::table('friendships')
-            ->where('id', $friendship_id)
+            ->where('user_id', $friend_id)
+            ->where('friend_id', $this->id)
             ->update([
             'active' => true
             ]);
@@ -192,10 +195,13 @@ class User extends Authenticatable
      *
      * @param Integer $friendship_id
      */
-    public function deleteFriendship($friendship_id)
+    public function deleteFriendship($friend_id)
     {
         DB::table('friendships')
-            ->where('id', $friendship_id)
+            ->where('user_id', $this->id)
+            ->where('friend_id', $friend_id)
+            ->orWhere('user_id', $friend_id)
+            ->where('friend_id', $this->id)
             ->delete();
     }
 

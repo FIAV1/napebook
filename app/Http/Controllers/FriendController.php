@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+
 
 class FriendController extends Controller
 {
@@ -11,11 +13,11 @@ class FriendController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function index(User $user)
     {
-        $friends = auth()->user()->acceptedFriends();
+        $friends = $user->acceptedFriends();
 
-        return view('friendship.show', compact('friends'));
+        return view('friendship.index', compact('friends'), compact('user'));
     }
 
     /**
@@ -28,7 +30,7 @@ class FriendController extends Controller
     {
         $friends = auth()->user()->pendingFriends();
 
-        return view('friendship.pendent', compact('friends'));
+        return response()->json($friends);
     }
 
     /**
@@ -41,7 +43,7 @@ class FriendController extends Controller
     {
         $friends = auth()->user()->requestFriends();
 
-        return view('friendship.request', compact('friends'));
+        return response()->json($friends);
     }
 
     /**
