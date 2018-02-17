@@ -14,9 +14,9 @@
         var $birthday = $modal.find('#birthday-edit');
         var $password = $modal.find('#password-edit');
         var $passwordConfirmation = $modal.find('#password-edit_confirmation');
-        var $sex = $modal.find('input[name=sex]');
+        var $sex = $modal.find('input[name=sex]:checked');
         var $bio = $modal.find('#bio-edit');
-
+        
         var $data = {
             'name': $name.val(),
             'surname': $surname.val(),

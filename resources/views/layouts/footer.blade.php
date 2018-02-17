@@ -23,7 +23,7 @@
             <div class="modal-body">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item d-flex justify-content align-items-center">
-                        <img src="{{ URL::asset('img/nico.svg') }}" alt="user image" class="img-fluid rounded-circle author-image-md">
+                        <img src="https://api.adorable.io/avatars/285/niccolò@adorable.png" alt="user image" class="img-fluid rounded-circle img-md">
                         <div class="container">
                             <div class="row">
                                 <div class="col-12 text-center">
@@ -38,7 +38,7 @@
                         </div>
                     </li>
                     <li class="list-group-item d-flex align-items-center">
-                        <img src="{{ URL::asset('img/fede.svg') }}" alt="user image" class="img-fluid rounded-circle author-image-md">
+                        <img src="https://api.adorable.io/avatars/285/federico@adorable.png" alt="user image" class="img-fluid rounded-circle img-md">
                         <div class="container">
                             <div class="row">
                                 <div class="col-12 text-center">
@@ -53,7 +53,7 @@
                         </div>
                     </li>
                     <li class="list-group-item d-flex align-items-center">
-                        <img src="{{ URL::asset('img/user.svg') }}" alt="user image" class="img-fluid rounded-circle author-image-md">
+                        <img src="https://api.adorable.io/avatars/285/giovanni@adorable.png" alt="user image" class="img-fluid rounded-circle img-md">
                         <div class="container">
                             <div class="row">
                                 <div class="col-12 text-center">
@@ -68,7 +68,7 @@
                         </div>
                     </li>
                     <li class="list-group-item d-flex align-items-center">
-                        <img src="{{ URL::asset('img/marco.svg') }}" alt="user image" class="img-fluid rounded-circle author-image-md">
+                        <img src="https://api.adorable.io/avatars/285/marco@adorable.png" alt="user image" class="img-fluid rounded-circle img-md">
                         <div class="container">
                             <div class="row">
                                 <div class="col-12 text-center">

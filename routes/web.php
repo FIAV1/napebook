@@ -56,7 +56,7 @@ Route::get('/friends/search/{query}', 'FriendController@search')->name('friends-
 
 // Friendship
 Route::post('/friendship', 'FriendshipController@store')->name('friendship-store');
-Route::patch('/friendship', 'FriendshipController@update')->name('friendship-update');
+Route::put('/friendship', 'FriendshipController@update')->name('friendship-update');
 Route::delete('/friendship', 'FriendshipController@destroy')->name('friendship-delete');
 
 // Profile

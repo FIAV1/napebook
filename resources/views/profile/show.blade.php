@@ -38,6 +38,9 @@
     
     @include('post.edit')
     @include('post.delete')
+    
     @include('post.like_modal')
+
+    @include('friendship.manage')
 
 @endsection

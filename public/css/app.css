@@ -10048,22 +10048,22 @@ input[type="file"] + label * {
 }
 
 .img-xs {
-  max-width: 25px;
+  width: 25px;
   max-height: 25px;
 }
 
 .img-sm {
-  max-width: 45px;
+  width: 45px;
   max-height: 45px;
 }
 
 .img-md {
-  max-width: 100px;
+  width: 100px;
   max-height: 100px;
 }
 
 .img-lg {
-  max-width: 350px;
+  width: 350px;
   max-height: 350px;
 }
 
@@ -10169,6 +10169,7 @@ section#profile-show #profile-image-edit {
 }
 
 section#profile-show hr {
+<<<<<<< 59f2a10a005977c58a0de2abaada1208f5f1f2cb
   border: 1px solid #f5f5f5;
   border-radius: 10px;
 }
@@ -10176,15 +10177,17 @@ section#profile-show hr {
 .author-image-xs {
   max-width: 25px;
   max-height: 25px;
+=======
+>>>>>>> Likes e Friendship fixes
   border: 1px solid #f5f5f5;
+  border-radius: 10px;
 }
 
-.author-image-sm {
-  max-width: 45px;
-  max-height: 45px;
-  border: 2px solid #f5f5f5;
+section#friends-index a {
+  color: #fff;
 }
 
+<<<<<<< 59f2a10a005977c58a0de2abaada1208f5f1f2cb
 .author-image-md {
   max-width: 85px;
   max-height: 85px;
@@ -10193,5 +10196,11 @@ section#profile-show hr {
 
 .nav-tabs .nav-link.active {
   border-bottom-color: #2B3E50;
+=======
+@media (max-width: 768px) {
+  section#friends-index .nav-link {
+    font-size: 13px;
+  }
+>>>>>>> Likes e Friendship fixes
 }
 

@@ -1,45 +1,11 @@
-section#friendship{
-    .friend-image{
-        max-width: 45px;
-        max-height: 45px;
-
-        border:2px solid $gray-100;
-        //box-shadow: 0 0 5px $gray-100;
-    }
-
-    .friend{
-        font-size: 20px;
-        a{
-            color: $white;
-
-            &:hover, &:focus{
-                color: $white;
-            }
-        }
-    }
-
-    .text-black{
-        color: $black;
-    }
-
-    .social-button{
-        color: $gray-900;
-    
-        &:hover{
-            text-decoration: none;
-            color: $white;
-        }
-        &:focus{
-            text-decoration: none;
-            color: $white;
-        }
-    }
-
-    #dropdownMenuLink{
+section#friends-index{
+    a{
         color: $white;
+    }
 
-        &:hover, &:focus{
-            color: darken($white, 30%);
+    .nav-link{
+        @media (max-width: $md) {
+            font-size: 13px;
         }
     }
 }

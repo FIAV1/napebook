@@ -12,6 +12,43 @@
                 @can('editProfile', $user)
                 <a id="profile-edit-button" class="btn btn-secondary ml-auto rounded-circle" data-id="{{ $user->id }}"><i class="fas fa-pencil-alt"></i></a>
                 @endcan
+                @if (auth()->id() != $user->id)
+                    @if (!auth()->user()->isFriendOf($user->id) && !auth()->user()->friendshipSent($user->id) && !auth()->user()->friendshipReceived($user->id))
+                        <!-- non è mio amico e no richieste-->
+                        <button type="button" id="friendship-add-button" class="btn btn-info ml-auto" data-id="{{ $user->id }}">Aggiungi agli amici</button>
+                    @else
+                        <!-- non è mio amico ma richieste / è mio amico -->
+                        <div class="dropdown ml-auto">
+                            <button class="btn btn-info dropdown-toggle" type="button" id="friendship-management" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <!-- ho inviato richiesta -->
+                                    {{ auth()->user()->friendshipSent($user->id) ? 'Richiesta di amicizia inviata' : '' }}
+
+                                    <!-- ho ricevuto richiesta -->
+                                    {{ auth()->user()->friendshipReceived($user->id) ? 'Richiesta di amicizia ricevuta' : '' }}
+
+                                    <!-- siamo amici -->
+                                    {{ auth()->user()->isFriendOf($user->id) ? 'Amici' : '' }}
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="friendship-management">
+                                <!-- ho inviato richiesta -->
+                                @if (auth()->user()->friendshipSent($user->id))
+                                    <a href="#" id="friendship-cancel-button" class="dropdown-item" data-id="{{ $user->id }}">Annulla richiesta di amicizia</a>
+                                @endif
+
+                                <!-- ho ricevuto richiesta -->
+                                @if (auth()->user()->friendshipReceived($user->id))
+                                    <a href="#" id="friendship-accept-button" class="dropdown-item" data-id="{{ $user->id }}">Accetta richiesta di amicizia</a>
+                                    <a href="#" id="friendship-deny-button" class="dropdown-item" data-id="{{ $user->id }}">Rifiuta richiesta di amicizia</a>
+                                @endif
+
+                                <!-- siamo amici -->
+                                @if (auth()->user()->isFriendOf($user->id))
+                                    <a href="#" id="friendship-cancel-button" class="dropdown-item" data-id="{{ $user->id }}">Rimuovi dagli amici</a>
+                                @endif
+                            </div>
+                        </div>
+                    @endif
+                @endif
             </div>
 
             <div id="info" class="collapse show" aria-labelledby="info-heading" data-parent="#profile-info">

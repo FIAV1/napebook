@@ -11144,8 +11144,8 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
-__webpack_require__(46);
-module.exports = __webpack_require__(47);
+__webpack_require__(49);
+module.exports = __webpack_require__(50);
 
 
 /***/ }),
@@ -11172,17 +11172,16 @@ __webpack_require__(41);
 __webpack_require__(42);
 __webpack_require__(43);
 
-<<<<<<< 0426b8147e24b4bf2babb424103219cdccd42d4e
 //Like
 __webpack_require__(44);
 __webpack_require__(45);
-=======
+
 // Friends
-__webpack_require__(44);
-__webpack_require__(45);
+__webpack_require__(46);
+__webpack_require__(47);
+__webpack_require__(48);
 
 //require('./notification');
->>>>>>> Integrazione Amicizie in Profilo
 
 /***/ }),
 /* 11 */
@@ -43413,7 +43412,6 @@ return /******/ (function(modules) { // webpackBootstrap
         });
 
         $.ajax({
-            dataType: 'json',
             type: 'GET',
             url: '/profile/' + $id + '/edit',
             success: function success($data) {
@@ -43458,7 +43456,7 @@ return /******/ (function(modules) { // webpackBootstrap
         var $birthday = $modal.find('#birthday-edit');
         var $password = $modal.find('#password-edit');
         var $passwordConfirmation = $modal.find('#password-edit_confirmation');
-        var $sex = $modal.find('input[name=sex]');
+        var $sex = $modal.find('input[name=sex]:checked');
         var $bio = $modal.find('#bio-edit');
 
         var $data = {
@@ -43539,7 +43537,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, exports) {
 
 (function ($) {
-<<<<<<< 0426b8147e24b4bf2babb424103219cdccd42d4e
 
     "use strict";
 
@@ -43560,16 +43557,6 @@ return /******/ (function(modules) { // webpackBootstrap
     });
 
     function performRequest($method, $postId, $trigger) {
-=======
-    "use strict";
-
-    var $button = $('#friends-request-tab');
-    var $tab = $('#friends-request');
-
-    $button.click(function ($e) {
-        $e.preventDefault();
-        $tab.html('');
->>>>>>> Integrazione Amicizie in Profilo
 
         $.ajaxSetup({
             headers: {
@@ -43578,7 +43565,6 @@ return /******/ (function(modules) { // webpackBootstrap
         });
 
         $.ajax({
-<<<<<<< 0426b8147e24b4bf2babb424103219cdccd42d4e
 
             type: $method,
             url: '/like',
@@ -43617,29 +43603,105 @@ return /******/ (function(modules) { // webpackBootstrap
             }
         });
     }
-=======
+})(jQuery);
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports) {
+
+(function ($) {
+
+    "use strict";
+
+    $(document).on('click', '.post-likes', function () {
+
+        var $trigger = $(this);
+        var $postId = $trigger.data('postid');
+
+        performRequest('GET', $postId, $trigger);
+    });
+
+    function performRequest($method, $postId, $trigger) {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+
+            type: $method,
+            url: '/post/likes',
+            data: { post_id: $postId },
+            dataType: 'json',
+
+            success: function success($response) {
+
+                var $modalBody = $('#likeUsersModal').find('.modal-body');
+
+                $modalBody.html('<ul class="list-group list-group-flush">');
+
+                $.each($response, function ($i, $user) {
+
+                    var $text = '<li class="list-group-item d-flex align-items-center">' + '<img src="/storage/' + $user.image_url + '" alt="user image" class="img-fluid rounded-circle img-md">' + '<div class="container">' + '<div class="row">' + '<div class="col-12 text-center">' + '<a href=\"/profile/' + $user.id + '\">' + $user.name + ' ' + $user.surname + '</a>' + '</div>' + '</div>' + '</div>' + '</li>';
+
+                    $modalBody.append($text);
+                });
+
+                $modalBody.append('</ul>');
+            },
+            error: function error() {
+
+                console.log('Errore');
+            }
+        });
+    }
+})(jQuery);
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports) {
+
+(function ($) {
+    "use strict";
+
+    var $button = $('#friends-request-tab');
+    var $tab = $('#friends-request');
+
+    $button.click(function ($e) {
+        $e.preventDefault();
+        $tab.html('');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
             dataType: 'json',
             type: 'GET',
             url: '/friends/request',
             success: function success($data) {
                 // console.log($data);
 
+                $tab.append('<div class="container">');
                 $.each($data, function ($i, $user) {
-                    $tab.append('<div class="container-fluid my-3">\
-                            <div class="row row-hover">\
-                                <div class="col-2 text-center">\
-                                    <img src="/storage/' + $user.image_url + '" alt="user image" class="img-fluid rounded-circle img-thumbnail img-md">\
-                                </div>\
-                                <div class="col-5 d-flex justify-content-center">\
-                                    <span class="align-self-center"><a href="/profile/' + $user.id + '">' + $user.name + ' ' + $user.surname + '</a></span>\
-                                </div>\
-                                <div class="col-5 d-flex justify-content-center">\
-                                    <button type="button" class="btn btn-success align-self-center friendship-accept-button mr-3" data-id="' + $user.id + '">Accetta richiesta di amicizia</button>\
-                                    <button type="button" class="btn btn-danger align-self-center friendship-deny-button" data-id="' + $user.id + '">Rifiuta richiesta di amicizia</button>\
-                                </div>\
+                    $tab.append('<div class="row my-5">\
+                            <div class="col-4 col-md-2 text-center">\
+                                <img src="/storage/' + $user.image_url + '" alt="user image" class="img-fluid rounded-circle img-thumbnail img-md">\
+                            </div>\
+                            <div class="col-8 col-md-5 d-flex">\
+                                <span class="align-self-center"><a href="/profile/' + $user.id + '">' + $user.name + ' ' + $user.surname + '</a></span>\
+                            </div>\
+                            <div class="col-12 col-md-5 d-flex flex-column justify-content-around mt-4 mt-md-0">\
+                                <button type="button" class="btn btn-success align-self-center friendship-accept-button" data-id="' + $user.id + '">Accetta richiesta di amicizia</button>\
+                                <button type="button" class="btn btn-danger align-self-center friendship-deny-button mt-3" data-id="' + $user.id + '">Rifiuta richiesta di amicizia</button>\
                             </div>\
                         </div>');
                 });
+                $tab.append('</div>');
 
                 var $accept = $('.friendship-accept-button');
                 var $deny = $('.friendship-deny-button');
@@ -43673,28 +43735,13 @@ return /******/ (function(modules) { // webpackBootstrap
     $button.on('hidden.bs.tab', function () {
         $tab.html('');
     });
->>>>>>> Integrazione Amicizie in Profilo
 })(jQuery);
 
 /***/ }),
-/* 45 */
+/* 47 */
 /***/ (function(module, exports) {
 
 (function ($) {
-<<<<<<< 0426b8147e24b4bf2babb424103219cdccd42d4e
-
-    "use strict";
-
-    $(document).on('click', '.post-likes', function () {
-
-        var $trigger = $(this);
-        var $postId = $trigger.data('postid');
-
-        performRequest('GET', $postId, $trigger);
-    });
-
-    function performRequest($method, $postId, $trigger) {
-=======
     "use strict";
 
     var $button = $('#friends-pendent-tab');
@@ -43703,7 +43750,6 @@ return /******/ (function(modules) { // webpackBootstrap
     $button.click(function ($e) {
         $e.preventDefault();
         $tab.html('');
->>>>>>> Integrazione Amicizie in Profilo
 
         $.ajaxSetup({
             headers: {
@@ -43712,56 +43758,27 @@ return /******/ (function(modules) { // webpackBootstrap
         });
 
         $.ajax({
-<<<<<<< 0426b8147e24b4bf2babb424103219cdccd42d4e
-
-            type: $method,
-            url: '/post/likes',
-            data: { post_id: $postId },
-            dataType: 'json',
-
-            success: function success($response) {
-
-                var $modalBody = $('#likeUsersModal').find('.modal-body');
-
-                $modalBody.html('<ul class="list-group list-group-flush">');
-
-                $.each($response, function ($i, $user) {
-
-                    var $text = '<li class="list-group-item d-flex align-items-center">' + '<img src="/img/nico.svg" alt="user image" class="img-fluid rounded-circle author-image-md">' + '<div class="container">' + '<div class="row">' + '<div class="col-12 text-center">' + '<a href=\"/profile/' + $user.id + '\">' + $user.name + ' ' + $user.surname + '</a>' + '</div>' + '</div>' + '</div>' + '</li>';
-
-                    $modalBody.append($text);
-                });
-
-                $modalBody.append('</ul>');
-            },
-            error: function error() {
-
-                console.log('Errore');
-            }
-        });
-    }
-=======
             dataType: 'json',
             type: 'GET',
             url: '/friends/pendent',
             success: function success($data) {
                 // console.log($data);
 
+                $tab.append('<div class="container">');
                 $.each($data, function ($i, $user) {
-                    $tab.append('<div class="container-fluid my-3">\
-                            <div class="row row-hover">\
-                                <div class="col-2 text-center">\
-                                    <img src="/storage/' + $user.image_url + '" alt="user image" class="img-fluid rounded-circle img-thumbnail img-md">\
-                                </div>\
-                                <div class="col-5 d-flex justify-content-center">\
-                                    <span class="align-self-center"><a href="/profile/' + $user.id + '">' + $user.name + ' ' + $user.surname + '</a></span>\
-                                </div>\
-                                <div class="col-5 d-flex justify-content-center">\
-                                    <button type="button" class="btn btn-success align-self-center friendship-cancel-button" data-id="' + $user.id + '">Annulla richiesta di amicizia</button>\
-                                </div>\
+                    $tab.append('<div class="row my-5">\
+                            <div class="col-4 col-md-2 text-center">\
+                                <img src="/storage/' + $user.image_url + '" alt="user image" class="img-fluid rounded-circle img-thumbnail img-md">\
+                            </div>\
+                            <div class="col-8 col-md-5 d-flex">\
+                                <span class="align-self-center"><a href="/profile/' + $user.id + '">' + $user.name + ' ' + $user.surname + '</a></span>\
+                            </div>\
+                            <div class="col-12 col-md-5 d-flex justify-content-around  mt-4 mt-md-0">\
+                                <button type="button" class="btn btn-danger align-self-center friendship-cancel-button" data-id="' + $user.id + '">Annulla richiesta di amicizia</button>\
                             </div>\
                         </div>');
                 });
+                $tab.append('</div>');
 
                 var $cancel = $('.friendship-cancel-button');
 
@@ -43784,17 +43801,69 @@ return /******/ (function(modules) { // webpackBootstrap
     $button.on('hidden.bs.tab', function () {
         $tab.html('');
     });
->>>>>>> Integrazione Amicizie in Profilo
 })(jQuery);
 
 /***/ }),
-/* 46 */
+/* 48 */
+/***/ (function(module, exports) {
+
+(function ($) {
+    "use strict";
+
+    var $accept = $('#friendship-accept-button');
+    var $deny = $('#friendship-deny-button');
+    var $cancel = $('#friendship-cancel-button');
+    var $add = $('#friendship-add-button');
+
+    $cancel.click(function () {
+        var $id = $(this).data('id');
+
+        var $form = $('#friendship-cancel-form');
+
+        $form.find('#friendship-cancel').val($id);
+
+        $form.submit();
+    });
+
+    $accept.click(function () {
+        var $id = $(this).data('id');
+
+        var $form = $('#friendship-accept-form');
+
+        $form.find('#friendship-accept').val($id);
+
+        $form.submit();
+    });
+
+    $deny.click(function () {
+        var $id = $(this).data('id');
+
+        var $form = $('#friendship-deny-form');
+
+        $form.find('#friendship-deny').val($id);
+
+        $form.submit();
+    });
+
+    $add.click(function () {
+        var $id = $(this).data('id');
+
+        var $form = $('#friendship-add-form');
+
+        $form.find('#friendship-add').val($id);
+
+        $form.submit();
+    });
+})(jQuery);
+
+/***/ }),
+/* 49 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 47 */
+/* 50 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

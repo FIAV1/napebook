@@ -24,18 +24,9 @@ class User extends Authenticatable
      *
      * @var array
      */
-    /*
     protected $hidden = [
         'password', 'remember_token'
     ];
-    */
-
-    /**
-     * The attributes that should be visible in arrays.
-     *
-     * @var array
-     */
-    protected $visible = ['id', 'name', 'surname', 'image_url'];
 
     /**
      * Send the password reset notification.
@@ -110,7 +101,10 @@ class User extends Authenticatable
      */
     public function acceptedFriends()
     {
-        return $this->friends()->where('friendships.active', 1)->get();
+        return $this->friends()
+            ->where('friendships.active', 1)
+            ->select('users.*')
+            ->get();
     }
 
     /**
@@ -199,25 +193,58 @@ class User extends Authenticatable
     public function deleteFriendship($friend_id)
     {
         DB::table('friendships')
-            ->where('user_id', $this->id)
-            ->where('friend_id', $friend_id)
-            ->orWhere('user_id', $friend_id)
-            ->where('friend_id', $this->id)
+            ->where(function($query) use ($friend_id){
+                $query->where('friendships.user_id', $this->id)
+                    ->where('friendships.friend_id', $friend_id);
+            })
+            ->orWhere(function($query) use ($friend_id){
+                $query->where('friendships.user_id', $friend_id)
+                    ->where('friendships.friend_id', $this->id);
+            })
             ->delete();
     }
 
     public function isFriendOf($user_id)
     {
-        $friendship = DB::table('friendships')
+        return $friendship = DB::table('friendships')
             ->where(function($query) use ($user_id){
                 $query->where('friendships.user_id', $this->id)
-                    ->where('friendships.friend_id', $user_id);
+                    ->where('friendships.friend_id', $user_id)
+                    ->where('friendships.active', 1);
             })
             ->orWhere(function($query) use ($user_id){
                 $query->where('friendships.user_id', $user_id)
-                    ->where('friendships.friend_id', $this->id);
+                    ->where('friendships.friend_id', $this->id)
+                    ->where('friendships.active', 1);
             })
-            ->where('friendships.active', 1)
+            ->first();
+
+        if ($friendship) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function friendshipSent($user_id){
+        $friendship = DB::table('friendships')
+            ->where('user_id', $this->id)
+            ->where('friend_id', $user_id)
+            ->where('active', 0)
+            ->first();
+
+        if ($friendship) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function friendshipReceived($user_id){
+        $friendship = DB::table('friendships')
+            ->where('user_id', $user_id)
+            ->where('friend_id', $this->id)
+            ->where('active', 0)
             ->first();
 
         if ($friendship) {

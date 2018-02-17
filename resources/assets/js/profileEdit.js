@@ -24,7 +24,6 @@
         });
 
         $.ajax({
-            dataType: 'json',
             type: 'GET',
             url: '/profile/'+$id+'/edit',
             success: function($data){

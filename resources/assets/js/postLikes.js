@@ -36,7 +36,7 @@
 
                     var $text =
                         '<li class="list-group-item d-flex align-items-center">' +
-                            '<img src="/img/nico.svg" alt="user image" class="img-fluid rounded-circle author-image-md">' +
+                            '<img src="/storage/'+$user.image_url+'" alt="user image" class="img-fluid rounded-circle img-md">' +
                                 '<div class="container">' +
                                     '<div class="row">' +
                                         '<div class="col-12 text-center">' +

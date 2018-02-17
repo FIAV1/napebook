@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ProfilePolicy
+class UserPolicy
 {
     use HandlesAuthorization;
 
@@ -27,6 +27,17 @@ class ProfilePolicy
      * @return mixed
      */
     public function editProfile(User $auth, User $user)
+    {
+        return $auth->id === $user->id;
+    }
+
+    /**
+     * Determine whether the user can manage friends.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function manageFriendship(User $auth, User $user)
     {
         return $auth->id === $user->id;
     }

@@ -25,5 +25,6 @@ require('./postLikes');
 // Friends
 require('./friendsRequest');
 require('./friendsPendent');
+require('./friendshipManage');
 
 //require('./notification');
