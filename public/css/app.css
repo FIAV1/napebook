@@ -10047,8 +10047,6 @@ input[type="file"] + label * {
   cursor: pointer;
 }
 
-<<<<<<< 0426b8147e24b4bf2babb424103219cdccd42d4e
-=======
 .img-xs {
   max-width: 25px;
   max-height: 25px;
@@ -10069,11 +10067,6 @@ input[type="file"] + label * {
   max-height: 350px;
 }
 
-.modal #registrationModal .modal-header {
-  background-color: #2B3E50;
-}
-
->>>>>>> Integrazione Amicizie in Profilo
 .modal .close {
   color: #adb5bd;
   text-shadow: none;
@@ -10175,7 +10168,11 @@ section#profile-show #profile-image-edit {
   right: 40px;
 }
 
-<<<<<<< 0426b8147e24b4bf2babb424103219cdccd42d4e
+section#profile-show hr {
+  border: 1px solid #f5f5f5;
+  border-radius: 10px;
+}
+
 .author-image-xs {
   max-width: 25px;
   max-height: 25px;
@@ -10192,10 +10189,9 @@ section#profile-show #profile-image-edit {
   max-width: 85px;
   max-height: 85px;
   border: 2px solid #f5f5f5;
-=======
-section#profile-show hr {
-  border: 1px solid #f5f5f5;
-  border-radius: 10px;
->>>>>>> Integrazione Amicizie in Profilo
+}
+
+.nav-tabs .nav-link.active {
+  border-bottom-color: #2B3E50;
 }
 

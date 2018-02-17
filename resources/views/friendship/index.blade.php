@@ -29,7 +29,7 @@
                 <div class="col-12">
                     <div class="tab-content" id="friends-tab-content">
                         <div class="tab-pane fade show active" id="friends-accepted" role="tabpanel" aria-labelledby="friends-accepted-tab">
-                            @include('friendship.friendship')
+                            @include('friendship.friends')
                         </div>
                         <div class="tab-pane fade" id="friends-request" role="tabpanel" aria-labelledby="friends-request-tab"></div>
                         <div class="tab-pane fade" id="friends-pendent" role="tabpanel" aria-labelledby="friends-pendent-tab"></div>

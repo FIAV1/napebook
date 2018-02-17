@@ -46,13 +46,12 @@ Route::delete('/like', 'PostController@unlike')->name('post-unlike');
 Route::get('/post/{post}', 'PostController@show')->name('post-show');
 Route::get('/post/{post}/edit', 'PostController@edit')->name('post-edit');
 Route::post('/post', 'PostController@store')->name('post-store');
-Route::put('/post/{post}', 'PostController@update')->name('post-update')->middleware('can:update,post');
-Route::delete('/post/{post}', 'PostController@destroy')->name('post-destroy')->middleware('can:destroy,post');
+Route::put('/post/{post}', 'PostController@update')->name('post-update')->middleware('can:updatePost,post');
+Route::delete('/post/{post}', 'PostController@destroy')->name('post-destroy')->middleware('can:destroyPost,post');
 
 // Friends
 Route::get('/friends/pendent', 'FriendController@pendent');
 Route::get('/friends/request', 'FriendController@request');
-Route::get('/friends/{user}', 'FriendController@index')->name('friends-index');
 Route::get('/friends/search/{query}', 'FriendController@search')->name('friends-search');
 
 // Friendship
@@ -64,3 +63,4 @@ Route::delete('/friendship', 'FriendshipController@destroy')->name('friendship-d
 Route::get('/profile/{user}', 'ProfileController@show')->name('profile-show');
 Route::put('/profile/{user}/info', 'ProfileController@update')->name('profile-update')->middleware('can:editProfile,user');
 Route::put('/profile/{user}/image', 'ProfileController@updateImage')->name('profile-image-update')->middleware('can:editProfile,user');
+Route::get('/profile/{user}/friends', 'FriendController@index')->name('friends-index');

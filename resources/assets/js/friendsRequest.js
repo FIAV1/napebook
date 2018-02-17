@@ -6,7 +6,7 @@
 
     $button.click(function($e){
         $e.preventDefault();
-        $tab.html('');
+        $tab.empty();
 
         $.ajaxSetup({
             headers: {
@@ -19,49 +19,62 @@
             type: 'GET',
             url: '/friends/request',
             success: function($data){
-                // console.log($data);
 
-                $.each($data, function($i, $user) {
+                if (jQuery.isEmptyObject($data) ){
                     $tab.append(
                         '<div class="container-fluid my-3">\
                             <div class="row row-hover">\
-                                <div class="col-2 text-center">\
-                                    <img src="/storage/'+$user.image_url+'" alt="user image" class="img-fluid rounded-circle img-thumbnail img-md">\
-                                </div>\
-                                <div class="col-5 d-flex justify-content-center">\
-                                    <span class="align-self-center"><a href="/profile/'+$user.id+'">'+$user.name+' '+$user.surname+'</a></span>\
-                                </div>\
-                                <div class="col-5 d-flex justify-content-center">\
-                                    <button type="button" class="btn btn-success align-self-center friendship-accept-button mr-3" data-id="'+$user.id+'">Accetta richiesta di amicizia</button>\
-                                    <button type="button" class="btn btn-danger align-self-center friendship-deny-button" data-id="'+$user.id+'">Rifiuta richiesta di amicizia</button>\
+                                <div class="col-12 text-center">\
+                                    <p class="my-3">Nessun richiesta di amicizia presente</p>\
                                 </div>\
                             </div>\
                         </div>'
-                    );
-                });
+                    )
+                }
+                else{
 
-                var $accept = $('.friendship-accept-button');
-                var $deny = $('.friendship-deny-button');
+                    $.each($data, function($i, $user) {
+                        $tab.append(
+                            '<div class="container-fluid my-3">\
+                                <div class="row row-hover">\
+                                    <div class="col-2 text-center">\
+                                        <img src="/storage/'+$user.image_url+'" alt="user image" class="img-fluid rounded-circle img-thumbnail img-md">\
+                                    </div>\
+                                    <div class="col-5 d-flex justify-content-center">\
+                                        <span class="align-self-center"><a href="/profile/'+$user.id+'">'+$user.name+' '+$user.surname+'</a></span>\
+                                    </div>\
+                                    <div class="col-5 d-flex justify-content-center">\
+                                        <button type="button" class="btn btn-success align-self-center friendship-accept-button mr-3" data-id="'+$user.id+'">Accetta richiesta di amicizia</button>\
+                                        <button type="button" class="btn btn-danger align-self-center friendship-deny-button" data-id="'+$user.id+'">Rifiuta richiesta di amicizia</button>\
+                                    </div>\
+                                </div>\
+                            </div>'
+                        );
+                    });
 
-                $accept.click(function(){
-                    var $id = $(this).data('id');
-            
-                    var $form = $('#friendship-accept-form');
-                    
-                    $form.find('#friendship-accept').val($id);
+                    var $accept = $('.friendship-accept-button');
+                    var $deny = $('.friendship-deny-button');
 
-                    $form.submit();
-                });
-            
-                $deny.click(function(){
-                    var $id = $(this).data('id');
-                    
-                    var $form = $('#friendship-deny-form');
-            
-                    $form.find('#friendship-deny').val($id);
-            
-                    $form.submit();
-                });
+                    $accept.click(function(){
+                        var $id = $(this).data('id');
+
+                        var $form = $('#friendship-accept-form');
+
+                        $form.find('#friendship-accept').val($id);
+
+                        $form.submit();
+                    });
+
+                    $deny.click(function(){
+                        var $id = $(this).data('id');
+
+                        var $form = $('#friendship-deny-form');
+
+                        $form.find('#friendship-deny').val($id);
+
+                        $form.submit();
+                    });
+                }
 
             },
             error: function($data){
@@ -71,6 +84,6 @@
     });
 
     $button.on('hidden.bs.tab', function(){
-        $tab.html('')
+        $tab.empty();
     });
 })(jQuery);

@@ -98,7 +98,8 @@ class User extends Authenticatable
                 ->where('friendships.user_id', '=', $this->id)
                 ->orWhere('friendships.friend_id', '=', $this->id);
             })
-            ->where('users.id', '<>', $this->id );
+            ->where('users.id', '<>', $this->id )
+            ->select('users.*');
     }
 
     /**

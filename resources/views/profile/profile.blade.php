@@ -26,7 +26,7 @@
                     </p>
                     <i class="fas fa-birthday-cake mr-2"></i><strong>Data di nascita:</strong><p id="birthday" class="card-text mt-3">{{ $user->birthday }}</p>
                     <i class="fas fa-venus-mars mr-2"></i><strong>Sesso:</strong><p id="sex" class="card-text mt-3">
-                        @if ( $user->sex)
+                        @if ($user->sex)
                         Uomo
                         @else
                         Donna
@@ -63,16 +63,17 @@
         @endif
     </div>
     <!-- Image User End -->
-
 </div>
+
+<a name="content"></a>
 
 <!-- Nav Buttons -->
 <div class="row mt-5">
     <div class="col-6 text-center">
-        <a href="{{ route('profile-show', $user) }}" class="btn btn-success btn-nav"><i class="fas fa-home mr-2"></i>Timeline</a>
+        <a href="{{ route('profile-show', $user) }}#content" class="btn btn-success btn-nav"><i class="fas fa-home mr-2"></i>Timeline</a>
     </div>
     <div class="col-6 text-center">
-        <a href="{{ route('friends-index', $user) }}" class="btn btn-success btn-nav"><i class="fas fa-users mr-2"></i>Amici</a>
+        <a href="{{ route('friends-index', $user) }}#content" class="btn btn-success btn-nav"><i class="fas fa-users mr-2"></i>Amici</a>
     </div>
 </div>
 <!-- Nav Buttons End -->
