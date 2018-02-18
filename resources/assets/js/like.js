@@ -65,9 +65,9 @@
                 }
 
             },
-            error: function() {
+            error: function($data) {
 
-                console.log('Errore');
+                console.log($data);
             }
         });
     }

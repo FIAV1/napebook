@@ -18,7 +18,7 @@
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="{{ route('profile-show', auth()->user()) }}" class="nav-link pr-md-0">{{ auth()->user()->name }}</a>
+                    <a href="{{ route('profile-show', auth()->user()) }}" class="nav-link pr-md-0"><img src="/storage/{{ auth()->user()->image_url }}" class="img-fluid rounded-circle img-xs mr-2">{{ auth()->user()->name }}</a>
                 </li>
 
                 <li class="d-none d-md-flex align-items-center"><span class="vertical-divider mx-3"></span></li>

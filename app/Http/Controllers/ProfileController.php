@@ -73,11 +73,14 @@ class ProfileController extends Controller
         $path = $user->image_url;
 
         if ($request->hasFile('user-image')) {
-            if($request->file('user-image')->isValid()) {
-                Storage::delete($path);
+            if ($request->file('user-image')->isValid()) {
+                
+                if ($path != 'profile-images/user.svg'){
+                    Storage::delete($path);
+                }
 
                 $resize = Image::make($request->file('user-image'))->fit(800)->encode('jpg');
-                $hash = md5($resize->__toString());
+                $hash = md5($resize->__toString().$user->id);
 
                 $path = 'profile-images/'.$hash.'.jpg';
 

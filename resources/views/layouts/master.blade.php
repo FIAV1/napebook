@@ -22,12 +22,16 @@
 </head>
 
 <body id="page_top">
+    <div id="wrap">
+        
+        @auth
+            @include('layouts.navbar')
+        @endauth
 
-    @auth
-        @include('layouts.navbar')
-    @endauth
-
-    @yield('content')
+        @yield('content')
+        
+        <div id="pusher"></div>
+    </div>
 
     @include('layouts.footer')
 

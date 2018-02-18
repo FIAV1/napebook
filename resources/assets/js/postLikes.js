@@ -30,31 +30,29 @@
 
                 var $modalBody = $('#likeUsersModal').find('.modal-body');
 
-                $modalBody.html('<ul class="list-group list-group-flush">');
+                $modalBody.empty();
+
+                $modalBody.append('<div class="container">');
 
                 $.each($response, function($i, $user) {
 
                     var $text =
-                        '<li class="list-group-item d-flex align-items-center">' +
-                            '<img src="/storage/'+$user.image_url+'" alt="user image" class="img-fluid rounded-circle img-md">' +
-                                '<div class="container">' +
-                                    '<div class="row">' +
-                                        '<div class="col-12 text-center">' +
-                                            '<a href=\"/profile/'+$user.id+'\">'+$user.name+' '+$user.surname+'</a>' +
-                                        '</div>' +
-                                    '</div>' +
-                                '</div>' +
-                        '</li>';
+                        '<div class="row my-3">\
+                            <div class="col-4"><img src="/storage/'+$user.image_url+'" alt="user image" class="img-fluid rounded-circle img-thumbnail img-md"></div>\
+                            <div class="col-8 d-flex align-items-center">\
+                                <a href="/profile/'+$user.id+'">'+$user.name+' '+$user.surname+'</a>\
+                            </div>\
+                        </div>';
 
                     $modalBody.append($text);
                 })
 
-                $modalBody.append('</ul>');
+                $modalBody.append('</div>');
 
             },
-            error: function() {
+            error: function($data) {
 
-                console.log('Errore');
+                console.log($data);
             }
         });
     }

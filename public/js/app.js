@@ -43597,9 +43597,9 @@ return /******/ (function(modules) { // webpackBootstrap
                     $('#like-amount-' + $postId).empty();
                 }
             },
-            error: function error() {
+            error: function error($data) {
 
-                console.log('Errore');
+                console.log($data);
             }
         });
     }
@@ -43640,20 +43640,27 @@ return /******/ (function(modules) { // webpackBootstrap
 
                 var $modalBody = $('#likeUsersModal').find('.modal-body');
 
-                $modalBody.html('<ul class="list-group list-group-flush">');
+                $modalBody.empty();
+
+                $modalBody.append('<div class="container">');
 
                 $.each($response, function ($i, $user) {
 
-                    var $text = '<li class="list-group-item d-flex align-items-center">' + '<img src="/storage/' + $user.image_url + '" alt="user image" class="img-fluid rounded-circle img-md">' + '<div class="container">' + '<div class="row">' + '<div class="col-12 text-center">' + '<a href=\"/profile/' + $user.id + '\">' + $user.name + ' ' + $user.surname + '</a>' + '</div>' + '</div>' + '</div>' + '</li>';
+                    var $text = '<div class="row my-3">\
+                            <div class="col-4"><img src="/storage/' + $user.image_url + '" alt="user image" class="img-fluid rounded-circle img-thumbnail img-md"></div>\
+                            <div class="col-8 d-flex align-items-center">\
+                                <a href="/profile/' + $user.id + '">' + $user.name + ' ' + $user.surname + '</a>\
+                            </div>\
+                        </div>';
 
                     $modalBody.append($text);
                 });
 
-                $modalBody.append('</ul>');
+                $modalBody.append('</div>');
             },
-            error: function error() {
+            error: function error($data) {
 
-                console.log('Errore');
+                console.log($data);
             }
         });
     }
@@ -43671,7 +43678,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
     $button.click(function ($e) {
         $e.preventDefault();
-        $tab.html('');
+        $tab.empty();
 
         $.ajaxSetup({
             headers: {
@@ -43684,47 +43691,55 @@ return /******/ (function(modules) { // webpackBootstrap
             type: 'GET',
             url: '/friends/request',
             success: function success($data) {
-                // console.log($data);
-
-                $tab.append('<div class="container">');
-                $.each($data, function ($i, $user) {
-                    $tab.append('<div class="row my-5">\
-                            <div class="col-4 col-md-2 text-center">\
-                                <img src="/storage/' + $user.image_url + '" alt="user image" class="img-fluid rounded-circle img-thumbnail img-md">\
-                            </div>\
-                            <div class="col-8 col-md-5 d-flex">\
-                                <span class="align-self-center"><a href="/profile/' + $user.id + '">' + $user.name + ' ' + $user.surname + '</a></span>\
-                            </div>\
-                            <div class="col-12 col-md-5 d-flex flex-column justify-content-around mt-4 mt-md-0">\
-                                <button type="button" class="btn btn-success align-self-center friendship-accept-button" data-id="' + $user.id + '">Accetta richiesta di amicizia</button>\
-                                <button type="button" class="btn btn-danger align-self-center friendship-deny-button mt-3" data-id="' + $user.id + '">Rifiuta richiesta di amicizia</button>\
+                if (jQuery.isEmptyObject($data)) {
+                    $tab.append('<div class="container-">\
+                            <div class="row my-5">\
+                                <div class="col-12 text-center">\
+                                    <p>Nessun richiesta di amicizia presente</p>\
+                                </div>\
                             </div>\
                         </div>');
-                });
-                $tab.append('</div>');
+                } else {
+                    $tab.append('<div class="container">');
+                    $.each($data, function ($i, $user) {
+                        $tab.append('<div class="row my-5">\
+                                <div class="col-4 col-md-2 text-center">\
+                                    <img src="/storage/' + $user.image_url + '" alt="user image" class="img-fluid rounded-circle img-thumbnail img-md">\
+                                </div>\
+                                <div class="col-8 col-md-5 d-flex">\
+                                    <span class="align-self-center"><a href="/profile/' + $user.id + '">' + $user.name + ' ' + $user.surname + '</a></span>\
+                                </div>\
+                                <div class="col-12 col-md-5 d-flex flex-column justify-content-around mt-4 mt-md-0">\
+                                    <button type="button" class="btn btn-success align-self-center friendship-accept-button" data-id="' + $user.id + '">Accetta richiesta di amicizia</button>\
+                                    <button type="button" class="btn btn-danger align-self-center friendship-deny-button mt-3" data-id="' + $user.id + '">Rifiuta richiesta di amicizia</button>\
+                                </div>\
+                            </div>');
+                    });
+                    $tab.append('</div>');
 
-                var $accept = $('.friendship-accept-button');
-                var $deny = $('.friendship-deny-button');
+                    var $accept = $('.friendship-accept-button');
+                    var $deny = $('.friendship-deny-button');
 
-                $accept.click(function () {
-                    var $id = $(this).data('id');
+                    $accept.click(function () {
+                        var $id = $(this).data('id');
 
-                    var $form = $('#friendship-accept-form');
+                        var $form = $('#friendship-accept-form');
 
-                    $form.find('#friendship-accept').val($id);
+                        $form.find('#friendship-accept').val($id);
 
-                    $form.submit();
-                });
+                        $form.submit();
+                    });
 
-                $deny.click(function () {
-                    var $id = $(this).data('id');
+                    $deny.click(function () {
+                        var $id = $(this).data('id');
 
-                    var $form = $('#friendship-deny-form');
+                        var $form = $('#friendship-deny-form');
 
-                    $form.find('#friendship-deny').val($id);
+                        $form.find('#friendship-deny').val($id);
 
-                    $form.submit();
-                });
+                        $form.submit();
+                    });
+                }
             },
             error: function error($data) {
                 console.log($data);
@@ -43733,7 +43748,7 @@ return /******/ (function(modules) { // webpackBootstrap
     });
 
     $button.on('hidden.bs.tab', function () {
-        $tab.html('');
+        $tab.empty();
     });
 })(jQuery);
 
@@ -43749,7 +43764,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
     $button.click(function ($e) {
         $e.preventDefault();
-        $tab.html('');
+        $tab.empty();
 
         $.ajaxSetup({
             headers: {
@@ -43762,35 +43777,44 @@ return /******/ (function(modules) { // webpackBootstrap
             type: 'GET',
             url: '/friends/pendent',
             success: function success($data) {
-                // console.log($data);
 
-                $tab.append('<div class="container">');
-                $.each($data, function ($i, $user) {
-                    $tab.append('<div class="row my-5">\
-                            <div class="col-4 col-md-2 text-center">\
-                                <img src="/storage/' + $user.image_url + '" alt="user image" class="img-fluid rounded-circle img-thumbnail img-md">\
-                            </div>\
-                            <div class="col-8 col-md-5 d-flex">\
-                                <span class="align-self-center"><a href="/profile/' + $user.id + '">' + $user.name + ' ' + $user.surname + '</a></span>\
-                            </div>\
-                            <div class="col-12 col-md-5 d-flex justify-content-around  mt-4 mt-md-0">\
-                                <button type="button" class="btn btn-danger align-self-center friendship-cancel-button" data-id="' + $user.id + '">Annulla richiesta di amicizia</button>\
+                if (jQuery.isEmptyObject($data)) {
+                    $tab.append('<div class="container">\
+                            <div class="row my-5">\
+                                <div class="col-12 text-center">\
+                                    <p>Nessun richiesta di amicizia in attesa di risposta</p>\
+                                </div>\
                             </div>\
                         </div>');
-                });
-                $tab.append('</div>');
+                } else {
+                    $tab.append('<div class="container">');
+                    $.each($data, function ($i, $user) {
+                        $tab.append('<div class="row my-5">\
+                                <div class="col-4 col-md-2 text-center">\
+                                    <img src="/storage/' + $user.image_url + '" alt="user image" class="img-fluid rounded-circle img-thumbnail img-md">\
+                                </div>\
+                                <div class="col-8 col-md-5 d-flex">\
+                                    <span class="align-self-center"><a href="/profile/' + $user.id + '">' + $user.name + ' ' + $user.surname + '</a></span>\
+                                </div>\
+                                <div class="col-12 col-md-5 d-flex justify-content-around  mt-4 mt-md-0">\
+                                    <button type="button" class="btn btn-danger align-self-center friendship-cancel-button" data-id="' + $user.id + '">Annulla richiesta di amicizia</button>\
+                                </div>\
+                            </div>');
+                    });
+                    $tab.append('</div>');
 
-                var $cancel = $('.friendship-cancel-button');
+                    var $cancel = $('.friendship-cancel-button');
 
-                $cancel.click(function () {
-                    var $id = $(this).data('id');
+                    $cancel.click(function () {
+                        var $id = $(this).data('id');
 
-                    var $form = $('#friendship-cancel-form');
+                        var $form = $('#friendship-cancel-form');
 
-                    $form.find('#friendship-cancel').val($id);
+                        $form.find('#friendship-cancel').val($id);
 
-                    $form.submit();
-                });
+                        $form.submit();
+                    });
+                }
             },
             error: function error($data) {
                 console.log($data);
@@ -43799,7 +43823,7 @@ return /******/ (function(modules) { // webpackBootstrap
     });
 
     $button.on('hidden.bs.tab', function () {
-        $tab.html('');
+        $tab.empty();
     });
 })(jQuery);
 

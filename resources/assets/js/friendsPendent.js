@@ -22,10 +22,10 @@
 
                 if (jQuery.isEmptyObject($data) ){
                     $tab.append(
-                        '<div class="container-fluid my-3">\
-                            <div class="row row-hover">\
+                        '<div class="container">\
+                            <div class="row my-5">\
                                 <div class="col-12 text-center">\
-                                    <p class="my-3">Nessun richiesta di amicizia in attesa di risposta</p>\
+                                    <p>Nessun richiesta di amicizia in attesa di risposta</p>\
                                 </div>\
                             </div>\
                         </div>'
@@ -50,16 +50,17 @@
                     });
                     $tab.append('</div>');
 
-                        $cancel.click(function () {
-                            var $id = $(this).data('id');
+                    var $cancel = $('.friendship-cancel-button');
 
-                            var $form = $('#friendship-cancel-form');
+                    $cancel.click(function () {
+                        var $id = $(this).data('id');
 
-                            $form.find('#friendship-cancel').val($id);
+                        var $form = $('#friendship-cancel-form');
 
-                            $form.submit();
-                        });
-                    }
+                        $form.find('#friendship-cancel').val($id);
+
+                        $form.submit();
+                    });
                 }
 
             },

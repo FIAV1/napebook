@@ -21,10 +21,10 @@
             success: function($data){
                 if (jQuery.isEmptyObject($data) ){
                     $tab.append(
-                        '<div class="container-fluid my-3">\
-                            <div class="row row-hover">\
+                        '<div class="container-">\
+                            <div class="row my-5">\
                                 <div class="col-12 text-center">\
-                                    <p class="my-3">Nessun richiesta di amicizia presente</p>\
+                                    <p>Nessun richiesta di amicizia presente</p>\
                                 </div>\
                             </div>\
                         </div>'
