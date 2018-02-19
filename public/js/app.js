@@ -11164,11 +11164,8 @@ __webpack_require__(11);
 // Post
 __webpack_require__(39);
 __webpack_require__(40);
-<<<<<<< 6dc0669aba24322d04440b3871547bbc09909966
 
 // Image Upload
-=======
->>>>>>> fix alla home per mostrare i post di un'utente senza amici
 __webpack_require__(41);
 
 // Profile
@@ -43378,46 +43375,7 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
-<<<<<<< 6dc0669aba24322d04440b3871547bbc09909966
 /* 42 */
-=======
-/* 40 */
-/***/ (function(module, exports) {
-
-(function ($) {
-    "use strict"; // use strict make writing js more safe
-
-    // Update form variables
-
-    var $updateButton = $('#updateButton');
-    var $updateForm = $('#updateForm');
-
-    // Image form variables
-    var $imageRemoveButton = $('#imageRemoveButton');
-    var $ImageRemoveInput = $('#ImageRemoveInput');
-    var $postOldImage = $('#postOldImage');
-
-    // Attaching a button to remove the unwanted file
-    $imageRemoveButton.click(function () {
-        if ($ImageRemoveInput.val() === "") {
-            $ImageRemoveInput.val("remove");
-            $postOldImage.hide();
-            $imageRemoveButton.text("Mantieni l'immagine");
-        } else {
-            $ImageRemoveInput.val("");
-            $postOldImage.show();
-            $imageRemoveButton.text("Rimuovi l'immagine");
-        }
-    });
-
-    $updateButton.click(function () {
-        $updateForm.submit();
-    });
-})(jQuery);
-
-/***/ }),
-/* 41 */
->>>>>>> fix alla home per mostrare i post di un'utente senza amici
 /***/ (function(module, exports) {
 
 (function ($) {

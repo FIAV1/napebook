@@ -21,10 +21,11 @@
                         <div id="friendship" class="card text-white mb-2">
                             <div class="card-body">
                                 <div class="d-flex flex-row">
-                                <!-- <img src="{{ auth()->user()->image }}" alt="user image" class="img-fluid rounded-circle post-author-image"> -->
-                                    <div class="col-2"><img src="{{ URL::asset('img/user.svg') }}" alt="user image" class="img-fluid rounded-circle post-author-image"></div>
+                                    <div class="col-2 col-md-2 col-lg-1 px-0">
+                                        <img src="/storage/{{ $user->image_url }}" alt="user image" class="img-fluid img-thumbnail rounded-circle">
+                                    </div>
                                     <div class="d-flex flex-column align-self-center">
-                                        <span class="friend"><a href="#">{{ $user->name }}  {{ $user->surname }}</a></span>
+                                        <span class="friend"><a href="{{ route( 'profile-show', $user ) }}">{{ $user->name }}  {{ $user->surname }}</a></span>
                                     </div>
                                 </div>
                             </div>

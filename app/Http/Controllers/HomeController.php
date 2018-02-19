@@ -23,13 +23,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        /**
-         * @var Post $posts
-         */
-        $posts = auth()->user()->homePosts();
+        $posts = Post::homePosts();
 
-        if ($posts->isEmpty()) {
-
+        if($posts->isEmpty()) {
             $posts = auth()->user()->getPosts();
         }
 
