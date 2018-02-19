@@ -10040,10 +10040,8 @@ input[type="file"] + label * {
   pointer-events: none;
 }
 
-.dropdown .post-edit-button:hover,
-.dropdown .post-edit-button:focus,
-.dropdown .post-delete-button:hover,
-.dropdown .post-delete-button:focus {
+.dropdown .dropdown-item:hover,
+.dropdown .dropdown-item:focus {
   cursor: pointer;
 }
 
@@ -10099,54 +10097,8 @@ footer {
   text-shadow: none;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 .modal .modal-header {
   background-color: #2B3E50;
-=======
-<<<<<<< HEAD
-=======
-=======
->>>>>>> fix bug template commenti
-section#publish input[type="file"],
-section#posts input[type="file"] {
-  width: 0.1px;
-  height: 0.1px;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: -1;
-}
-
-section#publish label[for="post-image"]:hover,
-section#posts label[for="post-image"]:hover {
-  cursor: pointer;
-}
-
-section#publish label[for="post-image"]:focus,
-section#posts label[for="post-image"]:focus {
-  -webkit-box-shadow: none;
-          box-shadow: none;
-  cursor: pointer;
-}
-
-section#publish label[for="comment-image"]:hover,
-section#posts label[for="comment-image"]:hover {
-  cursor: pointer;
-}
-
-section#publish label[for="comment-image"]:focus,
-section#posts label[for="comment-image"]:focus {
-  -webkit-box-shadow: none;
-          box-shadow: none;
-  cursor: pointer;
-}
-
-section#posts .post-author-image {
-  max-width: 45px;
-  max-height: 45px;
-  border: 2px solid #EBEBEB;
->>>>>>> implementazione parziale dei commenti
 }
 
 #likeUsersModal .modal-dialog {
@@ -10158,7 +10110,6 @@ section#posts .post-author-image {
   overflow-y: auto;
 }
 
-<<<<<<< HEAD
 #likeUsersModal a {
   color: #ffffff;
 }
@@ -10171,25 +10122,6 @@ section#posts .post-author-image {
 #team-anchor:focus {
   text-decoration: none;
   color: #8d9dad;
-=======
-section#posts .comment-author-image {
-  max-width: 45px;
-  max-height: 45px;
-  border: 2px solid #EBEBEB;
-}
-
-section#posts .comment-author a {
-  color: #fff;
-}
-
-section#posts .comment-author a:hover,
-section#posts .comment-author a:focus {
-  color: #fff;
-}
-
-section#posts .text-black {
-  color: #000;
->>>>>>> fix bug template commenti
 }
 
 #teamModal p {
@@ -10245,15 +10177,7 @@ section#posts #post-manage:focus,
   cursor: pointer;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 section#profile-show .card {
-=======
-<<<<<<< HEAD
-=======
->>>>>>> fix bug template commenti
-section#show-profile .card {
->>>>>>> implementazione parziale dei commenti
   max-width: 600px;
 }
 
@@ -10287,6 +10211,7 @@ section#friends-index a {
   }
 }
 
+<<<<<<< HEAD
 section#user-search a {
   font-size: 20px;
   color: #fff;
@@ -10294,5 +10219,27 @@ section#user-search a {
 
 section#user-search p {
   font-size: 20px;
+=======
+.comments a {
+  color: #fff;
+}
+
+.comments p {
+  word-wrap: break-word;
+}
+
+#comment-text {
+  width: 100%;
+}
+
+#comment-manage {
+  color: #f5f5f5;
+}
+
+#comment-manage:hover,
+#comment-manage:focus {
+  color: #c2c2c2;
+  cursor: pointer;
+>>>>>>> Commenti
 }
 

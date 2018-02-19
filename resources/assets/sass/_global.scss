@@ -40,7 +40,7 @@ input[type="file"] {
 //
 
 .dropdown{
-    .post-edit-button, .post-delete-button{
+    .dropdown-item{
         &:hover, &:focus{
             cursor: pointer;
         }

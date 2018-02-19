@@ -11164,11 +11164,14 @@ __webpack_require__(11);
 // Post
 __webpack_require__(39);
 __webpack_require__(40);
-<<<<<<< HEAD
+
+// Comment
+__webpack_require__(56);
+__webpack_require__(57);
+__webpack_require__(58);
+__webpack_require__(59);
 
 // Image Upload
-=======
->>>>>>> fix bug template commenti
 __webpack_require__(41);
 
 // Profile
@@ -43387,46 +43390,7 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
-<<<<<<< HEAD
 /* 42 */
-=======
-/* 40 */
-/***/ (function(module, exports) {
-
-(function ($) {
-    "use strict"; // use strict make writing js more safe
-
-    // Update form variables
-
-    var $updateButton = $('#updateButton');
-    var $updateForm = $('#updateForm');
-
-    // Image form variables
-    var $imageRemoveButton = $('#imageRemoveButton');
-    var $ImageRemoveInput = $('#ImageRemoveInput');
-    var $postOldImage = $('#postOldImage');
-
-    // Attaching a button to remove the unwanted file
-    $imageRemoveButton.click(function () {
-        if ($ImageRemoveInput.val() === "") {
-            $ImageRemoveInput.val("remove");
-            $postOldImage.hide();
-            $imageRemoveButton.text("Mantieni l'immagine");
-        } else {
-            $ImageRemoveInput.val("");
-            $postOldImage.show();
-            $imageRemoveButton.text("Rimuovi l'immagine");
-        }
-    });
-
-    $updateButton.click(function () {
-        $updateForm.submit();
-    });
-})(jQuery);
-
-/***/ }),
-/* 41 */
->>>>>>> fix bug template commenti
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -43708,7 +43672,6 @@ return /******/ (function(modules) { // webpackBootstrap
     }
 })(jQuery);
 
-<<<<<<< HEAD
 /***/ }),
 /* 46 */
 /***/ (function(module, exports) {
@@ -43885,7 +43848,206 @@ return /******/ (function(modules) { // webpackBootstrap
 
 // removed by extract-text-webpack-plugin
 
-=======
->>>>>>> fix bug template commenti
+/***/ }),
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */
+/***/ (function(module, exports) {
+
+(function () {
+    "use strict";
+
+    var $button = $('.comment-publish');
+
+    $button.click(function () {
+
+        var $id = $(this).data('id');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            dataType: 'json',
+            type: 'POST',
+            url: '/comments',
+            data: {
+                'comment-text': $('#comment-text-' + $id).val(),
+                'post-id': $id
+            },
+            success: function success($data) {
+                console.log($data);
+                var $div = $('#comments-' + $id);
+
+                $div.append('<div id="comment-' + $data.comment.id + '" class="row my-4">\
+                        <div class="col-1 align-self-center">\
+                            <img src="/storage/' + $data.user.image_url + '" alt="user image" class="img-fluid rounded-circle img-xs">\
+                        </div>\
+                        <div class="col-3">\
+                            <div class="d-flex flex-column justify-content-start">\
+                                <span class="comment-author"><a href="/profile/' + $data.user.id + '">' + $data.user.name + ' ' + $data.user.surname + '</a></span>\
+                                <span class="comment-time"><small><i class="far fa-clock mr-2"></i>' + moment($data.comment.created_at, 'YYYYMMDD, h:mm:ss a').fromNow() + '</small></span>\
+                            </div>\
+                        </div>\
+                        <div class="col-7 align-self-center">\
+                            <p class="comment-text m-0">' + $data.comment.text + '</p>\
+                        </div>\
+                        <div class="col-auto align-self-center ml-auto">\
+                            <div class="dropdown show">\
+                                <a role="button" id="comment-manage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>\
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="post-manage">\
+                                    <a class="dropdown-item text-right comment-edit-button" data-id="' + $data.comment.id + '">Modifica<i class="fa fa-edit ml-2"></i></a>\
+                                    <a class="dropdown-item text-right comment-delete-button" data-id="' + $data.comment.id + '">Elimina<i class="fas fa-trash ml-2"></i></a>\
+                                </div>\
+                            </div>\
+                        </div>\
+                    </div>');
+
+                $('#comment-text-' + $id).val('');
+            },
+            error: function error($data) {
+                console.log($data);
+            }
+        });
+    });
+})(jQuery);
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports) {
+
+(function () {
+    "use strict";
+
+    $(document).on('click', '.comment-edit-button', function () {
+        var $id = $(this).data('id');
+        var $modal = $('#comment-edit');
+
+        $modal.find('#comment-author-image').removeAttr('src');
+        $modal.find('#comment-author').text('');
+        $modal.find('#comment-time').text('');
+        $modal.find('#comment-text').text('');
+        $modal.find('#comment-update-button').removeAttr('data-id');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            dataType: 'json',
+            method: 'GET',
+            url: '/comments/' + $id + '/edit',
+            success: function success($data) {
+                console.log($data);
+
+                $modal.find('#comment-author-image').attr('src', '/storage/' + $data.user.image_url);
+                $modal.find('#comment-author').text($data.user.name + ' ' + $data.user.surname);
+                $modal.find('#comment-time').text(moment($data.comment.created_at, 'YYYYMMDD, h:mm:ss a').fromNow());
+                $modal.find('#comment-text').val($data.comment.text);
+                $modal.find('#comment-update-button').attr('data-id', $id);
+
+                $modal.modal('show');
+            },
+            error: function error($data) {
+                console.log($data);
+            }
+        });
+    });
+})(jQuery);
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports) {
+
+(function () {
+    "use strict";
+
+    $(document).on('click', '#comment-update-button', function () {
+        var $id = $(this).data('id');
+        var $modal = $('#comment-edit');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            dataType: 'json',
+            type: 'PUT',
+            url: '/comments/' + $id,
+            data: {
+                'comment-text': $modal.find('#comment-text').val()
+            },
+            success: function success($data) {
+                console.log($data);
+
+                var $div = $('#comment-' + $id);
+
+                $div.find('.comment-text').text($data.text);
+
+                $modal.modal('hide');
+            },
+            error: function error($data) {
+                console.log($data);
+            }
+        });
+    });
+})(jQuery);
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports) {
+
+(function () {
+    "use strict";
+
+    var $modal = $('#comment-delete');
+
+    $(document).on('click', '.comment-delete-button', function () {
+
+        var $id = $(this).data('id');
+
+        $modal.find('#comment-delete-confirm').removeAttr('data-id');
+        $modal.find('#comment-delete-confirm').attr('data-id', $id);
+
+        $modal.modal('show');
+    });
+
+    $(document).on('click', '#comment-delete-confirm', function () {
+
+        var $id = $(this).data('id');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            dataType: 'json',
+            method: 'DELETE',
+            url: '/comments/' + $id,
+            success: function success($data) {
+                console.log($data);
+
+                $('#comment-' + $id).remove();
+
+                $modal.modal('hide');
+            },
+            error: function error($data) {
+                console.log($data);
+            }
+        });
+    });
+})(jQuery);
+
 /***/ })
 /******/ ]);

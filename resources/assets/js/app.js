@@ -11,6 +11,12 @@ require('./bootstrap');
 require('./postEdit');
 require('./postDelete');
 
+// Comment
+require('./commentStore');
+require('./commentEdit');
+require('./commentUpdate');
+require('./commentDelete');
+
 // Image Upload
 require('./imageUpload');
 

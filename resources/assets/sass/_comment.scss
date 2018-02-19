@@ -1,0 +1,22 @@
+.comments{
+  a{
+    color: $white;
+  }
+  p{
+    word-wrap: break-word;
+  }
+}
+
+#comment-text{
+  width: 100%;
+}
+
+
+#comment-manage{
+  color: $body-color;
+
+  &:hover, &:focus{
+    color: darken($body-color, 20%);
+    cursor: pointer;
+  }
+}

@@ -19,9 +19,8 @@
                 <div class="col-12 col-md-7 mx-md-auto">
                 @foreach ($posts as $post)
                     @include('post.post')
-                    @foreach ($post->comments as $comment)
-                        @include('comment.comment')
-                    @endforeach
+                    @include('comment.comment')
+                    @include('comment.create')
                 @endforeach
                 </div>
             </div>
@@ -31,5 +30,7 @@
     @include('post.edit')
     @include('post.delete')
     @include('post.like_modal')
+    @include('comment.edit')
+    @include('comment.delete')
 
 @endsection

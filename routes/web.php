@@ -64,3 +64,9 @@ Route::get('/profile/{user}/friends', 'FriendController@index')->name('friends-i
 
 //Users Search
 Route::get('/search', 'SearchController@index')->name('users-search');
+
+// Comment
+Route::post('/comments', 'CommentController@store');
+Route::get('/comments/{comment}/edit', 'CommentController@edit');
+Route::put('/comments/{comment}', 'CommentController@update');
+Route::delete('/comments/{comment}', 'CommentController@destroy');
