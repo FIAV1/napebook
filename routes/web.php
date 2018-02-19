@@ -64,4 +64,3 @@ Route::get('/profile/{user}/friends', 'FriendController@index')->name('friends-i
 
 //Users Search
 Route::get('/search', 'SearchController@index')->name('users-search');
-

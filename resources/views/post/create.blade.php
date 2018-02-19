@@ -20,6 +20,7 @@
 
             <div class="form-group col-auto ml-auto">
                 <button type="submit" class="btn btn-primary">Pubblica<i class="fas fa-paper-plane ml-2"></i></button>
+
             </div>
         </div>
         

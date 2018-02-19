@@ -10100,14 +10100,16 @@ footer {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 .modal .modal-header {
   background-color: #2B3E50;
 =======
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> fix bug template commenti
 section#publish input[type="file"],
-section#posts input[type="file"],
-section#comments input[type="file"] {
+section#posts input[type="file"] {
   width: 0.1px;
   height: 0.1px;
   opacity: 0;
@@ -10117,34 +10119,29 @@ section#comments input[type="file"] {
 }
 
 section#publish label[for="post-image"]:hover,
-section#posts label[for="post-image"]:hover,
-section#comments label[for="post-image"]:hover {
+section#posts label[for="post-image"]:hover {
   cursor: pointer;
 }
 
 section#publish label[for="post-image"]:focus,
-section#posts label[for="post-image"]:focus,
-section#comments label[for="post-image"]:focus {
+section#posts label[for="post-image"]:focus {
   -webkit-box-shadow: none;
           box-shadow: none;
   cursor: pointer;
 }
 
 section#publish label[for="comment-image"]:hover,
-section#posts label[for="comment-image"]:hover,
-section#comments label[for="comment-image"]:hover {
+section#posts label[for="comment-image"]:hover {
   cursor: pointer;
 }
 
 section#publish label[for="comment-image"]:focus,
-section#posts label[for="comment-image"]:focus,
-section#comments label[for="comment-image"]:focus {
+section#posts label[for="comment-image"]:focus {
   -webkit-box-shadow: none;
           box-shadow: none;
   cursor: pointer;
 }
 
->>>>>>> implementazione parziale dei commenti
 section#posts .post-author-image {
   max-width: 45px;
   max-height: 45px;
@@ -10161,6 +10158,7 @@ section#posts .post-author-image {
   overflow-y: auto;
 }
 
+<<<<<<< HEAD
 #likeUsersModal a {
   color: #ffffff;
 }
@@ -10173,6 +10171,25 @@ section#posts .post-author-image {
 #team-anchor:focus {
   text-decoration: none;
   color: #8d9dad;
+=======
+section#posts .comment-author-image {
+  max-width: 45px;
+  max-height: 45px;
+  border: 2px solid #EBEBEB;
+}
+
+section#posts .comment-author a {
+  color: #fff;
+}
+
+section#posts .comment-author a:hover,
+section#posts .comment-author a:focus {
+  color: #fff;
+}
+
+section#posts .text-black {
+  color: #000;
+>>>>>>> fix bug template commenti
 }
 
 #teamModal p {
@@ -10229,9 +10246,12 @@ section#posts #post-manage:focus,
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 section#profile-show .card {
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> fix bug template commenti
 section#show-profile .card {
 >>>>>>> implementazione parziale dei commenti
   max-width: 600px;
@@ -10246,52 +10266,6 @@ section#profile-show #profile-image-edit {
   position: absolute;
   top: 40px;
   right: 40px;
-=======
-section#comments .comment-author-image {
-  max-width: 45px;
-  max-height: 45px;
-  border: 2px solid #EBEBEB;
-}
-
-section#comments .comment-author a {
-  color: #fff;
-}
-
-section#comments .comment-author a:hover,
-section#comments .comment-author a:focus {
-  color: #fff;
-}
-
-section#comments .card-footer {
-  background: none;
-}
-
-section#comments .text-black {
-  color: #000;
-}
-
-section#comments .social-button {
-  color: #212529;
-}
-
-section#comments .social-button:hover {
-  text-decoration: none;
-  color: #fff;
-}
-
-section#comments .social-button:focus {
-  text-decoration: none;
-  color: #fff;
-}
-
-section#comments #dropdownMenuLink {
-  color: #fff;
-}
-
-section#comments #dropdownMenuLink:hover,
-section#comments #dropdownMenuLink:focus {
-  color: #b3b2b2;
->>>>>>> implementazione parziale dei commenti
 }
 
 section#profile-show hr {

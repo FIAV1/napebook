@@ -19,6 +19,9 @@
                 <div class="col-12 col-md-7 mx-md-auto">
                 @foreach ($posts as $post)
                     @include('post.post')
+                    @foreach ($post->comments as $comment)
+                        @include('comment.comment')
+                    @endforeach
                 @endforeach
                 </div>
             </div>
