@@ -77,15 +77,6 @@ class User extends Authenticatable
         ]);
     }
 
-    /**
-     * Return the posts for the user
-     *
-     * @return Collection
-     */
-    public function getPosts(){
-        return $this->posts()->latest()->get();
-    }
-
     /********** Friends **********/
 
     /**

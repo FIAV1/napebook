@@ -44,7 +44,7 @@ class Post extends Model
      * Find user's friend posts
      *
      *
-     * @return Post|\Illuminate\Support\Collection
+     * @return \Illuminate\Database\Eloquent\Builder|static
      */
     public static function homePosts()
     {
@@ -61,7 +61,6 @@ class Post extends Model
             ->where('friendships.active', 1)
             ->select('posts.*')
             ->distinct()
-            ->orderBy('posts.created_at','desc')
-            ->get();
+            ->orderBy('posts.created_at','desc');
     }
 }

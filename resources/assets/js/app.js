@@ -27,4 +27,4 @@ require('./friendsRequest');
 require('./friendsPendent');
 require('./friendshipManage');
 
-//require('./notification');
+require('./postLoader');

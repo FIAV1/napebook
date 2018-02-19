@@ -30,7 +30,7 @@ class ProfileController extends Controller
      */
     public function show(User $user)
     {
-        $posts = $user->getPosts(0, 5);
+        $posts = $user->posts()->latest()->limit(2)->get();
 
         return view('profile.show', compact('posts'), compact('user'));
     }
@@ -97,14 +97,14 @@ class ProfileController extends Controller
         return back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function loadProfilePosts(Request $request)
     {
-        //
+        $posts = auth()->user()->posts()
+            ->latest()
+            ->offset($request->get('offset'))
+            ->limit($request->get('limit'))
+            ->get();
+
+        return view('post.collection', compact('posts'));
     }
 }

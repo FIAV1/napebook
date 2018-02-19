@@ -101,7 +101,7 @@ class PostController extends Controller
         $post->image_url = $path;
         $post->save();
         
-        return back();
+        return redirect()->route('post-show', $post);
     }
 
     /**
