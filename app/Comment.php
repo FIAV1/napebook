@@ -8,10 +8,11 @@ class Comment extends Model
 {
 
     protected $guarded= [];
+
     /**
      * A Comment must have one Post
      *
-     * @return Post
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function post()
     {
@@ -21,7 +22,7 @@ class Comment extends Model
     /**
      * A Comment must have one User
      *
-     * @return User
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {

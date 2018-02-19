@@ -17,13 +17,14 @@ class SearchController extends Controller
     }
 
     /**
-     * Search Users in Napebook.
+     * Search users in Napebook.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $query = request('query');
+        $query = $request->input('query');
 
         if($query == null){
             return redirect()->route('home');

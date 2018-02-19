@@ -7,8 +7,7 @@
 
         var $id = $(this).data('id');
 
-        $modal.find('#comment-delete-confirm').removeAttr('data-id');
-        $modal.find('#comment-delete-confirm').attr('data-id', $id);
+        $modal.find('#comment-delete-confirm').data('id', $id);
 
         $modal.modal('show');
     });

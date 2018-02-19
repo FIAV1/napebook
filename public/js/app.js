@@ -43573,7 +43573,7 @@ return /******/ (function(modules) { // webpackBootstrap
         $.ajax({
 
             type: $method,
-            url: '/like',
+            url: '/api/like',
             data: { post_id: $postId },
             dataType: 'json',
 
@@ -43638,7 +43638,7 @@ return /******/ (function(modules) { // webpackBootstrap
         $.ajax({
 
             type: $method,
-            url: '/post/likes',
+            url: '/api/post/likes',
             data: { post_id: $postId },
             dataType: 'json',
 
@@ -43889,7 +43889,7 @@ return /******/ (function(modules) { // webpackBootstrap
         //We concatenate the present notifications with the new ones using Lodash
         notifications = _.concat(notifications, newNotifications);
         //and take only the latest 5 to be shown.
-        notifications.slice(0, 5);
+        notifications.slice(0, 8);
 
         showNotifications(notifications, target);
     }
@@ -44007,8 +44007,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
     "use strict";
 
-    var $offset = 2;
-    var $limit = 2;
+    var $offset = 10;
+    var $limit = 10;
 
     $(document).on('click', '#profile-posts-loader', function () {
 
@@ -44021,7 +44021,7 @@ return /******/ (function(modules) { // webpackBootstrap
         $.ajax({
 
             type: 'GET',
-            url: '/api/posts/profile/load',
+            url: '/api/posts/profile',
             data: {
                 offset: $offset,
                 limit: $limit
@@ -44057,7 +44057,7 @@ return /******/ (function(modules) { // webpackBootstrap
         $.ajax({
 
             type: 'GET',
-            url: '/api/posts/home/load',
+            url: '/api/posts/home',
             data: {
                 offset: $offset,
                 limit: $limit
@@ -44245,8 +44245,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
         var $id = $(this).data('id');
 
-        $modal.find('#comment-delete-confirm').removeAttr('data-id');
-        $modal.find('#comment-delete-confirm').attr('data-id', $id);
+        $modal.find('#comment-delete-confirm').data('id', $id);
 
         $modal.modal('show');
     });

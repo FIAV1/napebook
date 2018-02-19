@@ -4,7 +4,6 @@ namespace App;
 
 use App\Mail\ResetPasswordEmail;
 use Illuminate\Support\Carbon;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -28,6 +27,26 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token'
     ];
+
+    /**
+     * A User can have many Posts
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    /**
+     * A User can have many Comments
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany;
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 
     /********** Registration **********/
 
@@ -55,27 +74,7 @@ class User extends Authenticatable
     /********** Post **********/
 
     /**
-     * A User can have many Posts
-     *
-     * @return HasMany
-     */
-    public function posts()
-    {
-        return $this->hasMany(Post::class);
-    }
-
-    /**
-     * A User can have many Comments
-     *
-     * @return Post
-     */
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
-
-    /**
-     * Store a new Post created by the authenticated user
+     * Store a new Post created by the user
      *
      * @param string $text
      * @param string $imageUrl
@@ -91,72 +90,10 @@ class User extends Authenticatable
     /********** Friends **********/
 
     /**
-     * Find all accepted friends of the user
-     *
-     *
-     * @return User
-     */
-    public function acceptedFriends()
-    {
-        return $this->friends()
-            ->where('friendships.active', 1)
-            ->select('users.*')
-            ->get();
-    }
-
-    /**
-     * Find all pendent friend request send to the user
-     *
-     *
-     * @return User
-     */
-    public function pendingFriends()
-    {
-        return $this->join('friendships', 'users.id', '=', 'friendships.user_id')
-            ->where('friendships.friend_id', $this->id)
-            ->where('friendships.active', 0)
-            ->select('users.*')
-            ->get();
-    }
-
-    /**
-     * Find all friend request sent by the user
-     *
-     *
-     * @return User
-     */
-    public function requestFriends()
-    {
-        return $this->join('friendships', 'users.id', '=', 'friendships.friend_id')
-            ->where('friendships.user_id', $this->id)
-            ->where('friendships.active', 0)
-            ->select('users.*')
-            ->get();
-    }
-
-
-    /**
-     * Search between the user's friends
-     *
-     * @param String $keyword
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function searchFriend($keyword)
-    {
-       return $this->friends()
-           ->where(function($query) use ($keyword){
-               $query->where('users.name', 'LIKE', '%'.$keyword.'%')
-                   ->orWhere('users.surname', 'LIKE', '%'.$keyword.'%');
-           })
-           ->where('friendships.active', 1)
-           ->get();
-    }
-
-    /**
      * Find all friends of the user
      *
      * @param string $query
-     * @return User
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeFriends($query)
     {
@@ -172,13 +109,53 @@ class User extends Authenticatable
             ->select('users.*');
     }
 
+    /**
+     * Find all accepted friends of the user
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function acceptedFriends()
+    {
+        return $this->friends()
+            ->where('friendships.active', 1)
+            ->select('users.*')
+            ->get();
+    }
+
+    /**
+     * Find all the users who the user sent a friendship request
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function pendingFriends()
+    {
+        return $this->join('friendships', 'users.id', '=', 'friendships.user_id')
+            ->where('friendships.friend_id', $this->id)
+            ->where('friendships.active', 0)
+            ->select('users.*')
+            ->get();
+    }
+
+    /**
+     * Find all the users who sent a friendship request to the user
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function requestFriends()
+    {
+        return $this->join('friendships', 'users.id', '=', 'friendships.friend_id')
+            ->where('friendships.user_id', $this->id)
+            ->where('friendships.active', 0)
+            ->select('users.*')
+            ->get();
+    }
+
     /********** Friendship **********/
 
     /**
      * Store a friendship request
      *
-     *
-     * @param Integer $friend_id
+     * @param int $friend_id
      */
     public function addFriendship($friend_id)
     {
@@ -192,8 +169,7 @@ class User extends Authenticatable
     /**
      * Update a friendship request
      *
-     *
-     * @param Integer $friendship_id
+     * @param int $friend_id
      */
     public function acceptFriendship($friend_id)
     {
@@ -209,8 +185,7 @@ class User extends Authenticatable
     /**
      * Delete a friendship or a friendship request (accepted or not)
      *
-     *
-     * @param Integer $friendship_id
+     * @param int $friend_id
      */
     public function deleteFriendship($friend_id)
     {
@@ -227,12 +202,11 @@ class User extends Authenticatable
     }
 
     /**
-     * Check if the User passed is friend of te current User
+     * Check if the user is friend of the user passed
      * 
-     * @param Integer $user_id
+     * @param int $user_id
      * @return Boolean
      */
-
     public function isFriendOf($user_id)
     {
         $friendship = DB::table('friendships')
@@ -256,12 +230,11 @@ class User extends Authenticatable
     }
 
     /**
-     * Check if the current User has sent a friendship request to the User passed
+     * Check if the current user has sent a friendship request to the user passed
      * 
      * @param Integer $user_id
      * @return Boolean
      */
-
     public function friendshipSent($user_id){
         $friendship = DB::table('friendships')
             ->where('user_id', $this->id)
@@ -277,12 +250,11 @@ class User extends Authenticatable
     }
 
     /**
-     * Check if the current User has received a friendship request by the User passed
+     * Check if the current user has received a friendship request by the user passed
      * 
-     * @param Integer $user_id
+     * @param int $user_id
      * @return Boolean
      */
-
     public function friendshipReceived($user_id){
         $friendship = DB::table('friendships')
             ->where('user_id', $user_id)
@@ -301,11 +273,10 @@ class User extends Authenticatable
 
     /**
      * Check if the current user has put Like to the Post passed
-     * 
+     *
      * @param Integer $postId
      * @return Boolean
      */
-
     public function hasLike($postId)
     {
         if ( Like::where('user_id', $this->id)->where('post_id', $postId)->first()) {

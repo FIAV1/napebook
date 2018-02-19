@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Like;
-use App\Notifications\PostCommented;
-use App\Notifications\PostLiked;
 use App\Post;
-use Illuminate\Http\Request;
 use Storage;
 use App\Http\Requests\StorePost;
 
@@ -23,9 +19,22 @@ class PostController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  Post $post
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Post $post)
+    {
+        //$likesAmount = $post->getLikesAmount();
+
+        return view('post.show', compact('post'));
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
-     * @param  StorePost  $request
+     * @param  StorePost $request
      * @return \Illuminate\Http\Response
      */
     public function store(StorePost $request)
@@ -41,27 +50,14 @@ class PostController extends Controller
 
         // Store a new Post
         auth()->user()->addPost($request->input('post-text'), $path);
-        
+
         return back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Post $post)
-    {
-        //$likesAmount = $post->getLikesAmount();
-
-        return view('post.show', compact('post'));
-    }
-
-        /**
-     * Display the specified resource.
-     *
-     * @param  Post  $post
+     * @param  Post $post
      * @return \Illuminate\Http\Response
      */
     public function edit(Post $post)
@@ -72,8 +68,8 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  StorePost  $request
-     * @param  Post  $post
+     * @param  StorePost $request
+     * @param  Post $post
      * @return \Illuminate\Http\Response
      */
     public function update(StorePost $request, Post $post)
@@ -82,14 +78,13 @@ class PostController extends Controller
         $path = $post->image_url;
 
         if ($request->hasFile('post-image')) {
-            if($request->file('post-image')->isValid()) {
+            if ($request->file('post-image')->isValid()) {
                 Storage::delete($path);
                 $path = Storage::putFile(
                     'post-images', $request->file('post-image')
                 );
             }
-        }
-        else{
+        } else {
             // Removing file from filesystem and from db
             if ($request->filled('remove')) {
                 Storage::delete($path);
@@ -101,14 +96,14 @@ class PostController extends Controller
         $post->text = $request->input('post-text');
         $post->image_url = $path;
         $post->save();
-        
+
         return redirect()->route('post-show', $post);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Post  $post
+     * @param  Post $post
      * @throws \Exception
      * @return \Illuminate\Http\Response
      */
@@ -116,62 +111,8 @@ class PostController extends Controller
     {
         Storage::delete($post->image_url);
         $post->delete();
-        
+
         return redirect('home');
     }
 
-    public function like(Request $request)
-    {
-        $post = Post::find($request->input('post_id'));
-
-        $publisher = $post->user;
-        $sender = auth()->user();
-
-        // The current user can likes the post
-        $this->authorize('like', $post);
-
-        if ($post) {
-
-            $like = new Like();
-            $like->user()->associate($sender);
-            $post->likes()->save($like);
-
-            if ($publisher->id != $sender->id) {
-                $publisher->notify(new PostLiked($sender, $post));
-            }
-
-            return json_encode($post->getLikesAmount());
-        }
-    }
-
-    public function unlike(Request $request)
-    {
-        $post = Post::find($request->input('post_id'));
-
-        // The current user can likes the post
-        $this->authorize('like', $post);
-
-        $like = $post->likes()->where('user_id', auth()->user()->id)->first();
-
-        if ($like) {
-
-            $like->delete();
-        }
-
-        return json_encode($post->getLikesAmount());
-    }
-
-    public function postLikes(Request $request)
-    {
-        $post = Post::find($request->input('post_id'));
-
-        $users = collect();
-
-        foreach ($post->likes as $like) {
-
-            $users->push($like->user);
-        }
-
-        return json_encode($users);
-    }
 }

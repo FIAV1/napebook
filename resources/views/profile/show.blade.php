@@ -24,17 +24,19 @@
             <!-- Post listing -->
             <div class="row">
                 <div class="col-12 col-md-7 mx-md-auto">
-                @forelse ($posts as $post)
-                    @include('post.post')
-                @empty
-                    <p class="my-5 text-center">Non c'è nulla qui...</p>
-                @endforelse
+                    @forelse ($posts as $post)
+                        @include('post.post')
+                        @include('comment.comment')
+                        @include('comment.create')
+                    @empty
+                        <p class="my-5 text-center">Non c'è nulla qui...</p>
+                    @endforelse
 
-                @isset($posts)
-                    <a id="profile-posts-loader" role="button">
-                        <p class="social-button my-5 text-center">Carica altri...</p>
-                    </a>
-                @endisset
+                    @if(!$posts->isEmpty())
+                        <a id="profile-posts-loader" role="button">
+                            <p class="social-button my-5 text-center">Carica altri...</p>
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -46,9 +48,9 @@
     
     @include('post.edit')
     @include('post.delete')
-    
     @include('post.like_modal')
-
+    @include('comment.edit')
+    @include('comment.delete')
     @include('friendship.manage')
 
 @endsection

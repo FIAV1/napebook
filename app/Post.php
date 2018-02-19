@@ -2,10 +2,7 @@
 
 namespace App;
 
-use App\User;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Comment;
 
 class Post extends Model
 {
@@ -14,7 +11,7 @@ class Post extends Model
     /**
      * A Post must have one User
      *
-     * @return BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
@@ -32,9 +29,19 @@ class Post extends Model
     }
 
     /**
+     * A Post can have many Comments
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
      * Get Likes amout for a single Post
      * 
-     * @return Integer
+     * @return int
      */
     public function getLikesAmount()
     {
@@ -42,8 +49,20 @@ class Post extends Model
     }
 
     /**
-     * Find user's friend posts
+     * Add a Comment to a Post
      *
+     * @param string $text
+     * @return \App\Comment
+     */
+    public function addComment($text)
+    {
+        $user_id= auth()->id();
+
+        return $this->comments()->create(compact('user_id','text'));
+    }
+
+    /**
+     * Find user's friends posts
      *
      * @return \Illuminate\Database\Eloquent\Builder|static
      */
@@ -66,26 +85,4 @@ class Post extends Model
             ->orderBy('posts.created_at','desc');
     }
 
-    /**
-     * A Post can have many Comments
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
-
-    /**
-     * A Comment can be add to a Post
-     *
-     * @param $text
-     *
-     * @return Comment
-     */
-    public function addComment($text)
-    {
-        $user_id= auth()->id();
-        return $this->comments()->create(compact('user_id','text'));
-    }
 }

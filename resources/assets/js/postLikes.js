@@ -22,7 +22,7 @@
         $.ajax({
 
             type: $method,
-            url: '/post/likes',
+            url: '/api/post/likes',
             data: { post_id: $postId },
             dataType: 'json',
 

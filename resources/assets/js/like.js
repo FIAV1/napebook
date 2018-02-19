@@ -31,7 +31,7 @@
         $.ajax({
 
             type: $method,
-            url: '/like',
+            url: '/api/like',
             data: { post_id: $postId },
             dataType: 'json',
 

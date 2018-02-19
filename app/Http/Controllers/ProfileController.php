@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\UpdateUser;
 use App\Http\Requests\UpdateUserImage;
 use App\User;
-use App\Post;
+use Intervention\Image\Facades\Image;
 use Storage;
-use Image;
 
 class ProfileController extends Controller
 {
@@ -25,12 +23,12 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  User  $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
     {
-        $posts = $user->posts()->latest()->limit(2)->get();
+        $posts = $user->posts()->latest()->limit(10)->get();
 
         return view('profile.show', compact('posts'), compact('user'));
     }
@@ -49,8 +47,8 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  UpdateUser  $request
+     * @param  User  $user
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateUser $request, User $user)
@@ -67,6 +65,13 @@ class ProfileController extends Controller
         return json_encode($user);
     }
 
+    /**
+     * Update the user's profile image.
+     *
+     * @param  UpdateUserImage  $request
+     * @param  User  $user
+     * @return \Illuminate\Http\Response
+     */
     public function updateImage(UpdateUserImage $request, User $user)
     {
         // Verify if a file is present and upload it in case
@@ -95,16 +100,5 @@ class ProfileController extends Controller
         }
 
         return back();
-    }
-
-    public function loadProfilePosts(Request $request)
-    {
-        $posts = auth()->user()->posts()
-            ->latest()
-            ->offset($request->get('offset'))
-            ->limit($request->get('limit'))
-            ->get();
-
-        return view('post.collection', compact('posts'));
     }
 }

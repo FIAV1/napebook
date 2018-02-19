@@ -2,8 +2,8 @@
 
     "use strict";
 
-    var $offset = 2;
-    var $limit = 2;
+    var $offset = 10;
+    var $limit = 10;
 
     $(document).on('click', '#profile-posts-loader', function(){
 
@@ -16,7 +16,7 @@
         $.ajax({
 
             type: 'GET',
-            url: '/api/posts/profile/load',
+            url: '/api/posts/profile',
             data: {
                 offset: $offset,
                 limit: $limit
@@ -56,7 +56,7 @@
         $.ajax({
 
             type: 'GET',
-            url: '/api/posts/home/load',
+            url: '/api/posts/home',
             data: {
                 offset: $offset,
                 limit: $limit

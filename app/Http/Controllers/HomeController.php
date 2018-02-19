@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -24,22 +23,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Post::homePosts()->limit(2)->get();
+        $posts = Post::homePosts()->limit(10)->get();
 
-        if($posts->isEmpty()) {
-            $posts = auth()->user()->posts()->latest()->limit(2)->get();
+        if ($posts->isEmpty()) {
+            $posts = auth()->user()->posts()->latest()->limit(10)->get();
         }
 
         return view('home', compact('posts'));
     }
 
-    public function loadHomePosts(Request $request)
-    {
-        $posts = Post::homePosts()
-            ->offset($request->get('offset'))
-            ->limit($request->get('limit'))
-            ->get();
-
-        return view('post.collection', compact('posts'));
-    }
 }

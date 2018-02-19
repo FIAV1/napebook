@@ -19,7 +19,7 @@ class FriendshipController extends Controller
     }
 
     /**
-     * Store a unaccepted friendship
+     * Store an unaccepted friendship
      *
      *
      * @return \Illuminate\Http\Response

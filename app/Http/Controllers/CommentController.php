@@ -2,12 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\PostCommented;
 use App\Post;
 use App\Comment;
 use App\Http\Requests\StoreComment;
 
 class CommentController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Store a new comment.
      *
@@ -18,6 +30,13 @@ class CommentController extends Controller
     {
         $post = Post::find($request->input('post-id'));
         $comment = $post->addComment($request->input('comment-text'));
+
+        $publisher = $post->user;
+        $sender = $comment->user;
+
+        if ($publisher->id != $sender->id) {
+            $publisher->notify(new PostCommented($sender, $post));
+        }
 
         return response()->json(['comment' => $comment, 'user' => $comment->user]);
     }

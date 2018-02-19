@@ -48,7 +48,7 @@
         //We concatenate the present notifications with the new ones using Lodash
         notifications = _.concat(notifications, newNotifications);
         //and take only the latest 5 to be shown.
-        notifications.slice(0, 5);
+        notifications.slice(0, 8);
 
         showNotifications(notifications, target);
     }

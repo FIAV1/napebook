@@ -14,6 +14,11 @@ class IndexController extends Controller
         $this->middleware('guest');
     }
 
+    /**
+     * Show the application index page.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function show()
     {
         return view('auth.index');

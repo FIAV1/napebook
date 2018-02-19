@@ -11,6 +11,8 @@
             <div class="row">
                 <div class="col-12 col-md-7 mx-md-auto mt-5">
                     @include('post.post')
+                    @include('comment.comment')
+                    @include('comment.create')
                 </div>
             </div>
             <!-- Post End -->
@@ -26,5 +28,7 @@
     @endcan
 
     @include('post.like_modal')
+    @include('comment.edit')
+    @include('comment.delete')
 
 @endsection
