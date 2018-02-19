@@ -31,7 +31,7 @@ class SearchController extends Controller
 
         $users = auth()->user()->search($query);
 
-        return view('search', compact('users'));
+        return view('search.search', compact('users'));
     }
 
 }

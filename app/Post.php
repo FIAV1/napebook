@@ -20,16 +20,26 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * A Post can have many Likes
+     *  
+     * @return HasMany
+     */
     public function likes()
     {
         return $this->hasMany(Like::class);
     }
 
+    /**
+     * Get Likes amout for a single Post
+     * 
+     * @return Integer
+     */
     public function getLikesAmount()
     {
         return $this->likes()->count();
     }
-    
+
     /**
      * Find user's friend posts
      *

@@ -28,6 +28,8 @@ class User extends Authenticatable
         'password', 'remember_token'
     ];
 
+    /********** Registration **********/
+
     /**
      * Send the password reset notification.
      *
@@ -48,6 +50,8 @@ class User extends Authenticatable
     {
         return $this->email_token === null;
     }
+
+    /********** Post **********/
 
     /**
      * A User can have many Posts
@@ -82,25 +86,7 @@ class User extends Authenticatable
         return $this->posts()->latest()->get();
     }
 
-    /**
-     * Find all friends of the user
-     *
-     * @param string $query
-     * @return User
-     */
-    public function scopeFriends($query)
-    {
-        return $query->join('friendships', function ($join) { $join
-            ->on('users.id', '=', 'friendships.user_id')
-            ->orOn('users.id', '=', 'friendships.friend_id');
-        })
-            ->where(function($query) { $query
-                ->where('friendships.user_id', '=', $this->id)
-                ->orWhere('friendships.friend_id', '=', $this->id);
-            })
-            ->where('users.id', '<>', $this->id )
-            ->select('users.*');
-    }
+    /********** Friends **********/
 
     /**
      * Find all accepted friends of the user
@@ -165,6 +151,28 @@ class User extends Authenticatable
     }
 
     /**
+     * Find all friends of the user
+     *
+     * @param string $query
+     * @return User
+     */
+    public function scopeFriends($query)
+    {
+        return $query->join('friendships', function ($join) { $join
+            ->on('users.id', '=', 'friendships.user_id')
+            ->orOn('users.id', '=', 'friendships.friend_id');
+        })
+            ->where(function($query) { $query
+                ->where('friendships.user_id', '=', $this->id)
+                ->orWhere('friendships.friend_id', '=', $this->id);
+            })
+            ->where('users.id', '<>', $this->id )
+            ->select('users.*');
+    }
+
+    /********** Friendship **********/
+
+    /**
      * Store a friendship request
      *
      *
@@ -214,6 +222,13 @@ class User extends Authenticatable
             ->delete();
     }
 
+    /**
+     * Check if the User passed is friend of te current User
+     * 
+     * @param Integer $user_id
+     * @return Boolean
+     */
+
     public function isFriendOf($user_id)
     {
         $friendship = DB::table('friendships')
@@ -236,6 +251,13 @@ class User extends Authenticatable
         return false;
     }
 
+    /**
+     * Check if the current User has sent a friendship request to the User passed
+     * 
+     * @param Integer $user_id
+     * @return Boolean
+     */
+
     public function friendshipSent($user_id){
         $friendship = DB::table('friendships')
             ->where('user_id', $this->id)
@@ -249,6 +271,13 @@ class User extends Authenticatable
 
         return false;
     }
+
+    /**
+     * Check if the current User has received a friendship request by the User passed
+     * 
+     * @param Integer $user_id
+     * @return Boolean
+     */
 
     public function friendshipReceived($user_id){
         $friendship = DB::table('friendships')
@@ -264,6 +293,15 @@ class User extends Authenticatable
         return false;
     }
 
+    /********** Likes **********/
+
+    /**
+     * Check if the current user has put Like to the Post passed
+     * 
+     * @param Integer $postId
+     * @return Boolean
+     */
+
     public function hasLike($postId)
     {
         if ( Like::where('user_id', $this->id)->where('post_id', $postId)->first()) {
@@ -273,42 +311,7 @@ class User extends Authenticatable
         return false;
     }
 
-    public function homePosts()
-    {
-        return DB::table('posts')
-            ->join('users', 'posts.user_id', '=', 'users.id')
-            ->join('friendships', function ($join) { $join
-                ->on('users.id', '=', 'friendships.user_id')
-                ->orOn('users.id', '=', 'friendships.friend_id');
-            })
-            ->where(function($query) { $query
-                ->where('friendships.user_id', '=', $this->id)
-                ->orWhere('friendships.friend_id', '=', $this->id);
-            })
-            ->where('friendships.active', 1)
-            ->select('posts.*')
-            ->distinct()
-            ->orderBy('posts.created_at','desc')
-            ->get();
-    }
-
-    /*
-     * return $this
-            ->join('friendships', function ($join) { $join
-            ->on('users.id', '=', 'friendships.user_id')
-            ->orOn('users.id', '=', 'friendships.friend_id');
-        })
-            ->join('posts', 'posts.user_id', '=', 'users.id')
-            ->where(function($query) { $query
-                ->where('friendships.user_id', '=', $this->id)
-                ->orWhere('friendships.friend_id', '=', $this->id);
-            })
-            ->where('friendships.active', 1)
-            ->select('posts.*')
-            ->distinct()
-            ->orderBy('posts.created_at','desc')
-            ->get();
-     */
+    /********** Search **********/
 
     /**
      * Search users in Napebook, friends or not.

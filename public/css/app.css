@@ -10213,3 +10213,12 @@ section#friends-index a {
   }
 }
 
+section#user-search a {
+  font-size: 20px;
+  color: #fff;
+}
+
+section#user-search p {
+  font-size: 20px;
+}
+

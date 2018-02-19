@@ -11,7 +11,7 @@
                 <div class="input-group">
                     <input class="form-control" type="search" name="query" placeholder="Ricerca..." aria-label="Ricerca">
                     <div class="input-group-append">
-                    <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
+                        <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
             </form>
