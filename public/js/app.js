@@ -43864,11 +43864,13 @@ return /******/ (function(modules) { // webpackBootstrap
         if (Laravel.userId) {
 
             $.get('/api/notifications/friendship', function (data) {
+
                 addNotifications(data, "#friendship-notifications");
                 getNotificationsCount('friendship', "#friendship-notifications-count");
             });
 
             $.get('/api/notifications/general', function (data) {
+
                 addNotifications(data, "#general-notifications");
                 getNotificationsCount('general', "#general-notifications-count");
             });

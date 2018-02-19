@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Mail\ResetPasswordEmail;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
@@ -182,8 +183,9 @@ class User extends Authenticatable
     public function addFriendship($friend_id)
     {
         DB::table('friendships')->insert([
-                'user_id' => $this->id,
-                'friend_id' => $friend_id
+            'user_id' => $this->id,
+            'friend_id' => $friend_id,
+            'created_at' => Carbon::now()
             ]);
     }
 
@@ -199,7 +201,8 @@ class User extends Authenticatable
             ->where('user_id', $friend_id)
             ->where('friend_id', $this->id)
             ->update([
-            'active' => true
+            'active' => true,
+            'updated_at' => Carbon::now()
             ]);
     }
 

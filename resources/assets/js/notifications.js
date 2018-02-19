@@ -15,17 +15,19 @@
     //Let's get notification via AJAX
     //With this, we’re getting the latest notifications from our API
     //and putting them inside the dropdown.
-    $(document).ready(function () {
+    $(document).ready(function() {
 
         //Check if there's a logged in user
         if (Laravel.userId) {
 
             $.get('/api/notifications/friendship', function (data) {
+
                 addNotifications(data, "#friendship-notifications");
                 getNotificationsCount('friendship', "#friendship-notifications-count");
             });
 
             $.get('/api/notifications/general', function (data) {
+
                 addNotifications(data, "#general-notifications");
                 getNotificationsCount('general', "#general-notifications-count");
             });

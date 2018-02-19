@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Like;
+use App\Notifications\PostCommented;
+use App\Notifications\PostLiked;
 use App\Post;
 use Illuminate\Http\Request;
 use Storage;
@@ -122,14 +124,21 @@ class PostController extends Controller
     {
         $post = Post::find($request->input('post_id'));
 
+        $publisher = $post->user;
+        $sender = auth()->user();
+
         // The current user can likes the post
         $this->authorize('like', $post);
 
         if ($post) {
 
             $like = new Like();
-            $like->user()->associate(auth()->user());
+            $like->user()->associate($sender);
             $post->likes()->save($like);
+
+            if ($publisher->id != $sender->id) {
+                $publisher->notify(new PostLiked($sender, $post));
+            }
 
             return json_encode($post->getLikesAmount());
         }

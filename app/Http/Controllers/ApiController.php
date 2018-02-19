@@ -14,8 +14,10 @@ class ApiController extends Controller
     public function friendshipNotifications()
     {
         return auth()->user()->unreadNotifications()
-            ->where('type', FriendshipRequest::class)
-            ->orWhere('type', FriendshipAccepted::class)
+            ->where(function($query) {
+                $query->where('type', FriendshipRequest::class)
+                    ->orWhere('type', FriendshipAccepted::class);
+            })
             ->limit(5)
             ->latest()
             ->get()->toArray();
@@ -24,16 +26,20 @@ class ApiController extends Controller
     public function friendshipNotificationsCount()
     {
         return auth()->user()->unreadNotifications()
-            ->where('type', FriendshipRequest::class)
-            ->orWhere('type', FriendshipAccepted::class)
+            ->where(function($query) {
+                $query->where('type', FriendshipRequest::class)
+                    ->orWhere('type', FriendshipAccepted::class);
+            })
             ->count();
     }
 
     public function generalNotifications()
     {
         return auth()->user()->unreadNotifications()
-            ->where('type', PostCommented::class)
-            ->orWhere('type', PostLiked::class)
+            ->where(function($query) {
+                $query->where('type', PostCommented::class)
+                    ->orWhere('type', PostLiked::class);
+            })
             ->limit(5)
             ->latest()
             ->get()->toArray();
@@ -42,8 +48,10 @@ class ApiController extends Controller
     public function generalNotificationsCount()
     {
         return auth()->user()->unreadNotifications()
-            ->where('type', PostCommented::class)
-            ->orWhere('type', PostLiked::class)
+            ->where(function($query) {
+                $query->where('type', PostCommented::class)
+                    ->orWhere('type', PostLiked::class);
+            })
             ->count();
     }
 

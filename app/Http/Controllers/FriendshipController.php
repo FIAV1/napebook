@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Notifications\FriendshipRequest;
 use App\User;
+use App\Notifications\FriendshipAccepted;
+use App\Notifications\FriendshipRequest;
 
 class FriendshipController extends Controller
 {
@@ -26,24 +26,19 @@ class FriendshipController extends Controller
      */
     public function store()
     {
-        //Store a new friendship request
-        //auth()->user()->addFriendship(request('friend_id'));
-        //dd(User::where('id', request('friend_id'))->firstOrFail());
-
 
         $user = User::where('id', request('friend_id'))->firstOrFail();
-
         $requestor = auth()->user();
 
 
         if ($requestor->id == $user->id) {
-            return back()->withError("You can't add yourself");
+
+            return back()->withError("Non puoi diventare amico di te stesso");
         }
 
-        //if (!$requestor->isFriend($user->id)) {
+        if (!$requestor->isFriendOf($user->id)) {
 
             $requestor->addFriendship($user->id);
-
 
             /**
              * Sending a notification to te followed user
@@ -52,12 +47,12 @@ class FriendshipController extends Controller
              */
             $user->notify(new FriendshipRequest($requestor));
 
-            return redirect('home')->withSuccess("You are now friends with {$user->name}");
-        //}
+            return back();
 
-        //return back()->withError("You are already following {$user->name}");
+        }
 
-        //return back();
+        return back()->withError("Sei già amico di {$user->name}");
+
     }
 
     /**
@@ -68,11 +63,15 @@ class FriendshipController extends Controller
      */
     public function update()
     {
-        //Accept the friendship request
-        auth()->user()->acceptFriendship(request('friend_id'));
+        $newFriend = User::where('id', request('friend_id'))->firstOrFail();
+
+        $user = auth()->user();
+
+        $user->acceptFriendship($newFriend->id);
+
+        $newFriend->notify(new FriendshipAccepted($user));
 
         return back();
-
     }
 
     /**
