@@ -1,10 +1,11 @@
 <footer id="footer">
     <div class="container">
         <div class="row my-2">
-            <div class="col-6"><a id="team-anchor" data-toggle="modal" data-target="#teamModal">Team <i class="far fa-futbol"></i></a></div>
-            <div class="col-6"><p class="text-right">Made with <i class="fab fa-laravel"></i> </p></div>
+            <div class="col-6 col-md-4"><a id="team-anchor" data-toggle="modal" data-target="#teamModal">Team <i class="far fa-futbol"></i></a></div>
+            <div class="col-md-4 d-none d-md-block"><p class="text-center">Copyright © Napebook {{ date('Y') }}</p></div>
+            <div class="col-6 col-md-4"><p class="text-right">Made with <i class="far fa-heart"></i> </p></div>
         </div>
-        <div class="row my-2">
+        <div class="row my-2 d-sm-block d-md-none">
             <div class="col-12"><p class="text-center">Copyright © Napebook {{ date('Y') }}</p></div>
         </div>
     </div>

@@ -1,22 +1,17 @@
 (function($){
     "use strict";
 
-    var $accept = $('#friendship-accept-button');
-    var $deny = $('#friendship-deny-button');
-    var $cancel = $('#friendship-cancel-button');
-    var $add = $('#friendship-add-button');
-
-    $cancel.click(function(){
+    $(document).on('click', '.friendship-add-button', function(){
         var $id = $(this).data('id');
         
-        var $form = $('#friendship-cancel-form');
+        var $form = $('#friendship-add-form');
 
-        $form.find('#friendship-cancel').val($id);
+        $form.find('#friendship-add').val($id);
 
         $form.submit();
     });
 
-    $accept.click(function(){
+    $(document).on('click', '.friendship-accept-button', function(){
         var $id = $(this).data('id');
 
         var $form = $('#friendship-accept-form');
@@ -26,23 +21,14 @@
         $form.submit();
     });
 
-    $deny.click(function(){
+    $(document).on('click', '.friendship-delete-button', function(){
         var $id = $(this).data('id');
         
-        var $form = $('#friendship-deny-form');
+        var $form = $('#friendship-delete-form');
 
-        $form.find('#friendship-deny').val($id);
+        $form.find('#friendship-delete').val($id);
 
         $form.submit();
     });
 
-    $add.click(function(){
-        var $id = $(this).data('id');
-        
-        var $form = $('#friendship-add-form');
-
-        $form.find('#friendship-add').val($id);
-
-        $form.submit();
-    });
 })(jQuery);

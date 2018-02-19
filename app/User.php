@@ -206,7 +206,7 @@ class User extends Authenticatable
 
     public function isFriendOf($user_id)
     {
-        return $friendship = DB::table('friendships')
+        $friendship = DB::table('friendships')
             ->where(function($query) use ($user_id){
                 $query->where('friendships.user_id', $this->id)
                     ->where('friendships.friend_id', $user_id)

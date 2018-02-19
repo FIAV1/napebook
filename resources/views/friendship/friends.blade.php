@@ -20,9 +20,9 @@
     </div>
 
 @empty
-    <div class="row row-hover">
+    <div class="row my-5">
         <div class="col-12 text-center">
-            <p class="my-3">Nessun amico presente</p>
+            <p>Nessun amico presente</p>
         </div>
     </div>
 @endforelse

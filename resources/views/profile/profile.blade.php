@@ -12,10 +12,10 @@
                 @can('editProfile', $user)
                 <a id="profile-edit-button" class="btn btn-secondary ml-auto rounded-circle" data-id="{{ $user->id }}"><i class="fas fa-pencil-alt"></i></a>
                 @endcan
-                @if (auth()->id() != $user->id)
-                    @if (!auth()->user()->isFriendOf($user->id) && !auth()->user()->friendshipSent($user->id) && !auth()->user()->friendshipReceived($user->id))
+                @cannot('manageFriendship', $user)
+                    @if (!auth()->user()->isFriendOf($user->id) and !auth()->user()->friendshipSent($user->id) and !auth()->user()->friendshipReceived($user->id))
                         <!-- non è mio amico e no richieste-->
-                        <button type="button" id="friendship-add-button" class="btn btn-info ml-auto" data-id="{{ $user->id }}">Aggiungi agli amici</button>
+                        <button type="button" class="btn btn-info ml-auto friendship-add-button" data-id="{{ $user->id }}">Aggiungi agli amici</button>
                     @else
                         <!-- non è mio amico ma richieste / è mio amico -->
                         <div class="dropdown ml-auto">
@@ -24,31 +24,32 @@
                                     {{ auth()->user()->friendshipSent($user->id) ? 'Richiesta di amicizia inviata' : '' }}
 
                                     <!-- ho ricevuto richiesta -->
-                                    {{ auth()->user()->friendshipReceived($user->id) ? 'Richiesta di amicizia ricevuta' : '' }}
+                                    {{ auth()->user()->friendshipReceived($user->id) ? 'Vuole essere tuo amico' : '' }}
 
                                     <!-- siamo amici -->
                                     {{ auth()->user()->isFriendOf($user->id) ? 'Amici' : '' }}
                             </button>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="friendship-management">
-                                <!-- ho inviato richiesta -->
+
                                 @if (auth()->user()->friendshipSent($user->id))
-                                    <a href="#" id="friendship-cancel-button" class="dropdown-item" data-id="{{ $user->id }}">Annulla richiesta di amicizia</a>
+                                    <!-- Ho inviato richiesta - chiama cancel in friendshipManage.js -->
+                                    <a href="#" class="dropdown-item friendship-delete-button" data-id="{{ $user->id }}">Annulla richiesta di amicizia</a>
                                 @endif
 
-                                <!-- ho ricevuto richiesta -->
                                 @if (auth()->user()->friendshipReceived($user->id))
-                                    <a href="#" id="friendship-accept-button" class="dropdown-item" data-id="{{ $user->id }}">Accetta richiesta di amicizia</a>
-                                    <a href="#" id="friendship-deny-button" class="dropdown-item" data-id="{{ $user->id }}">Rifiuta richiesta di amicizia</a>
+                                    <!-- Ho ricevuto richiesta - chiama accept, deny in friendshipManage.js -->
+                                    <a href="#" class="dropdown-item friendship-accept-button" data-id="{{ $user->id }}">Accetta richiesta di amicizia</a>
+                                    <a href="#" class="dropdown-item friendship-delete-button" data-id="{{ $user->id }}">Rifiuta richiesta di amicizia</a>
                                 @endif
 
-                                <!-- siamo amici -->
                                 @if (auth()->user()->isFriendOf($user->id))
-                                    <a href="#" id="friendship-cancel-button" class="dropdown-item" data-id="{{ $user->id }}">Rimuovi dagli amici</a>
+                                    <!-- Sono amico - chiama cancel in friendshipManage.js -->
+                                    <a href="#" class="dropdown-item friendship-delete-button" data-id="{{ $user->id }}">Rimuovi dagli amici</a>
                                 @endif
                             </div>
                         </div>
                     @endif
-                @endif
+                @endcannot
             </div>
 
             <div id="info" class="collapse show" aria-labelledby="info-heading" data-parent="#profile-info">

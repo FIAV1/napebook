@@ -43,24 +43,12 @@
                                     <span class="align-self-center"><a href="/profile/'+$user.id+'">'+$user.name+' '+$user.surname+'</a></span>\
                                 </div>\
                                 <div class="col-12 col-md-5 d-flex justify-content-around  mt-4 mt-md-0">\
-                                    <button type="button" class="btn btn-danger align-self-center friendship-cancel-button" data-id="'+$user.id+'">Annulla richiesta di amicizia</button>\
+                                    <button type="button" class="btn btn-danger align-self-center friendship-delete-button" data-id="'+$user.id+'">Annulla richiesta di amicizia</button>\
                                 </div>\
                             </div>'
                         );
                     });
                     $tab.append('</div>');
-
-                    var $cancel = $('.friendship-cancel-button');
-
-                    $cancel.click(function () {
-                        var $id = $(this).data('id');
-
-                        var $form = $('#friendship-cancel-form');
-
-                        $form.find('#friendship-cancel').val($id);
-
-                        $form.submit();
-                    });
                 }
 
             },

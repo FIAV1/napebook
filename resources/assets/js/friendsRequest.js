@@ -43,35 +43,12 @@
                                 </div>\
                                 <div class="col-12 col-md-5 d-flex flex-column justify-content-around mt-4 mt-md-0">\
                                     <button type="button" class="btn btn-success align-self-center friendship-accept-button" data-id="'+$user.id+'">Accetta richiesta di amicizia</button>\
-                                    <button type="button" class="btn btn-danger align-self-center friendship-deny-button mt-3" data-id="'+$user.id+'">Rifiuta richiesta di amicizia</button>\
+                                    <button type="button" class="btn btn-danger align-self-center friendship-delete-button mt-3" data-id="'+$user.id+'">Rifiuta richiesta di amicizia</button>\
                                 </div>\
                             </div>'
                         );
                     });
                     $tab.append('</div>');
-
-                    var $accept = $('.friendship-accept-button');
-                    var $deny = $('.friendship-deny-button');
-
-                    $accept.click(function(){
-                        var $id = $(this).data('id');
-                
-                        var $form = $('#friendship-accept-form');
-                        
-                        $form.find('#friendship-accept').val($id);
-
-                        $form.submit();
-                    });
-                
-                    $deny.click(function(){
-                        var $id = $(this).data('id');
-                        
-                        var $form = $('#friendship-deny-form');
-                
-                        $form.find('#friendship-deny').val($id);
-                
-                        $form.submit();
-                    });
                 }
 
             },

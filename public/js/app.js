@@ -43711,34 +43711,11 @@ return /******/ (function(modules) { // webpackBootstrap
                                 </div>\
                                 <div class="col-12 col-md-5 d-flex flex-column justify-content-around mt-4 mt-md-0">\
                                     <button type="button" class="btn btn-success align-self-center friendship-accept-button" data-id="' + $user.id + '">Accetta richiesta di amicizia</button>\
-                                    <button type="button" class="btn btn-danger align-self-center friendship-deny-button mt-3" data-id="' + $user.id + '">Rifiuta richiesta di amicizia</button>\
+                                    <button type="button" class="btn btn-danger align-self-center friendship-delete-button mt-3" data-id="' + $user.id + '">Rifiuta richiesta di amicizia</button>\
                                 </div>\
                             </div>');
                     });
                     $tab.append('</div>');
-
-                    var $accept = $('.friendship-accept-button');
-                    var $deny = $('.friendship-deny-button');
-
-                    $accept.click(function () {
-                        var $id = $(this).data('id');
-
-                        var $form = $('#friendship-accept-form');
-
-                        $form.find('#friendship-accept').val($id);
-
-                        $form.submit();
-                    });
-
-                    $deny.click(function () {
-                        var $id = $(this).data('id');
-
-                        var $form = $('#friendship-deny-form');
-
-                        $form.find('#friendship-deny').val($id);
-
-                        $form.submit();
-                    });
                 }
             },
             error: function error($data) {
@@ -43797,23 +43774,11 @@ return /******/ (function(modules) { // webpackBootstrap
                                     <span class="align-self-center"><a href="/profile/' + $user.id + '">' + $user.name + ' ' + $user.surname + '</a></span>\
                                 </div>\
                                 <div class="col-12 col-md-5 d-flex justify-content-around  mt-4 mt-md-0">\
-                                    <button type="button" class="btn btn-danger align-self-center friendship-cancel-button" data-id="' + $user.id + '">Annulla richiesta di amicizia</button>\
+                                    <button type="button" class="btn btn-danger align-self-center friendship-delete-button" data-id="' + $user.id + '">Annulla richiesta di amicizia</button>\
                                 </div>\
                             </div>');
                     });
                     $tab.append('</div>');
-
-                    var $cancel = $('.friendship-cancel-button');
-
-                    $cancel.click(function () {
-                        var $id = $(this).data('id');
-
-                        var $form = $('#friendship-cancel-form');
-
-                        $form.find('#friendship-cancel').val($id);
-
-                        $form.submit();
-                    });
                 }
             },
             error: function error($data) {
@@ -43834,22 +43799,17 @@ return /******/ (function(modules) { // webpackBootstrap
 (function ($) {
     "use strict";
 
-    var $accept = $('#friendship-accept-button');
-    var $deny = $('#friendship-deny-button');
-    var $cancel = $('#friendship-cancel-button');
-    var $add = $('#friendship-add-button');
-
-    $cancel.click(function () {
+    $(document).on('click', '.friendship-add-button', function () {
         var $id = $(this).data('id');
 
-        var $form = $('#friendship-cancel-form');
+        var $form = $('#friendship-add-form');
 
-        $form.find('#friendship-cancel').val($id);
+        $form.find('#friendship-add').val($id);
 
         $form.submit();
     });
 
-    $accept.click(function () {
+    $(document).on('click', '.friendship-accept-button', function () {
         var $id = $(this).data('id');
 
         var $form = $('#friendship-accept-form');
@@ -43859,22 +43819,12 @@ return /******/ (function(modules) { // webpackBootstrap
         $form.submit();
     });
 
-    $deny.click(function () {
+    $(document).on('click', '.friendship-delete-button', function () {
         var $id = $(this).data('id');
 
-        var $form = $('#friendship-deny-form');
+        var $form = $('#friendship-delete-form');
 
-        $form.find('#friendship-deny').val($id);
-
-        $form.submit();
-    });
-
-    $add.click(function () {
-        var $id = $(this).data('id');
-
-        var $form = $('#friendship-add-form');
-
-        $form.find('#friendship-add').val($id);
+        $form.find('#friendship-delete').val($id);
 
         $form.submit();
     });
