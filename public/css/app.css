@@ -10211,7 +10211,6 @@ section#friends-index a {
   }
 }
 
-<<<<<<< HEAD
 section#user-search a {
   font-size: 20px;
   color: #fff;
@@ -10219,7 +10218,8 @@ section#user-search a {
 
 section#user-search p {
   font-size: 20px;
-=======
+}
+
 .comments a {
   color: #fff;
 }
@@ -10240,6 +10240,5 @@ section#user-search p {
 #comment-manage:focus {
   color: #c2c2c2;
   cursor: pointer;
->>>>>>> Commenti
 }
 

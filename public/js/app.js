@@ -11144,8 +11144,8 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
-__webpack_require__(49);
-module.exports = __webpack_require__(50);
+__webpack_require__(50);
+module.exports = __webpack_require__(51);
 
 
 /***/ }),
@@ -11166,10 +11166,10 @@ __webpack_require__(39);
 __webpack_require__(40);
 
 // Comment
-__webpack_require__(56);
-__webpack_require__(57);
-__webpack_require__(58);
 __webpack_require__(59);
+__webpack_require__(60);
+__webpack_require__(61);
+__webpack_require__(62);
 
 // Image Upload
 __webpack_require__(41);
@@ -11187,7 +11187,7 @@ __webpack_require__(46);
 __webpack_require__(47);
 __webpack_require__(48);
 
-//require('./notification');
+__webpack_require__(58);
 
 /***/ }),
 /* 11 */
@@ -43246,10 +43246,9 @@ return /******/ (function(modules) { // webpackBootstrap
 (function ($) {
     "use strict";
 
-    var $button = $('.post-edit-button');
     var $modal = $('#post-edit');
 
-    $button.click(function () {
+    $(document).on('click', '.post-edit-button', function () {
 
         var $id = $(this).data('id');
 
@@ -43338,11 +43337,11 @@ return /******/ (function(modules) { // webpackBootstrap
 (function ($) {
     "use strict";
 
-    var $postDeleteButton = $('.post-delete-button');
     var $modal = $('#post-delete');
     var $form = $('#post-delete-form');
 
-    $postDeleteButton.click(function () {
+    $(document).on('click', '.post-delete-button', function () {
+
         var $id = $(this).data('id');
 
         $form.attr('action', '/post/' + $id);
@@ -43837,24 +43836,110 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
-/* 49 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
+/* 49 */,
 /* 50 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 51 */,
+/* 51 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
 /* 52 */,
 /* 53 */,
 /* 54 */,
 /* 55 */,
-/* 56 */
+/* 56 */,
+/* 57 */,
+/* 58 */
+/***/ (function(module, exports) {
+
+(function ($) {
+
+    "use strict";
+
+    var $offset = 2;
+    var $limit = 2;
+
+    $(document).on('click', '#profile-posts-loader', function () {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+
+            type: 'GET',
+            url: '/api/posts/profile/load',
+            data: {
+                offset: $offset,
+                limit: $limit
+            },
+            dataType: 'html',
+
+            success: function success($response) {
+
+                if (jQuery.isEmptyObject($response)) {
+
+                    $('#profile-posts-loader').remove();
+                } else {
+
+                    $('#profile-posts-loader').before($response);
+                    $offset += $limit;
+                }
+            },
+            error: function error($data) {
+
+                console.log($data);
+            }
+        });
+    });
+
+    $(document).on('click', '#home-posts-loader', function () {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+
+            type: 'GET',
+            url: '/api/posts/home/load',
+            data: {
+                offset: $offset,
+                limit: $limit
+            },
+            dataType: 'html',
+
+            success: function success($response) {
+
+                if (jQuery.isEmptyObject($response)) {
+
+                    $('#home-posts-loader').remove();
+                } else {
+
+                    $('#home-posts-loader').before($response);
+                    $offset += $limit;
+                }
+            },
+            error: function error($data) {
+
+                console.log($data);
+            }
+        });
+    });
+})(jQuery);
+
+/***/ }),
+/* 59 */
 /***/ (function(module, exports) {
 
 (function () {
@@ -43918,7 +44003,7 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
-/* 57 */
+/* 60 */
 /***/ (function(module, exports) {
 
 (function () {
@@ -43963,7 +44048,7 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
-/* 58 */
+/* 61 */
 /***/ (function(module, exports) {
 
 (function () {
@@ -44003,7 +44088,7 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
-/* 59 */
+/* 62 */
 /***/ (function(module, exports) {
 
 (function () {

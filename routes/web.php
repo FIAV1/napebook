@@ -32,6 +32,8 @@ Route::get('/', 'IndexController@show')->name('index');
 
 // Home
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/api/posts/home/load', 'HomeController@loadHomePosts');
+Route::get('/api/posts/profile/load', 'ProfileController@loadProfilePosts');
 
 //Like API
 Route::get('/post/likes', 'PostController@postLikes');

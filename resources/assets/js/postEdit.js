@@ -1,10 +1,9 @@
 (function($){
     "use strict";
 
-    var $button = $('.post-edit-button');
     var $modal = $('#post-edit');
 
-    $button.click(function(){
+    $(document).on('click', '.post-edit-button', function(){
 
         var $id = $(this).data('id');
 

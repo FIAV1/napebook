@@ -24,9 +24,17 @@
             <!-- Post listing -->
             <div class="row">
                 <div class="col-12 col-md-7 mx-md-auto">
-                @foreach ($posts as $post)
+                @forelse ($posts as $post)
                     @include('post.post')
-                @endforeach
+                @empty
+                    <p class="my-5 text-center">Non c'è nulla qui...</p>
+                @endforelse
+
+                @isset($posts)
+                    <a id="profile-posts-loader" role="button">
+                        <p class="social-button my-5 text-center">Carica altri...</p>
+                    </a>
+                @endisset
                 </div>
             </div>
         </div>
