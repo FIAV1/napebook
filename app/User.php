@@ -74,6 +74,15 @@ class User extends Authenticatable
     }
 
     /**
+     * Return the posts for the user
+     *
+     * @return Collection
+     */
+    public function getPosts(){
+        return $this->posts()->latest()->get();
+    }
+
+    /**
      * Find all friends of the user
      *
      * @param string $query
@@ -115,8 +124,8 @@ class User extends Authenticatable
      */
     public function pendingFriends()
     {
-        return $this->join('friendships', 'users.id', '=', 'friendships.friend_id')
-            ->where('friendships.user_id', $this->id)
+        return $this->join('friendships', 'users.id', '=', 'friendships.user_id')
+            ->where('friendships.friend_id', $this->id)
             ->where('friendships.active', 0)
             ->select('users.*')
             ->get();
@@ -130,12 +139,13 @@ class User extends Authenticatable
      */
     public function requestFriends()
     {
-        return $this->join('friendships', 'users.id', '=', 'friendships.user_id')
-            ->where('friendships.friend_id', $this->id)
+        return $this->join('friendships', 'users.id', '=', 'friendships.friend_id')
+            ->where('friendships.user_id', $this->id)
             ->where('friendships.active', 0)
             ->select('users.*')
             ->get();
     }
+
 
     /**
      * Search between the user's friends
@@ -253,11 +263,6 @@ class User extends Authenticatable
 
         return false;
     }
-    
-    public function getPosts(){
-
-        return $this->posts()->latest()->get();
-    }
 
     public function hasLike($postId)
     {
@@ -266,5 +271,61 @@ class User extends Authenticatable
         }
 
         return false;
+    }
+
+    public function homePosts()
+    {
+        return DB::table('posts')
+            ->join('users', 'posts.user_id', '=', 'users.id')
+            ->join('friendships', function ($join) { $join
+                ->on('users.id', '=', 'friendships.user_id')
+                ->orOn('users.id', '=', 'friendships.friend_id');
+            })
+            ->where(function($query) { $query
+                ->where('friendships.user_id', '=', $this->id)
+                ->orWhere('friendships.friend_id', '=', $this->id);
+            })
+            ->where('friendships.active', 1)
+            ->select('posts.*')
+            ->distinct()
+            ->orderBy('posts.created_at','desc')
+            ->get();
+    }
+
+    /*
+     * return $this
+            ->join('friendships', function ($join) { $join
+            ->on('users.id', '=', 'friendships.user_id')
+            ->orOn('users.id', '=', 'friendships.friend_id');
+        })
+            ->join('posts', 'posts.user_id', '=', 'users.id')
+            ->where(function($query) { $query
+                ->where('friendships.user_id', '=', $this->id)
+                ->orWhere('friendships.friend_id', '=', $this->id);
+            })
+            ->where('friendships.active', 1)
+            ->select('posts.*')
+            ->distinct()
+            ->orderBy('posts.created_at','desc')
+            ->get();
+     */
+
+    /**
+     * Search users in Napebook, friends or not.
+     *
+     * @param String $keyword
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function search($keyword)
+    {
+        return $this
+            ->where(function($query) use ($keyword){
+                $query->where('users.name', 'LIKE', '%'.$keyword.'%')
+                    ->orWhere('users.surname', 'LIKE', '%'.$keyword.'%');
+            })
+            ->where('active', 1)
+            ->orderBy('name')
+            ->orderBy('surname')
+            ->get();
     }
 }

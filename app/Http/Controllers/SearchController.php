@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
+use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class SearchController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -17,18 +17,21 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application timeline.
+     * Search Users in Napebook.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $posts = Post::homePosts();
+        $query = request('query');
 
-        if($posts->isEmpty()) {
-            $posts = auth()->user()->getPosts();
+        if($query == null){
+            return redirect()->route('home');
         }
 
-        return view('home', compact('posts'));
+        $users = auth()->user()->search($query);
+
+        return view('search', compact('users'));
     }
+
 }

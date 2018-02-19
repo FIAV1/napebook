@@ -64,3 +64,6 @@ Route::get('/profile/{user}', 'ProfileController@show')->name('profile-show');
 Route::put('/profile/{user}/info', 'ProfileController@update')->name('profile-update')->middleware('can:editProfile,user');
 Route::put('/profile/{user}/image', 'ProfileController@updateImage')->name('profile-image-update')->middleware('can:editProfile,user');
 Route::get('/profile/{user}/friends', 'FriendController@index')->name('friends-index');
+
+//Users Search
+Route::get('/search', 'SearchController@index')->name('users-search');
