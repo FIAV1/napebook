@@ -11,8 +11,6 @@
 
         var $trigger = $(this);
 
-        console.log($trigger);
-
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -45,8 +43,8 @@
 
             },
             error: function($data) {
-
-                console.log($data);
+                var $errors = $data.responseJSON;
+                console.log($errors);
             }
         });
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Post;
 use Storage;
 use App\Http\Requests\StorePost;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 
 class PostController extends Controller
 {
@@ -51,7 +53,7 @@ class PostController extends Controller
         // Store a new Post
         auth()->user()->addPost($request->input('post-text'), $path);
 
-        return back();
+        return Redirect::to(URL::previous() . "#content");
     }
 
     /**

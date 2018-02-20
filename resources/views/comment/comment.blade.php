@@ -14,6 +14,7 @@
         </div>
     </div>
 
+    @can('manageComments', $comment)
     <div class="col-auto align-self-center ml-auto p-0">
         <div class="dropdown show">
             <a role="button" id="comment-manage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
@@ -23,5 +24,6 @@
             </div>
         </div>
     </div>
+    @endcan
 
 </div>
