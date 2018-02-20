@@ -1,10 +1,10 @@
 <div id="comment-{{ $comment->id }}" class="row my-4">
 
-    <div class="col-2 col-md-1">
-        <img src="/storage/{{ $comment->user->image_url }}" alt="user image" class="img-fluid rounded-circle img-xs">
+    <div class="col-2">
+        <img src="/storage/{{ $comment->user->image_url }}" alt="user image" class="img-fluid rounded-circle img-sm">
     </div>
 
-    <div class="col-8 col-md-10 rounded bg-dark p-3">
+    <div class="col-8 col-lg-9 rounded bg-dark p-3">
         <div class="d-flex flex-column justify-content-start">
             <div class="d-flex flex-row mb-3">
                 <span class="comment-author"><a href="{{ route('profile-show', $comment->user) }}">{{ $comment->user->name }}  {{ $comment->user->surname }}</a></span>
@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <div class="col-auto align-self-center ml-auto">
+    <div class="col-auto align-self-center ml-auto p-0">
         <div class="dropdown show">
             <a role="button" id="comment-manage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="post-manage">

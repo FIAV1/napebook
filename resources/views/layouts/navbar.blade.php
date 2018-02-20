@@ -1,4 +1,56 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top" id="mainNav">
+<!-- Navbar for small screen -->
+<div class="container-fluid d-block d-lg-none sticky-top bg-dark py-2 nav-small">
+    <div class="row">
+        <div class="col-12">
+            <form method="GET" action="{{ route('users-search') }}">
+                <div class="input-group">
+                    <input class="form-control" type="search" name="query" placeholder="Ricerca..." aria-label="Ricerca">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row mt-3 nav-small">
+        <div class="col-3 text-center">
+            <a href="{{ route('home') }}"><i class="fas fa-home"></i></a>
+        </div>
+
+        <div class="col-3 text-center">
+            <div class="dropdown show">
+                <a class="friendship-notifications" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-users"></i>
+                    <span class="badge badge-light friendship-notifications-count">0</span>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-right friendship-notificationsMenu" aria-labelledby="friendship-notifications">
+                    <li class="dropdown-header">Niente da mostrare</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-3 text-center">
+            <div class="dropdown show">
+                <a class="general-notifications" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge badge-light general-notifications-count">0</span>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-right general-notificationsMenu" aria-labelledby="general-notifications">
+                    <li class="dropdown-header">Niente da mostrare</li>
+                </ul>
+            </div>    
+        </div>
+
+        <div class="col-3 text-center">
+            <a href="{{ route('profile-show', auth()->user()) }}"><img src="/storage/{{ auth()->user()->image_url }}" class="img-fluid rounded-circle img-xs"></a>
+        </div>
+    </div>
+</div>
+
+<!-- Navbar for large screen -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top d-none d-lg-block" id="mainNav">
     <div class="container my-1">
         <a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name', 'Napebook') }}</a>
 
@@ -28,23 +80,23 @@
                 </li>
 
                 <li class="dropdown">
-                    <a class="nav-link" id="friendship-notifications" role="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <a class="nav-link friendship-notifications" role="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         <i class="fas fa-users"></i>
-                        <span id="friendship-notifications-count" class="badge badge-light">0</span>
+                        <span class="badge badge-light friendship-notifications-count">0</span>
                     </a>
 
-                    <ul class="dropdown-menu" id="friendship-notificationsMenu" aria-labelledby="friendship-notifications">
+                    <ul class="dropdown-menu friendship-notificationsMenu" aria-labelledby="friendship-notifications">
                         <li class="dropdown-header">Niente da mostrare</li>
                     </ul>
                 </li>
 
                 <li class="dropdown">
-                    <a class="nav-link" id="general-notifications" role="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <a class="nav-link general-notifications" role="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         <i class="fas fa-bell"></i>
-                        <span id="general-notifications-count" class="badge badge-light">0</span>
+                        <span class="badge badge-light general-notifications-count">0</span>
                     </a>
 
-                    <ul class="dropdown-menu" id="general-notificationsMenu" aria-labelledby="general-notifications">
+                    <ul class="dropdown-menu general-notificationsMenu" aria-labelledby="general-notifications">
                         <li class="dropdown-header">Niente da mostrare</li>
                     </ul>
                 </li>

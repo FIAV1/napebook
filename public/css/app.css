@@ -10019,6 +10019,10 @@ a.text-dark:focus {
   cursor: pointer;
 }
 
+.nav-small a {
+  color: #fff;
+}
+
 .text-black {
   color: #000;
 }
@@ -10119,7 +10123,7 @@ footer {
   padding-top: 20px;
 }
 
-@media (max-height: 768px) {
+@media (max-width: 768px) {
   footer {
     margin-top: -124px;
   }

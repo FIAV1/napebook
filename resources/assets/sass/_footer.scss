@@ -1,6 +1,6 @@
 footer {
   position: relative;
-  @media (max-height: $md) {
+  @media (max-width: $md) {
       margin-top: -124px;
   }
   margin-top: -76px; /* negative value of footer height */

@@ -22,14 +22,14 @@
 
             $.get('/api/notifications/friendship', function (data) {
 
-                addNotifications(data, "#friendship-notifications");
-                getNotificationsCount('friendship', "#friendship-notifications-count");
+                addNotifications(data, ".friendship-notifications");
+                getNotificationsCount('friendship', ".friendship-notifications-count");
             });
 
             $.get('/api/notifications/general', function (data) {
 
-                addNotifications(data, "#general-notifications");
-                getNotificationsCount('general', "#general-notifications-count");
+                addNotifications(data, ".general-notifications");
+                getNotificationsCount('general', ".general-notifications-count");
             });
 
         }
@@ -133,12 +133,12 @@
         .notification((notification) => {
 
             if (notification.type === NOTIFICATION_TYPES.friendshipRequest || notification.type === NOTIFICATION_TYPES.friendshipAccepted) {
-                addNotifications([notification], "#friendship-notifications");
-                getNotificationsCount('friendship', "#friendship-notifications-count");
+                addNotifications([notification], ".friendship-notifications");
+                getNotificationsCount('friendship', ".friendship-notifications-count");
             }
             else if (notification.type === NOTIFICATION_TYPES.postLiked || notification.type === NOTIFICATION_TYPES.postCommented) {
-                addNotifications([notification], "#general-notifications");
-                getNotificationsCount('general', "#general-notifications-count");
+                addNotifications([notification], ".general-notifications");
+                getNotificationsCount('general', ".general-notifications-count");
             }
         });
 

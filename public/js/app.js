@@ -11144,11 +11144,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
-<<<<<<< HEAD
 module.exports = __webpack_require__(60);
-=======
-module.exports = __webpack_require__(56);
->>>>>>> 819f76bb8a3b445796d0de4346662b8782d10aec
 
 
 /***/ }),
@@ -11180,7 +11176,6 @@ __webpack_require__(52);
 __webpack_require__(53);
 __webpack_require__(54);
 
-<<<<<<< HEAD
 // Friends
 __webpack_require__(55);
 __webpack_require__(56);
@@ -11191,9 +11186,6 @@ __webpack_require__(58);
 
 // Animations
 __webpack_require__(59);
-=======
-__webpack_require__(55);
->>>>>>> 819f76bb8a3b445796d0de4346662b8782d10aec
 
 /***/ }),
 /* 11 */
@@ -48511,16 +48503,12 @@ return /******/ (function(modules) { // webpackBootstrap
             },
             success: function success($data) {
                 // console.log($data);
-<<<<<<< HEAD
-=======
-                var $div = $('#comments-' + $id);
->>>>>>> 819f76bb8a3b445796d0de4346662b8782d10aec
 
                 $('#comments-' + $id).prepend('<div id="comment-' + $data.comment.id + '" class="row my-4 comment-new">\
-                        <div class="col-2 col-md-1">\
-                            <img src="/storage/' + $data.user.image_url + '" alt="user image" class="img-fluid rounded-circle img-xs">\
+                        <div class="col-2">\
+                            <img src="/storage/' + $data.user.image_url + '" alt="user image" class="img-fluid rounded-circle img-sm">\
                         </div>\
-                        <div class="col-8 col-md-10 rounded bg-dark p-3">\
+                        <div class="col-8 col-lg-9 rounded bg-dark p-3">\
                             <div class="d-flex flex-column justify-content-start">\
                                 <div class="d-flex flex-row mb-3">\
                                     <span class="comment-author"><a href="/profile/' + $data.user.id + '">' + $data.user.name + ' ' + $data.user.surname + '</a></span>\
@@ -48529,7 +48517,7 @@ return /******/ (function(modules) { // webpackBootstrap
                                 <p class="comment-text m-0">' + $data.comment.text + '</p>\
                             </div>\
                         </div>\
-                        <div class="col-auto align-self-center ml-auto">\
+                        <div class="col-auto align-self-center ml-auto p-0">\
                             <div class="dropdown show">\
                                 <a role="button" id="comment-manage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>\
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="post-manage">\
@@ -49184,148 +49172,7 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
-<<<<<<< HEAD
 /* 58 */
-=======
-/* 53 */
-/***/ (function(module, exports) {
-
-(function ($) {
-
-    "use strict";
-
-    var $offset = 10;
-    var $limit = 10;
-
-    $(document).on('click', '#profile-posts-loader', function () {
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-
-            type: 'GET',
-            url: '/api/posts/profile',
-            data: {
-                offset: $offset,
-                limit: $limit
-            },
-            dataType: 'html',
-
-            success: function success($response) {
-
-                if (jQuery.isEmptyObject($response)) {
-
-                    $('#profile-posts-loader').remove();
-                } else {
-
-                    $('#profile-posts-loader').before($response);
-                    $offset += $limit;
-                }
-            },
-            error: function error($data) {
-
-                console.log($data);
-            }
-        });
-    });
-
-    $(document).on('click', '#home-posts-loader', function () {
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-
-            type: 'GET',
-            url: '/api/posts/home',
-            data: {
-                offset: $offset,
-                limit: $limit
-            },
-            dataType: 'html',
-
-            success: function success($response) {
-
-                if (jQuery.isEmptyObject($response)) {
-
-                    $('#home-posts-loader').remove();
-                } else {
-
-                    $('#home-posts-loader').before($response);
-                    $offset += $limit;
-                }
-            },
-            error: function error($data) {
-                var $errors = $data.responseJSON;
-                console.log($errors);
-            }
-        });
-    });
-})(jQuery);
-
-/***/ }),
-/* 54 */
->>>>>>> 819f76bb8a3b445796d0de4346662b8782d10aec
-/***/ (function(module, exports) {
-
-(function ($) {
-
-    "use strict";
-
-    var $offset = 3;
-    var $limit = 3;
-
-    $(document).on('click', '.comments-loader', function () {
-
-        var $trigger = $(this);
-
-        console.log($trigger);
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-
-            type: 'GET',
-            url: '/api/comments',
-            data: {
-                post_id: $trigger.data('postid'),
-                offset: $offset,
-                limit: $limit
-            },
-            dataType: 'html',
-
-            success: function success($response) {
-
-                if (jQuery.isEmptyObject($response)) {
-
-                    $trigger.remove();
-                } else {
-
-                    $trigger.before($response);
-                    $offset += $limit;
-                }
-            },
-            error: function error($data) {
-
-                console.log($data);
-            }
-        });
-    });
-})(jQuery);
-
-/***/ }),
-/* 55 */
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -49353,14 +49200,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
             $.get('/api/notifications/friendship', function (data) {
 
-                addNotifications(data, "#friendship-notifications");
-                getNotificationsCount('friendship', "#friendship-notifications-count");
+                addNotifications(data, ".friendship-notifications");
+                getNotificationsCount('friendship', ".friendship-notifications-count");
             });
 
             $.get('/api/notifications/general', function (data) {
 
-                addNotifications(data, "#general-notifications");
-                getNotificationsCount('general', "#general-notifications-count");
+                addNotifications(data, ".general-notifications");
+                getNotificationsCount('general', ".general-notifications-count");
             });
         }
     });
@@ -49460,17 +49307,16 @@ return /******/ (function(modules) { // webpackBootstrap
     Echo.private('App.User.' + Laravel.userId).notification(function (notification) {
 
         if (notification.type === NOTIFICATION_TYPES.friendshipRequest || notification.type === NOTIFICATION_TYPES.friendshipAccepted) {
-            addNotifications([notification], "#friendship-notifications");
-            getNotificationsCount('friendship', "#friendship-notifications-count");
+            addNotifications([notification], ".friendship-notifications");
+            getNotificationsCount('friendship', ".friendship-notifications-count");
         } else if (notification.type === NOTIFICATION_TYPES.postLiked || notification.type === NOTIFICATION_TYPES.postCommented) {
-            addNotifications([notification], "#general-notifications");
-            getNotificationsCount('general', "#general-notifications-count");
+            addNotifications([notification], ".general-notifications");
+            getNotificationsCount('general', ".general-notifications-count");
         }
     });
 })(jQuery);
 
 /***/ }),
-<<<<<<< HEAD
 /* 59 */
 /***/ (function(module, exports) {
 
@@ -49488,9 +49334,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ }),
 /* 60 */
-=======
-/* 56 */
->>>>>>> 819f76bb8a3b445796d0de4346662b8782d10aec
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
