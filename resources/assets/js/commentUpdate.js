@@ -19,7 +19,7 @@
                 'comment-text': $modal.find('#comment-text').val()
             },
             success: function($data){
-                console.log($data);
+                // console.log($data);
 
                 var $div = $('#comment-'+$id);
 
@@ -28,7 +28,10 @@
                 $modal.modal('hide');
             },
             error: function($data){
-                console.log($data);
+                $modal.modal('hide');
+
+                var $errors = $data.responseJSON;
+                console.log($errors);
             }
         });
     });

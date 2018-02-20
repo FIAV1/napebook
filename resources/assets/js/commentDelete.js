@@ -27,14 +27,17 @@
             method: 'DELETE',
             url: '/comments/'+$id,
             success: function($data){
-                console.log($data);
+                // console.log($data);
 
                 $('#comment-'+$id).remove();
 
                 $modal.modal('hide');
             },
             error: function($data){
-                console.log($data);
+                $modal.modal('hide');
+                
+                var $errors = $data.responseJSON;
+                console.log($errors);
             }
         });
     });

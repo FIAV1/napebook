@@ -53,7 +53,8 @@
 
             },
             error: function($data){
-                console.log($data);
+                var $errors = $data.responseJSON;
+                console.log($errors);
             }
         });
     });

@@ -22,18 +22,21 @@
             method: 'GET',
             url: '/comments/'+$id+'/edit',
             success: function($data){
-                console.log($data);
+                // console.log($data);
 
                 $modal.find('#comment-author-image').attr('src', '/storage/'+$data.user.image_url);
                 $modal.find('#comment-author').text($data.user.name+' '+$data.user.surname);
                 $modal.find('#comment-time').text(moment($data.comment.created_at, 'YYYYMMDD, h:mm:ss a').fromNow());
                 $modal.find('#comment-text').val($data.comment.text);
-                $modal.find('#comment-update-button').attr('data-id', $id);
+                $modal.find('#comment-update-button').data('id', $id);
 
                 $modal.modal('show');
             },
             error: function($data){
-                console.log($data);
+                $modal.modal('hide');
+
+                var $errors = $data.responseJSON;
+                console.log($errors);
             }
         });
     });

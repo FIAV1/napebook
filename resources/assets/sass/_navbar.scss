@@ -18,4 +18,10 @@
             white-space: normal;
         }
     }
+
+    .nav-link{
+        &:hover, &:focus{
+            cursor: pointer;
+        }
+    }
 }

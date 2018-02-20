@@ -22,7 +22,7 @@
                 'post-id': $id
             },
             success: function($data){
-                console.log($data);
+                // console.log($data);
                 var $div = $('#comments-'+$id);
 
                 $div.append(
@@ -54,7 +54,8 @@
                 $('#comment-text-'+$id).val('');
             },
             error: function($data){
-                console.log($data);
+                var $errors = $data.responseJSON;
+                console.log($errors);
             }
         });
     })

@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use App\Http\Controllers\CommentController;
-use App\Policies\CommentPolicy;
 use App\Post;
 use App\User;
+use App\Comment;
 use App\Policies\PostPolicy;
 use App\Policies\UserPolicy;
+use App\Policies\CommentPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
