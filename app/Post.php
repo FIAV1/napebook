@@ -49,6 +49,16 @@ class Post extends Model
     }
 
     /**
+     * A Post can have many Comments
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function oldestComments()
+    {
+        return $this->comments()->oldest()->limit(3);
+    }
+
+    /**
      * Add a Comment to a Post
      *
      * @param string $text

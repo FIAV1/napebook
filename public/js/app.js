@@ -11144,8 +11144,8 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
-__webpack_require__(50);
-module.exports = __webpack_require__(51);
+__webpack_require__(55);
+module.exports = __webpack_require__(56);
 
 
 /***/ }),
@@ -11166,29 +11166,31 @@ __webpack_require__(39);
 __webpack_require__(40);
 
 // Comment
-__webpack_require__(59);
-__webpack_require__(60);
-__webpack_require__(61);
-__webpack_require__(62);
-
-// Image Upload
 __webpack_require__(41);
-
-// Profile
 __webpack_require__(42);
 __webpack_require__(43);
-
-//Like
 __webpack_require__(44);
+
+// Image Upload
 __webpack_require__(45);
 
-// Friends
+// Profile
 __webpack_require__(46);
 __webpack_require__(47);
-__webpack_require__(48);
 
-__webpack_require__(58);
+//Like
+__webpack_require__(48);
 __webpack_require__(49);
+
+// Friends
+__webpack_require__(50);
+__webpack_require__(51);
+__webpack_require__(52);
+
+__webpack_require__(53);
+__webpack_require__(62);
+
+__webpack_require__(54);
 
 /***/ }),
 /* 11 */
@@ -43355,6 +43357,201 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 41 */
 /***/ (function(module, exports) {
 
+(function () {
+    "use strict";
+
+    var $button = $('.comment-publish');
+
+    $button.click(function () {
+
+        var $id = $(this).data('id');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            dataType: 'json',
+            type: 'POST',
+            url: '/comments',
+            data: {
+                'comment-text': $('#comment-text-' + $id).val(),
+                'post-id': $id
+            },
+            success: function success($data) {
+                console.log($data);
+                var $div = $('#comments-' + $id);
+
+                $div.append('<div id="comment-' + $data.comment.id + '" class="row my-4">\
+                        <div class="col-1 align-self-center">\
+                            <img src="/storage/' + $data.user.image_url + '" alt="user image" class="img-fluid rounded-circle img-xs">\
+                        </div>\
+                        <div class="col-3">\
+                            <div class="d-flex flex-column justify-content-start">\
+                                <span class="comment-author"><a href="/profile/' + $data.user.id + '">' + $data.user.name + ' ' + $data.user.surname + '</a></span>\
+                                <span class="comment-time"><small><i class="far fa-clock mr-2"></i>' + moment($data.comment.created_at, 'YYYYMMDD, h:mm:ss a').fromNow() + '</small></span>\
+                            </div>\
+                        </div>\
+                        <div class="col-7 align-self-center">\
+                            <p class="comment-text m-0">' + $data.comment.text + '</p>\
+                        </div>\
+                        <div class="col-auto align-self-center ml-auto">\
+                            <div class="dropdown show">\
+                                <a role="button" id="comment-manage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>\
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="post-manage">\
+                                    <a class="dropdown-item text-right comment-edit-button" data-id="' + $data.comment.id + '">Modifica<i class="fa fa-edit ml-2"></i></a>\
+                                    <a class="dropdown-item text-right comment-delete-button" data-id="' + $data.comment.id + '">Elimina<i class="fas fa-trash ml-2"></i></a>\
+                                </div>\
+                            </div>\
+                        </div>\
+                    </div>');
+
+                $('#comment-text-' + $id).val('');
+            },
+            error: function error($data) {
+                console.log($data);
+            }
+        });
+    });
+})(jQuery);
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+(function () {
+    "use strict";
+
+    $(document).on('click', '.comment-edit-button', function () {
+        var $id = $(this).data('id');
+        var $modal = $('#comment-edit');
+
+        $modal.find('#comment-author-image').removeAttr('src');
+        $modal.find('#comment-author').text('');
+        $modal.find('#comment-time').text('');
+        $modal.find('#comment-text').text('');
+        $modal.find('#comment-update-button').removeAttr('data-id');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            dataType: 'json',
+            method: 'GET',
+            url: '/comments/' + $id + '/edit',
+            success: function success($data) {
+                console.log($data);
+
+                $modal.find('#comment-author-image').attr('src', '/storage/' + $data.user.image_url);
+                $modal.find('#comment-author').text($data.user.name + ' ' + $data.user.surname);
+                $modal.find('#comment-time').text(moment($data.comment.created_at, 'YYYYMMDD, h:mm:ss a').fromNow());
+                $modal.find('#comment-text').val($data.comment.text);
+                $modal.find('#comment-update-button').attr('data-id', $id);
+
+                $modal.modal('show');
+            },
+            error: function error($data) {
+                console.log($data);
+            }
+        });
+    });
+})(jQuery);
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports) {
+
+(function () {
+    "use strict";
+
+    $(document).on('click', '#comment-update-button', function () {
+        var $id = $(this).data('id');
+        var $modal = $('#comment-edit');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            dataType: 'json',
+            type: 'PUT',
+            url: '/comments/' + $id,
+            data: {
+                'comment-text': $modal.find('#comment-text').val()
+            },
+            success: function success($data) {
+                console.log($data);
+
+                var $div = $('#comment-' + $id);
+
+                $div.find('.comment-text').text($data.text);
+
+                $modal.modal('hide');
+            },
+            error: function error($data) {
+                console.log($data);
+            }
+        });
+    });
+})(jQuery);
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports) {
+
+(function () {
+    "use strict";
+
+    var $modal = $('#comment-delete');
+
+    $(document).on('click', '.comment-delete-button', function () {
+
+        var $id = $(this).data('id');
+
+        $modal.find('#comment-delete-confirm').data('id', $id);
+
+        $modal.modal('show');
+    });
+
+    $(document).on('click', '#comment-delete-confirm', function () {
+
+        var $id = $(this).data('id');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            dataType: 'json',
+            method: 'DELETE',
+            url: '/comments/' + $id,
+            success: function success($data) {
+                console.log($data);
+
+                $('#comment-' + $id).remove();
+
+                $modal.modal('hide');
+            },
+            error: function error($data) {
+                console.log($data);
+            }
+        });
+    });
+})(jQuery);
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports) {
+
 (function ($) {
     "use strict"; // use strict make writing js more safe
 
@@ -43390,7 +43587,7 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
-/* 42 */
+/* 46 */
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -43443,7 +43640,7 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
-/* 43 */
+/* 47 */
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -43539,7 +43736,7 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
-/* 44 */
+/* 48 */
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -43612,7 +43809,7 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
-/* 45 */
+/* 49 */
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -43673,7 +43870,7 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
-/* 46 */
+/* 50 */
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -43736,7 +43933,7 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
-/* 47 */
+/* 51 */
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -43799,7 +43996,7 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
-/* 48 */
+/* 52 */
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -43837,7 +44034,91 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
-/* 49 */
+/* 53 */
+/***/ (function(module, exports) {
+
+(function ($) {
+
+    "use strict";
+
+    var $offset = 10;
+    var $limit = 10;
+
+    $(document).on('click', '#profile-posts-loader', function () {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+
+            type: 'GET',
+            url: '/api/posts/profile',
+            data: {
+                offset: $offset,
+                limit: $limit
+            },
+            dataType: 'html',
+
+            success: function success($response) {
+
+                if (jQuery.isEmptyObject($response)) {
+
+                    $('#profile-posts-loader').remove();
+                } else {
+
+                    $('#profile-posts-loader').before($response);
+                    $offset += $limit;
+                }
+            },
+            error: function error($data) {
+
+                console.log($data);
+            }
+        });
+    });
+
+    $(document).on('click', '#home-posts-loader', function () {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+
+            type: 'GET',
+            url: '/api/posts/home',
+            data: {
+                offset: $offset,
+                limit: $limit
+            },
+            dataType: 'html',
+
+            success: function success($response) {
+
+                if (jQuery.isEmptyObject($response)) {
+
+                    $('#home-posts-loader').remove();
+                } else {
+
+                    $('#home-posts-loader').before($response);
+                    $offset += $limit;
+                }
+            },
+            error: function error($data) {
+
+                console.log($data);
+            }
+        });
+    });
+})(jQuery);
+
+/***/ }),
+/* 54 */
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -43982,71 +44263,38 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
-/* 50 */
+/* 55 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 51 */
+/* 56 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
 /* 57 */,
-/* 58 */
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */
 /***/ (function(module, exports) {
 
 (function ($) {
 
     "use strict";
 
-    var $offset = 10;
-    var $limit = 10;
+    var $offset = 3;
+    var $limit = 3;
 
-    $(document).on('click', '#profile-posts-loader', function () {
+    $(document).on('click', '.comments-loader', function () {
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+        var $trigger = $(this);
 
-        $.ajax({
-
-            type: 'GET',
-            url: '/api/posts/profile',
-            data: {
-                offset: $offset,
-                limit: $limit
-            },
-            dataType: 'html',
-
-            success: function success($response) {
-
-                if (jQuery.isEmptyObject($response)) {
-
-                    $('#profile-posts-loader').remove();
-                } else {
-
-                    $('#profile-posts-loader').before($response);
-                    $offset += $limit;
-                }
-            },
-            error: function error($data) {
-
-                console.log($data);
-            }
-        });
-    });
-
-    $(document).on('click', '#home-posts-loader', function () {
+        console.log($trigger);
 
         $.ajaxSetup({
             headers: {
@@ -44057,8 +44305,9 @@ return /******/ (function(modules) { // webpackBootstrap
         $.ajax({
 
             type: 'GET',
-            url: '/api/posts/home',
+            url: '/api/comments',
             data: {
+                post_id: $trigger.data('postid'),
                 offset: $offset,
                 limit: $limit
             },
@@ -44068,210 +44317,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
                 if (jQuery.isEmptyObject($response)) {
 
-                    $('#home-posts-loader').remove();
+                    $trigger.remove();
                 } else {
 
-                    $('#home-posts-loader').before($response);
+                    $trigger.before($response);
                     $offset += $limit;
                 }
             },
             error: function error($data) {
 
-                console.log($data);
-            }
-        });
-    });
-})(jQuery);
-
-/***/ }),
-/* 59 */
-/***/ (function(module, exports) {
-
-(function () {
-    "use strict";
-
-    var $button = $('.comment-publish');
-
-    $button.click(function () {
-
-        var $id = $(this).data('id');
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            dataType: 'json',
-            type: 'POST',
-            url: '/comments',
-            data: {
-                'comment-text': $('#comment-text-' + $id).val(),
-                'post-id': $id
-            },
-            success: function success($data) {
-                console.log($data);
-                var $div = $('#comments-' + $id);
-
-                $div.append('<div id="comment-' + $data.comment.id + '" class="row my-4">\
-                        <div class="col-1 align-self-center">\
-                            <img src="/storage/' + $data.user.image_url + '" alt="user image" class="img-fluid rounded-circle img-xs">\
-                        </div>\
-                        <div class="col-3">\
-                            <div class="d-flex flex-column justify-content-start">\
-                                <span class="comment-author"><a href="/profile/' + $data.user.id + '">' + $data.user.name + ' ' + $data.user.surname + '</a></span>\
-                                <span class="comment-time"><small><i class="far fa-clock mr-2"></i>' + moment($data.comment.created_at, 'YYYYMMDD, h:mm:ss a').fromNow() + '</small></span>\
-                            </div>\
-                        </div>\
-                        <div class="col-7 align-self-center">\
-                            <p class="comment-text m-0">' + $data.comment.text + '</p>\
-                        </div>\
-                        <div class="col-auto align-self-center ml-auto">\
-                            <div class="dropdown show">\
-                                <a role="button" id="comment-manage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>\
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="post-manage">\
-                                    <a class="dropdown-item text-right comment-edit-button" data-id="' + $data.comment.id + '">Modifica<i class="fa fa-edit ml-2"></i></a>\
-                                    <a class="dropdown-item text-right comment-delete-button" data-id="' + $data.comment.id + '">Elimina<i class="fas fa-trash ml-2"></i></a>\
-                                </div>\
-                            </div>\
-                        </div>\
-                    </div>');
-
-                $('#comment-text-' + $id).val('');
-            },
-            error: function error($data) {
-                console.log($data);
-            }
-        });
-    });
-})(jQuery);
-
-/***/ }),
-/* 60 */
-/***/ (function(module, exports) {
-
-(function () {
-    "use strict";
-
-    $(document).on('click', '.comment-edit-button', function () {
-        var $id = $(this).data('id');
-        var $modal = $('#comment-edit');
-
-        $modal.find('#comment-author-image').removeAttr('src');
-        $modal.find('#comment-author').text('');
-        $modal.find('#comment-time').text('');
-        $modal.find('#comment-text').text('');
-        $modal.find('#comment-update-button').removeAttr('data-id');
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            dataType: 'json',
-            method: 'GET',
-            url: '/comments/' + $id + '/edit',
-            success: function success($data) {
-                console.log($data);
-
-                $modal.find('#comment-author-image').attr('src', '/storage/' + $data.user.image_url);
-                $modal.find('#comment-author').text($data.user.name + ' ' + $data.user.surname);
-                $modal.find('#comment-time').text(moment($data.comment.created_at, 'YYYYMMDD, h:mm:ss a').fromNow());
-                $modal.find('#comment-text').val($data.comment.text);
-                $modal.find('#comment-update-button').attr('data-id', $id);
-
-                $modal.modal('show');
-            },
-            error: function error($data) {
-                console.log($data);
-            }
-        });
-    });
-})(jQuery);
-
-/***/ }),
-/* 61 */
-/***/ (function(module, exports) {
-
-(function () {
-    "use strict";
-
-    $(document).on('click', '#comment-update-button', function () {
-        var $id = $(this).data('id');
-        var $modal = $('#comment-edit');
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            dataType: 'json',
-            type: 'PUT',
-            url: '/comments/' + $id,
-            data: {
-                'comment-text': $modal.find('#comment-text').val()
-            },
-            success: function success($data) {
-                console.log($data);
-
-                var $div = $('#comment-' + $id);
-
-                $div.find('.comment-text').text($data.text);
-
-                $modal.modal('hide');
-            },
-            error: function error($data) {
-                console.log($data);
-            }
-        });
-    });
-})(jQuery);
-
-/***/ }),
-/* 62 */
-/***/ (function(module, exports) {
-
-(function () {
-    "use strict";
-
-    var $modal = $('#comment-delete');
-
-    $(document).on('click', '.comment-delete-button', function () {
-
-        var $id = $(this).data('id');
-
-        $modal.find('#comment-delete-confirm').data('id', $id);
-
-        $modal.modal('show');
-    });
-
-    $(document).on('click', '#comment-delete-confirm', function () {
-
-        var $id = $(this).data('id');
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            dataType: 'json',
-            method: 'DELETE',
-            url: '/comments/' + $id,
-            success: function success($data) {
-                console.log($data);
-
-                $('#comment-' + $id).remove();
-
-                $modal.modal('hide');
-            },
-            error: function error($data) {
                 console.log($data);
             }
         });

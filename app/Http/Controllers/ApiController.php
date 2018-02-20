@@ -197,4 +197,24 @@ class ApiController extends Controller
 
         return view('post.collection', compact('posts'));
     }
+
+    /**
+     * Get more comments of a posts
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function getPostComments(Request $request)
+    {
+        $post = Post::find($request->input('post_id'));
+
+        $comments = $post->comments()
+            ->oldest()
+            ->offset($request->get('offset'))
+            ->limit($request->get('limit'))
+            ->get();
+
+        return view('comment.collection', compact('comments'));
+    }
+
 }

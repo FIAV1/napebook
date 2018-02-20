@@ -34,5 +34,7 @@ require('./friendsPendent');
 require('./friendshipManage');
 
 require('./postLoader');
+require('./commentLoader');
+
 require('./notifications');
 

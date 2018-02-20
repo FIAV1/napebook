@@ -89,4 +89,5 @@ Route::prefix('api')->group(function () {
     Route::get('post/likes', 'ApiController@getPostLikes');
     Route::get('posts/home', 'ApiController@getHomePosts');
     Route::get('posts/profile', 'ApiController@getProfilePosts');
+    Route::get('comments', 'ApiController@getPostComments');
 });
