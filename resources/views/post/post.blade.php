@@ -1,5 +1,5 @@
 <!-- Post -->
-<div id="post-{{ $post->id }}" class="py-3">
+<div id="post-{{ $post->id }}" class="pt-3">
     <div class="card">
 
         <div class="card-header">
@@ -55,7 +55,7 @@
         <div class="card-footer">
             <div class="d-flex justify-content-around">
                 <a class="social-button like {{ auth()->user()->hasLike($post->id) ? 'has-like' : 'hasnt-like'}}" data-postid="{{ $post->id }}"><i class="fas fa-thumbs-up mr-2"></i><span class="d-none d-md-inline">Mi piace</span></a>
-                <a href="javascript:document.getElementById('comment-text-{{ $post->id }}').focus()" class="social-button"><i class="fas fa-comment mr-2"></i><span class="d-none d-md-inline">Commenta</span></a>
+                <a class="social-button comment-write" data-postid="{{ $post->id }}"><i class="fas fa-comment mr-2"></i><span class="d-none d-md-inline">Commenta</span></a>
                 @if(Route::currentRouteName() == 'post-show')
                     <a class="social-button" href="{{ url()->to(URL::previous() . '#post-' . $post->id) }}"><i class="fas fa-compress mr-2"></i><span class="d-none d-md-inline">Comprimi</span></a>
                 @else

@@ -13,6 +13,10 @@ try {
     window.$ = window.jQuery = require('jquery/dist/jquery');
 
     require('bootstrap');
+    require('@fortawesome/fontawesome');
+    require('@fortawesome/fontawesome-free-brands');
+    require('@fortawesome/fontawesome-free-regular');
+    require('@fortawesome/fontawesome-free-solid');
 } catch (e) {}
 
 /**

@@ -1,18 +1,13 @@
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
+// Bootstrap JS
 require('./bootstrap');
 
 // Post
+require('./postLoader');
 require('./postEdit');
 require('./postDelete');
 
 // Comment
-require('./commentStore');
+require('./commentStoreLoad');
 require('./commentEdit');
 require('./commentUpdate');
 require('./commentDelete');
@@ -33,8 +28,9 @@ require('./friendsRequest');
 require('./friendsPendent');
 require('./friendshipManage');
 
-require('./postLoader');
-require('./commentLoader');
-
+// Notifications
 require('./notifications');
+
+// Animations
+require('./animations');
 

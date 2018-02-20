@@ -1,22 +1,28 @@
 .comments{
-  a{
-    color: $white;
-  }
-  p{
-    word-wrap: break-word;
-  }
+	a{
+		color: $white;
+	}
+
+	p{
+		word-wrap: break-word;
+	}
+
+	.comment-new{
+		border-left: 2px solid $primary;
+		border-radius: 2px;
+	}
 }
 
 #comment-text{
-  width: 100%;
+  	width: 100%;
 }
 
 
 #comment-manage{
-  color: $body-color;
+	color: $body-color;
 
-  &:hover, &:focus{
-    color: darken($body-color, 20%);
-    cursor: pointer;
-  }
+	&:hover, &:focus{
+		color: darken($body-color, 20%);
+		cursor: pointer;
+	}
 }

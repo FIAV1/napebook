@@ -28,7 +28,7 @@
                                     @include('comment.comment')
                                 @endforeach
                                 <a class="comments-loader" data-postid="{{ $post->id }}" role="button">
-                                    <p class="social-button my-5 text-center">Carica altri...</p>
+                                    <p class="social-button my-3 text-center">Carica altri commenti...</p>
                                 </a>
                             @endif
                         </div>
@@ -36,7 +36,7 @@
                     @endforeach
 
                     <a id="home-posts-loader" role="button">
-                        <p class="social-button my-5 text-center">Carica altri...</p>
+                        <p class="social-button my-5 text-center">Carica altri post...</p>
                     </a>
                 @else
                     <p class="my-5 text-center">Non c'è nulla qui...</p>

@@ -1,15 +1,25 @@
-#team-anchor{
-
-  cursor: pointer;
-
-  &:hover, &:focus {
-    text-decoration: none;
-    color: $light;
+footer {
+  position: relative;
+  @media (max-height: $md) {
+      margin-top: -124px;
   }
-}
+  margin-top: -76px; /* negative value of footer height */
+  clear:both;
+  padding-top:20px;
 
-#teamModal{
-  p{
-    margin: 5px 0;
+  #team-anchor{
+
+    cursor: pointer;
+  
+    &:hover, &:focus {
+      text-decoration: none;
+      color: $light;
+    }
+  }
+  
+  #teamModal{
+    p{
+      margin: 5px 0;
+    }
   }
 }

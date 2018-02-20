@@ -208,8 +208,13 @@ class ApiController extends Controller
     {
         $post = Post::find($request->input('post_id'));
 
+        if (!($array = $request->input('except'))) {
+            $array = [];
+        }
+
         $comments = $post->comments()
             ->oldest()
+            ->wherenotIn('id', $array)
             ->offset($request->get('offset'))
             ->limit($request->get('limit'))
             ->get();

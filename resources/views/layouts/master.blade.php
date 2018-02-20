@@ -12,9 +12,6 @@
 
     <title>{{ config('app.name', 'Napebook | Maial, che social!') }}</title>
 
-    <!-- Custom Font -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
