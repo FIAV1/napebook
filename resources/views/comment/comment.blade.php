@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
  <div id="comment-{{ $comment->id }}" class="row my-4">
      <div class="col-1 align-self-center">
          <img src="/storage/{{ $comment->user->image_url }}" alt="user image" class="img-fluid rounded-circle img-xs">
@@ -23,7 +22,6 @@
          </div>
      </div>
  </div>
-=======
 <div id="comments-{{ $post->id }}" class="container-fluid rounded text-white mb-2 comments">
     @foreach ($post->comments as $comment)
         <div id="comment-{{ $comment->id }}" class="my-4">
@@ -61,4 +59,3 @@
         </div>
     @endforeach
 </div>
->>>>>>> Stashed changes
