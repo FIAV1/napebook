@@ -11144,7 +11144,11 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
+<<<<<<< HEAD
 module.exports = __webpack_require__(60);
+=======
+module.exports = __webpack_require__(56);
+>>>>>>> 819f76bb8a3b445796d0de4346662b8782d10aec
 
 
 /***/ }),
@@ -11176,6 +11180,7 @@ __webpack_require__(52);
 __webpack_require__(53);
 __webpack_require__(54);
 
+<<<<<<< HEAD
 // Friends
 __webpack_require__(55);
 __webpack_require__(56);
@@ -11186,6 +11191,9 @@ __webpack_require__(58);
 
 // Animations
 __webpack_require__(59);
+=======
+__webpack_require__(55);
+>>>>>>> 819f76bb8a3b445796d0de4346662b8782d10aec
 
 /***/ }),
 /* 11 */
@@ -48503,6 +48511,10 @@ return /******/ (function(modules) { // webpackBootstrap
             },
             success: function success($data) {
                 // console.log($data);
+<<<<<<< HEAD
+=======
+                var $div = $('#comments-' + $id);
+>>>>>>> 819f76bb8a3b445796d0de4346662b8782d10aec
 
                 $('#comments-' + $id).prepend('<div id="comment-' + $data.comment.id + '" class="row my-4 comment-new">\
                         <div class="col-2 col-md-1">\
@@ -49172,7 +49184,148 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
+<<<<<<< HEAD
 /* 58 */
+=======
+/* 53 */
+/***/ (function(module, exports) {
+
+(function ($) {
+
+    "use strict";
+
+    var $offset = 10;
+    var $limit = 10;
+
+    $(document).on('click', '#profile-posts-loader', function () {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+
+            type: 'GET',
+            url: '/api/posts/profile',
+            data: {
+                offset: $offset,
+                limit: $limit
+            },
+            dataType: 'html',
+
+            success: function success($response) {
+
+                if (jQuery.isEmptyObject($response)) {
+
+                    $('#profile-posts-loader').remove();
+                } else {
+
+                    $('#profile-posts-loader').before($response);
+                    $offset += $limit;
+                }
+            },
+            error: function error($data) {
+
+                console.log($data);
+            }
+        });
+    });
+
+    $(document).on('click', '#home-posts-loader', function () {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+
+            type: 'GET',
+            url: '/api/posts/home',
+            data: {
+                offset: $offset,
+                limit: $limit
+            },
+            dataType: 'html',
+
+            success: function success($response) {
+
+                if (jQuery.isEmptyObject($response)) {
+
+                    $('#home-posts-loader').remove();
+                } else {
+
+                    $('#home-posts-loader').before($response);
+                    $offset += $limit;
+                }
+            },
+            error: function error($data) {
+                var $errors = $data.responseJSON;
+                console.log($errors);
+            }
+        });
+    });
+})(jQuery);
+
+/***/ }),
+/* 54 */
+>>>>>>> 819f76bb8a3b445796d0de4346662b8782d10aec
+/***/ (function(module, exports) {
+
+(function ($) {
+
+    "use strict";
+
+    var $offset = 3;
+    var $limit = 3;
+
+    $(document).on('click', '.comments-loader', function () {
+
+        var $trigger = $(this);
+
+        console.log($trigger);
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+
+            type: 'GET',
+            url: '/api/comments',
+            data: {
+                post_id: $trigger.data('postid'),
+                offset: $offset,
+                limit: $limit
+            },
+            dataType: 'html',
+
+            success: function success($response) {
+
+                if (jQuery.isEmptyObject($response)) {
+
+                    $trigger.remove();
+                } else {
+
+                    $trigger.before($response);
+                    $offset += $limit;
+                }
+            },
+            error: function error($data) {
+
+                console.log($data);
+            }
+        });
+    });
+})(jQuery);
+
+/***/ }),
+/* 55 */
 /***/ (function(module, exports) {
 
 (function ($) {
@@ -49317,6 +49470,7 @@ return /******/ (function(modules) { // webpackBootstrap
 })(jQuery);
 
 /***/ }),
+<<<<<<< HEAD
 /* 59 */
 /***/ (function(module, exports) {
 
@@ -49334,6 +49488,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ }),
 /* 60 */
+=======
+/* 56 */
+>>>>>>> 819f76bb8a3b445796d0de4346662b8782d10aec
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

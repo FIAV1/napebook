@@ -26,6 +26,11 @@ class SearchController extends Controller
     {
         $query = $request->input('query');
 
+        if (strcmp($query, 'easteregg') == 0) {
+
+            return view('search.easteregg');
+        }
+
         if($query == null){
             return redirect()->route('home');
         }
