@@ -20,7 +20,7 @@
                     @can('editPost',$post)
                         <div class="col-auto align-self-center ml-auto">
                             <div class="dropdown show">
-                                <a role="button" id="post-manage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
+                                <a href="#" role="button" id="post-manage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="post-manage">
                                     <a class="dropdown-item text-right post-edit-button" data-id="{{ $post->id }}">Modifica<i class="fa fa-edit ml-2"></i></a>
                                     <a class="dropdown-item text-right post-delete-button" data-id="{{ $post->id }}">Elimina<i class="fas fa-trash ml-2"></i></a>
