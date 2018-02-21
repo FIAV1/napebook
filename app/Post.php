@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -39,44 +40,13 @@ class Post extends Model
     }
 
     /**
-     * Get Likes amout for a single Post
-     * 
-     * @return int
-     */
-    public function getLikesAmount()
-    {
-        return $this->likes()->count();
-    }
-
-    /**
-     * A Post can have many Comments
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function oldestComments()
-    {
-        return $this->comments()->oldest()->limit(3);
-    }
-
-    /**
-     * Add a Comment to a Post
-     *
-     * @param string $text
-     * @return \App\Comment
-     */
-    public function addComment($text)
-    {
-        $user_id= auth()->id();
-
-        return $this->comments()->create(compact('user_id','text'));
-    }
-
-    /**
      * Find user's friends posts
      *
-     * @return \Illuminate\Database\Eloquent\Builder|static
+     * @param int $offset
+     * @param int $limit
+     * @return Collection
      */
-    public static function homePosts()
+    public static function homePosts($offset = 0, $limit = 10)
     {
         return (new static)->newQuery()
             ->join('users', 'posts.user_id', '=', 'users.id')
@@ -92,7 +62,58 @@ class Post extends Model
             ->where('friendships.active', 1)
             ->select('posts.*')
             ->distinct()
-            ->orderBy('posts.created_at','desc');
+            ->orderBy('posts.created_at','desc')
+            ->offset($offset)
+            ->limit($limit)
+            ->get();
+    }
+
+    /**
+     * Get Likes amout for a single Post
+     * 
+     * @return int
+     */
+    public function getLikesAmount()
+    {
+        return $this->likes()->count();
+    }
+
+    /**
+     * Get oldest comments of a post.
+     * $except is used in order to get oldest comments except, for instance,
+     * the latest comment that the user left.
+     *
+     * @param int $offset
+     * @param int $limit
+     * @param array $except
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function oldestComments($offset = 0, $limit = 3, $except = null)
+    {
+        return $this->comments()
+            ->oldest()
+            ->offset($offset)
+            ->limit($limit)
+            ->where(function($query) use ($except) {
+
+                if(isset($except)) {
+                    $query->wherenotIn('id', $except);
+                }
+
+            });
+    }
+
+    /**
+     * Add a Comment to a Post
+     *
+     * @param string $text
+     * @return \App\Comment
+     */
+    public function addComment($text)
+    {
+        $user_id= auth()->id();
+
+        return $this->comments()->create(compact('user_id','text'));
     }
 
 }

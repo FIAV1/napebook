@@ -20,7 +20,8 @@
                 </div>
             </div>
             @endcan
-
+            
+            @can('viewProfile', $user)
             <!-- Post listing -->
             <div class="row">
                 <div class="col-12 col-md-7 mx-md-auto">
@@ -42,7 +43,7 @@
                             @include('comment.create')
                         @endforeach
 
-                        <a id="home-posts-loader" role="button">
+                        <a id="profile-posts-loader" role="button">
                             <p class="social-button my-5 text-center">Carica altri post...</p>
                         </a>
                     @else
@@ -50,6 +51,14 @@
                     @endif
                 </div>
             </div>
+            @else
+            <div class="row">
+                <div class="col-12 col-md-7 mx-md-auto text-center mt-4">
+                    <h4>Devi essere amico di {{ $user->name }} per vedere i suoi post</h4>
+                </div>
+            </div>
+            @endcan
+
         </div>
     </section>
     

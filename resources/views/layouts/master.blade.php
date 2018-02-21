@@ -10,6 +10,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
+
     <title>{{ config('app.name', 'Napebook | Maial, che social!') }}</title>
 
     <!-- Styles -->

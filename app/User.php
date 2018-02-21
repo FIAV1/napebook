@@ -3,6 +3,11 @@
 namespace App;
 
 use App\Mail\ResetPasswordEmail;
+use App\Notifications\FriendshipAccepted;
+use App\Notifications\FriendshipRequest;
+use App\Notifications\PostCommented;
+use App\Notifications\PostLiked;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
@@ -85,6 +90,95 @@ class User extends Authenticatable
             'text' => $text,
             'image_url' => $imageUrl
         ]);
+    }
+
+    /**
+     * Get the profile's posts of a user
+     *
+     * @param int $offset
+     * @param int $limit
+     * @return mixed
+     */
+    public function profilePosts($offset = 0, $limit = 10)
+    {
+        return $this->posts()
+            ->latest()
+            ->offset($offset)
+            ->limit($limit)
+            ->get();
+    }
+
+    /********** Notifications **********/
+
+    /**
+     * Get the latest notifications about friendships
+     *
+     * @param int $offset
+     * @param int $limit
+     * @return array
+     */
+    public function friendshipNotifications($offset, $limit)
+    {
+        return $this->unreadNotifications()
+            ->where(function($query) {
+                $query->where('type', FriendshipRequest::class)
+                    ->orWhere('type', FriendshipAccepted::class);
+            })
+            ->offset($offset)
+            ->limit($limit)
+            ->latest()
+            ->get();
+    }
+
+    /**
+     * Get the notifications count about friendships
+     *
+     * @return int
+     */
+    public function friendshipNotificationsCount()
+    {
+        return $this->unreadNotifications()
+            ->where(function($query) {
+                $query->where('type', FriendshipRequest::class)
+                    ->orWhere('type', FriendshipAccepted::class);
+            })
+            ->count();
+    }
+
+    /**
+     * Get the latest notifications about likes and comments
+     *
+     * @param int $offset
+     * @param int $limit
+     *
+     * @return array
+     */
+    public function generalNotifications($offset, $limit)
+    {
+        return $this->unreadNotifications()
+            ->where(function($query) {
+                $query->where('type', PostCommented::class)
+                    ->orWhere('type', PostLiked::class);
+            })
+            ->offset($offset)
+            ->limit($limit)
+            ->latest()
+            ->get();
+    }
+
+    /**
+     * Get the notifications count about likes and comments
+     *
+     * @return int
+     */
+    public function generalNotificationsCount()
+    {
+        return $this->unreadNotifications()
+            ->where(function($query) {
+                $query->where('type', PostCommented::class)
+                    ->orWhere('type', PostLiked::class);
+            })
+            ->count();
     }
 
     /********** Friends **********/
