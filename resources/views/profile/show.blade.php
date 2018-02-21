@@ -43,7 +43,7 @@
                             @include('comment.create')
                         @endforeach
 
-                        <a id="home-posts-loader" role="button">
+                        <a id="profile-posts-loader" role="button">
                             <p class="social-button my-5 text-center">Carica altri post...</p>
                         </a>
                     @else

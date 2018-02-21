@@ -31,14 +31,7 @@ class ApiController extends Controller
      */
     public function getFriendshipNotifications()
     {
-        return auth()->user()->unreadNotifications()
-            ->where(function($query) {
-                $query->where('type', FriendshipRequest::class)
-                    ->orWhere('type', FriendshipAccepted::class);
-            })
-            ->limit(8)
-            ->latest()
-            ->get()->toArray();
+        return auth()->user()->friendshipNotifications(0, 8)->toArray();
     }
 
     /**
@@ -48,12 +41,7 @@ class ApiController extends Controller
      */
     public function getFriendshipNotificationsCount()
     {
-        return auth()->user()->unreadNotifications()
-            ->where(function($query) {
-                $query->where('type', FriendshipRequest::class)
-                    ->orWhere('type', FriendshipAccepted::class);
-            })
-            ->count();
+        return auth()->user()->friendshipNotificationsCount();
     }
 
     /**
@@ -63,14 +51,7 @@ class ApiController extends Controller
      */
     public function getGeneralNotifications()
     {
-        return auth()->user()->unreadNotifications()
-            ->where(function($query) {
-                $query->where('type', PostCommented::class)
-                    ->orWhere('type', PostLiked::class);
-            })
-            ->limit(8)
-            ->latest()
-            ->get()->toArray();
+        return auth()->user()->generalNotifications(0, 8)->toArray();
     }
 
     /**
@@ -80,12 +61,7 @@ class ApiController extends Controller
      */
     public function getGeneralNotificationsCount()
     {
-        return auth()->user()->unreadNotifications()
-            ->where(function($query) {
-                $query->where('type', PostCommented::class)
-                    ->orWhere('type', PostLiked::class);
-            })
-            ->count();
+        return auth()->user()->generalNotificationsCount();
     }
 
     /**
@@ -173,10 +149,7 @@ class ApiController extends Controller
      */
     public function getHomePosts(Request $request)
     {
-        $posts = Post::homePosts()
-            ->offset($request->input('offset'))
-            ->limit($request->input('limit'))
-            ->get();
+        $posts = auth()->user()->homePosts($request->input('offset'), $request->input('limit'));
 
         return view('post.collection', compact('posts'));
     }
@@ -189,11 +162,7 @@ class ApiController extends Controller
      */
     public function getProfilePosts(Request $request)
     {
-        $posts = auth()->user()->posts()
-            ->latest()
-            ->offset($request->get('offset'))
-            ->limit($request->get('limit'))
-            ->get();
+        $posts = auth()->user()->profilePosts($request->get('offset'), $request->get('limit'));
 
         return view('post.collection', compact('posts'));
     }
@@ -209,15 +178,10 @@ class ApiController extends Controller
         $post = Post::find($request->input('post_id'));
 
         if (!($array = $request->input('except'))) {
-            $array = [];
+            $array = null;
         }
 
-        $comments = $post->comments()
-            ->oldest()
-            ->wherenotIn('id', $array)
-            ->offset($request->get('offset'))
-            ->limit($request->get('limit'))
-            ->get();
+        $comments = $post->oldestComments($request->input('offset'), $request->input('limit'), $array)->get();
 
         return view('comment.collection', compact('comments'));
     }

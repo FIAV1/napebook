@@ -49,13 +49,28 @@ class Post extends Model
     }
 
     /**
-     * A Post can have many Comments
+     * Get oldest comments of a post.
+     * $except is used in order to get oldest comments except, for instance,
+     * the latest comment that the user left.
      *
+     * @param int $offset
+     * @param int $limit
+     * @param array $except
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function oldestComments()
+    public function oldestComments($offset = 0, $limit = 3, $except = null)
     {
-        return $this->comments()->oldest()->limit(3);
+        return $this->comments()
+            ->oldest()
+            ->offset($offset)
+            ->limit($limit)
+            ->where(function($query) use ($except) {
+
+                if(isset($except)) {
+                    $query->wherenotIn('id', $except);
+                }
+
+            });
     }
 
     /**
@@ -69,30 +84,6 @@ class Post extends Model
         $user_id= auth()->id();
 
         return $this->comments()->create(compact('user_id','text'));
-    }
-
-    /**
-     * Find user's friends posts
-     *
-     * @return \Illuminate\Database\Eloquent\Builder|static
-     */
-    public static function homePosts()
-    {
-        return (new static)->newQuery()
-            ->join('users', 'posts.user_id', '=', 'users.id')
-            ->join('friendships', function ($join) {
-                $join
-                    ->on('users.id', '=', 'friendships.user_id')
-                    ->orOn('users.id', '=', 'friendships.friend_id');
-            })
-            ->where(function ($query) {
-                $query->where('friendships.user_id', '=', auth()->user()->id)
-                    ->orWhere('friendships.friend_id', '=', auth()->user()->id);
-            })
-            ->where('friendships.active', 1)
-            ->select('posts.*')
-            ->distinct()
-            ->orderBy('posts.created_at','desc');
     }
 
 }

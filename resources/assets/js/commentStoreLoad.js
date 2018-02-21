@@ -1,7 +1,6 @@
 (function () {
     "use strict";
 
-    var $button = $('.comment-publish');
     var $idArray = [];
 
     var $offset = 3;
@@ -51,7 +50,7 @@
 
     });
 
-    $button.click(function(){
+    $(document).on('click', '.comment-publish', function(){
 
         var $id = $(this).data('id');
 
