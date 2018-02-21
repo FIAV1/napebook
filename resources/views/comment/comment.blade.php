@@ -17,7 +17,7 @@
     @can('manageComment', $comment)
     <div class="col-auto align-self-center ml-auto p-0">
         <div class="dropdown show">
-            <a role="button" id="comment-manage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
+            <a href="#" role="button" id="comment-manage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="post-manage">
                 <a class="dropdown-item text-right comment-edit-button" data-id="{{ $comment->id }}">Modifica<i class="fa fa-edit ml-2"></i></a>
                 <a class="dropdown-item text-right comment-delete-button" data-id="{{ $comment->id }}">Elimina<i class="fas fa-trash ml-2"></i></a>
