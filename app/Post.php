@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -36,6 +37,35 @@ class Post extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * Find user's friends posts
+     *
+     * @param int $offset
+     * @param int $limit
+     * @return Collection
+     */
+    public static function homePosts($offset = 0, $limit = 10)
+    {
+        return (new static)->newQuery()
+            ->join('users', 'posts.user_id', '=', 'users.id')
+            ->join('friendships', function ($join) {
+                $join
+                    ->on('users.id', '=', 'friendships.user_id')
+                    ->orOn('users.id', '=', 'friendships.friend_id');
+            })
+            ->where(function ($query) {
+                $query->where('friendships.user_id', '=', auth()->user()->id)
+                    ->orWhere('friendships.friend_id', '=', auth()->user()->id);
+            })
+            ->where('friendships.active', 1)
+            ->select('posts.*')
+            ->distinct()
+            ->orderBy('posts.created_at','desc')
+            ->offset($offset)
+            ->limit($limit)
+            ->get();
     }
 
     /**

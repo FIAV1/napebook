@@ -108,36 +108,6 @@ class User extends Authenticatable
             ->get();
     }
 
-    /**
-     * Find user's friends posts
-     *
-     * @param int $offset
-     * @param int $limit
-     * @return Collection
-     */
-    public function homePosts($offset = 0, $limit = 10)
-    {
-        return $this->posts()
-            ->join('users', 'posts.user_id', '=', 'users.id')
-            ->join('friendships', function ($join) {
-                $join
-                    ->on('users.id', '=', 'friendships.user_id')
-                    ->orOn('users.id', '=', 'friendships.friend_id');
-            })
-            ->where(function ($query) {
-                $query->where('friendships.user_id', '=', $this->id)
-                    ->orWhere('friendships.friend_id', '=', $this->id);
-            })
-            ->where('friendships.active', 1)
-            ->select('posts.*')
-            ->distinct()
-            ->orderBy('posts.created_at','desc')
-            ->offset($offset)
-            ->limit($limit)
-            ->get();
-    }
-
-
     /********** Notifications **********/
 
     /**

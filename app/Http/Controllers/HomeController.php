@@ -23,13 +23,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = auth()->user();
 
-        $posts = $user->homePosts(0, 10);
+        $posts = Post::homePosts(0, 10);
 
         if ($posts->isEmpty()) {
 
-            $posts = $user->profilePosts(0, 10);
+            $posts = auth()->user()->profilePosts(0, 10);
         }
 
         return view('home', compact('posts'));

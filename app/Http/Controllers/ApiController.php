@@ -149,7 +149,7 @@ class ApiController extends Controller
      */
     public function getHomePosts(Request $request)
     {
-        $posts = auth()->user()->homePosts($request->input('offset'), $request->input('limit'));
+        $posts = Post::homePosts($request->input('offset'), $request->input('limit'));
 
         return view('post.collection', compact('posts'));
     }
