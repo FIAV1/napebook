@@ -49219,11 +49219,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
     function addNotifications(newNotifications, target) {
 
+        notifications = [];
         //We concatenate the present notifications with the new ones using Lodash
         notifications = _.concat(notifications, newNotifications);
         //and take only the latest 5 to be shown.
         notifications.slice(0, 8);
-
         showNotifications(notifications, target);
     }
 
@@ -49231,7 +49231,7 @@ return /******/ (function(modules) { // webpackBootstrap
     //If no notifications were received, it just shows “No notifications”.
     function showNotifications(notifications, target) {
 
-        if (notifications.length) {
+        if (notifications.length > 0) {
             var htmlElements = notifications.map(function (notification) {
                 return makeNotification(notification);
             });

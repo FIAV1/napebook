@@ -12,6 +12,7 @@
 
     <section id="friends-index">
         <div class="container">
+            @can('viewProfile', $user)
             <div class="row">
                 <div class="col-12">
                     <ul class="nav nav-tabs" id="friends-tab" role="tablist">
@@ -40,8 +41,17 @@
                     </div>
                 </div>
             </div>
+
+            @else
+            <div class="row">
+                <div class="col-12 col-md-7 mx-md-auto text-center mt-4">
+                    <h4>Devi essere amico di {{ $user->name }} per vedere i suoi amici</h4>
+                </div>
+            </div>
+            @endcan
         </div>
     </section>
+    
 
     @can('manageFriendship',$user)
         @include('friendship.manage')

@@ -20,6 +20,17 @@ class UserPolicy
         return $auth->id === $user->id;
     }
 
+        /**
+     * Determine whether the user can view the profile.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function viewProfile(User $auth, User $user)
+    {
+        return ($auth->isFriendOf($user->id) or $auth->id === $user->id);
+    }
+    
     /**
      * Determine whether the user can edit the profile.
      *
