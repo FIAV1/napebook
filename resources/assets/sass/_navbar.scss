@@ -10,10 +10,14 @@
     }
 
     .dropdown-menu{
-        left: -175px;
         margin-top: 8px;
 
         .dropdown-item{
+            text-align: center;
+            white-space: normal;
+        }
+
+        .dropdown-header{
             text-align: center;
             white-space: normal;
         }
@@ -26,8 +30,18 @@
     }
 }
 
-.nav-small{
+#smallNav{
     a{
         color: $white;
+    }
+
+    .dropdown-item{
+        text-align: center;
+        white-space: normal;
+    }
+
+    .dropdown-header{
+        text-align: center;
+        white-space: normal;
     }
 }

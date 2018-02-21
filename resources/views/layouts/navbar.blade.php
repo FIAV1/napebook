@@ -1,7 +1,7 @@
 <!-- Navbar for small screen -->
-<div class="container-fluid d-block d-lg-none sticky-top bg-dark py-2 nav-small">
+<div id="smallNav" class="container-fluid d-block d-lg-none sticky-top bg-dark py-2">
     <div class="row">
-        <div class="col-12">
+        <div class="col-10">
             <form method="GET" action="{{ route('users-search') }}">
                 <div class="input-group">
                     <input class="form-control" type="search" name="query" placeholder="Ricerca..." aria-label="Ricerca">
@@ -11,6 +11,9 @@
                 </div>
             </form>
         </div>
+        <div class="col-2 d-flex justify-content-center align-items-center">
+            <a href="{{ route('logout') }}"><i class="fa fa-sign-out-alt"></i> <span class="d-none d-md-inline">Logout</span></a>
+        </div>
     </div>
     <div class="row mt-3 nav-small">
         <div class="col-3 text-center">
@@ -18,26 +21,26 @@
         </div>
 
         <div class="col-3 text-center">
-            <div class="dropdown show">
-                <a class="friendship-notifications" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="dropdown">
+                <a id="dropdownMenuFriendship" class="friendship-notifications" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-users"></i>
                     <span class="badge badge-light friendship-notifications-count">0</span>
                 </a>
 
-                <ul class="dropdown-menu dropdown-menu-right friendship-notificationsMenu" aria-labelledby="friendship-notifications">
+                <ul class="dropdown-menu dropdown-menu-right friendship-notificationsMenu" aria-labelledby="dropdownMenuFriendship">
                     <li class="dropdown-header">Niente da mostrare</li>
                 </ul>
             </div>
         </div>
 
         <div class="col-3 text-center">
-            <div class="dropdown show">
-                <a class="general-notifications" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="dropdown">
+                <a id="dropdownMenuGeneral" class="general-notifications" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-bell"></i>
                     <span class="badge badge-light general-notifications-count">0</span>
                 </a>
 
-                <ul class="dropdown-menu dropdown-menu-right general-notificationsMenu" aria-labelledby="general-notifications">
+                <ul class="dropdown-menu dropdown-menu-right general-notificationsMenu" aria-labelledby="dropdownMenuGeneral">
                     <li class="dropdown-header">Niente da mostrare</li>
                 </ul>
             </div>    
@@ -85,7 +88,7 @@
                         <span class="badge badge-light friendship-notifications-count">0</span>
                     </a>
 
-                    <ul class="dropdown-menu friendship-notificationsMenu" aria-labelledby="friendship-notifications">
+                    <ul class="dropdown-menu dropdown-menu-right friendship-notificationsMenu" aria-labelledby="friendship-notifications">
                         <li class="dropdown-header">Niente da mostrare</li>
                     </ul>
                 </li>
@@ -96,14 +99,14 @@
                         <span class="badge badge-light general-notifications-count">0</span>
                     </a>
 
-                    <ul class="dropdown-menu general-notificationsMenu" aria-labelledby="general-notifications">
+                    <ul class="dropdown-menu dropdown-menu-right general-notificationsMenu" aria-labelledby="general-notifications">
                         <li class="dropdown-header">Niente da mostrare</li>
                     </ul>
                 </li>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
                     </div>
                 </li>
