@@ -48435,7 +48435,6 @@ return /******/ (function(modules) { // webpackBootstrap
 (function () {
     "use strict";
 
-    var $button = $('.comment-publish');
     var $idArray = [];
 
     var $offset = 3;
@@ -48481,7 +48480,7 @@ return /******/ (function(modules) { // webpackBootstrap
         });
     });
 
-    $button.click(function () {
+    $(document).on('click', '.comment-publish', function () {
 
         var $id = $(this).data('id');
 
