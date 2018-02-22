@@ -64,7 +64,7 @@
                     </p>
                     <i class="fas fa-birthday-cake mr-2"></i><strong>Data di nascita:</strong><p id="birthday" class="card-text mt-3">{{ $user->birthday }}</p>
                     <i class="fas fa-venus-mars mr-2"></i><strong>Sesso:</strong><p id="sex" class="card-text mt-3">
-                        @if ($user->sex)
+                        @if (!strcmp($user->sex, "M"))
                         Uomo
                         @else
                         Donna
